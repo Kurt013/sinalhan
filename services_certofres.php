@@ -332,7 +332,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="purposes">Purpose:</label>
+                                            <label for="purpose">Purpose:</label>
                                             <select class="form-control" name="purpose" id="purpose" required onchange="toggleCustomPurpose()">
                                                 <option value="">Choose your Purposes</option>
                                                 <option value="Job/Employment">Job/Employment</option>

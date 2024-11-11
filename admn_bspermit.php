@@ -8,7 +8,7 @@
         $id_bspermit = $_POST['id_bspermit'];
         $id_resident = $_POST['id_resident'];
 
-        $link = 'businesspermit_form.php?id_resident='.$id_resident;
+        $link = 'bspermit_form.php?id_resident='.$id_resident;
 
         $qrImage = $bmis->generateQRCode($link);
         $bmis->sendEmailWithQRCode($qrImage, $id_resident);

@@ -872,7 +872,6 @@ class BMISClass {
 
     public function create_bspermit() {
         if(isset($_POST['create_bspermit'])) {
-            $id_resident = $_POST['id_resident'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -880,36 +879,41 @@ class BMISClass {
             $bsstreet = $_POST['bsstreet'];
             $bsbrgy = $_POST['bsbrgy'];
             $bscity = $_POST['bscity'];
-            $bsmunicipal = $_POST['bsmunicipal'];
+            $bsmunicipality = $_POST['bsmunicipality'];
             $bsindustry = $_POST['bsindustry'];
             $bsname = $_POST['bsname'];
             $aoe = $_POST['aoe'];
+            $doc_type = 'bspermit';
+
+            // Check if "Other" was selected and handle custom purpose
+            if ($bsindustry === "Other" && !empty($_POST['custom_purpose'])) {
+                $bsindustry = $_POST['custom_purpose'];
+            }
+            // Create the data array
+            $data = [
+                'lname' => $lname,
+                'fname' => $fname,
+                'mi' => $mi,
+                'bshouseno' => $bshouseno,
+                'bsstreet' => $bsstreet,
+                'bsbrgy' => $bsbrgy,
+                'bscity' => $bscity,
+                'bsmunicipality' => $bsmunicipality,
+                'bsindustry' => $bsindustry,
+                'bsname' => $bsname,
+                'aoe' => $aoe,
+                'doc_type' => $doc_type
+            ];
         
-            $connection = $this->openConn();
+            // Convert data to JSON
+            $json_data = json_encode($data);
+            
+            $qrCode = $this->generateQRCode($json_data);
 
-            try {
-                $connection->beginTransaction();
-
-                //update tbl_resident
-                $stmt = $connection->prepare("UPDATE tbl_resident 
-                    SET lname = ?, fname = ?, mi = ? WHERE id_resident = ?");
-
-                $stmt->execute([$lname, $fname, $mi, $id_resident]);
-
-                $stmt = $connection->prepare("INSERT INTO tbl_bspermit (id_resident, bshouseno, bsstreet, bsbrgy, bscity, bsmunicipal, bsindustry, bsname, aoe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-                $stmt->execute([$id_resident, $bshouseno, $bsstreet, $bsbrgy, $bscity, $bsmunicipal, $bsindustry, $bsname, $aoe]);
-
-                $connection->commit();
-
-                $message2 = "Application Applied, you will receive our text message for further details";
-                echo "<script type='text/javascript'>alert('$message2');</script>";
-                header("refresh: 0");
-            }
-            catch (PDOException $e) {
-                $connection->rollBack();
-                echo "Failed to update records: " . $e->getMessage();
-            }
+            echo '<script>alert("QR Code Successfully Generated!")</script>
+            <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
+            <img src="'.$qrCode.'" alt="QR Code" />';
+        
         }  
     }
 

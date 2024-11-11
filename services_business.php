@@ -11,7 +11,9 @@
     <title> Barangay Management System </title>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
+      <script src="./js-components/component-js-custompurpose.js"></script>
       <!-- responsive tags for screen compatibility -->
+    
       <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
       <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
       <!-- fontawesome icons --> 
@@ -136,17 +138,6 @@
             <a href="#down2" data-toggle="tooltip" title="Information" class="btn4 bg-primary"><i class="fa fa-info fa-lg"></i></a>
             <a href="#down1" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i class="fa fa-edit fa-lg"></i></a>
             <a href="#down" data-toggle="tooltip" title="Contact" class="btn2 bg-primary"><i class="fa fa-phone fa-lg"></i></a>
-           
-            <div class="dropdown ml-auto">
-                <button title="Your Account" class="btn btn-primary dropdown-toggle" style="margin-right: 2px;" type="button" data-toggle="dropdown"><?= $userdetails['surname'];?>, <?= $userdetails['firstname'];?>
-                    <span class="caret" style="margin-left: 2px;"></span>
-                </button>
-                <ul class="dropdown-menu" style="width: 175px;" >
-                    <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id'];?>"> <i class="fas fa-user"> &nbsp; </i>Personal Profile  </a>
-                    <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id'];?>"> <i class="fas fa-lock" >&nbsp;</i> Change Password  </a>
-                    <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout  </a>
-                </ul>
-            </div>
         </nav>
 
         <div class="container-fluid container1"> 
@@ -372,35 +363,33 @@
                             <form method="post" class="was-validated">
 
                                 <div class="row"> 
-
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="fname">First Name:</label>
+                                            <input name="fname" type="text" class="form-control" placeholder="Enter your first name" required>
+                                                <div class="valid-feedback">Valid.</div>
+                                                <div class="invalid-feedback">Please fill out this field.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="mi" class="mtop">Middle Initial </label>
+                                            <input name="mi" type="text" class="form-control"  placeholder="Enter your middle initial" required>
+                                                <div class="valid-feedback">Valid.</div>
+                                                <div class="invalid-feedback">Please fill out this field.</div>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="lname">Last Name:</label>
-                                            <input name="lname" type="text" class="form-control" value="<?= $view['lname'];?>" required>
+                                            <input name="lname" type="text" class="form-control"  placeholder="Enter your last name" required>
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="fname">First Name:</label>
-                                            <input name="fname" type="text" class="form-control" value="<?= $view['fname'];?>" required>
-                                                <div class="valid-feedback">Valid.</div>
-                                                <div class="invalid-feedback">Please fill out this field.</div>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="mi" class="mtop">Middle Name </label>
-                                            <input name="mi" type="text" class="form-control" value="<?= $view['mi'];?>"  required>
-                                                <div class="valid-feedback">Valid.</div>
-                                                <div class="invalid-feedback">Please fill out this field.</div>
-                                        </div>
-                                    </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="bsname">Business Name:</label>
@@ -457,7 +446,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label> Municipality: </label>
-                                            <input type="text" class="form-control" name="bsmunicipal" placeholder="Enter Municipality" required>
+                                            <input type="text" class="form-control" name="bsmunicipality" placeholder="Enter Municipality" required>
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
@@ -467,8 +456,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="status">Business Industry:</label>
-                                            <select class="form-control" name="bsindustry" id="status" placeholder="Enter Status" required>
+                                            <label for="purpose">Business Industry:</label>
+                                            <select class="form-control" name="bsindustry" id="purpose" placeholder="Enter Status" onchange="toggleCustomPurpose()" required>
                                             <option value="">Choose your Business Industry</option>
                                                 <option value="Computer">Computer</option>
                                                 <option value="Telecommunication">Telecommunication</option>
@@ -489,7 +478,11 @@
                                                 <option value="Electronics">Electronics</option>
                                                <option value="Transport">Pharmaceutical</option>
                                                 <option value="Transport">Aerospace</option>
+                                                <option value="Other">Others (Please Specify)</option>
                                             </select>
+                                            <div id="customPurposeContainer" style="display:none; margin-top:10px;">
+                                                <input type="text" class="form-control" name="custom_purpose" id="custom_purpose" placeholder="Enter your purpose">
+                                            </div>
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
@@ -505,13 +498,12 @@
                                 </div>
                            
                         </div>
+                        <?php $bmis->create_bspermit(); ?>
 
                         <!-- Modal Footer -->
             
                         <div class="modal-footer">
-                            <div class="paa">
-                                <input name="id_resident" type="hidden" class="form-control" value="<?= $userdetails['id']?>">
-                                
+                            <div class="paa">                                
                                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                 <button name ="create_bspermit" type="submit" class="btn btn-primary">Submit Request</button>
                             </div>

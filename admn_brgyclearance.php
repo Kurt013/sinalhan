@@ -11,7 +11,7 @@
         $id_clearance = $_POST['id_clearance'];
         $id_resident = $_POST['id_resident'];
 
-        $link = 'brgyclearance_form.php?id_resident='.$id_resident;
+        $link = 'clearance_form.php?id_resident='.$id_resident;
 
         $qrImage = $bmis->generateQRCode($link);
         $bmis->sendEmailWithQRCode($qrImage, $id_resident);

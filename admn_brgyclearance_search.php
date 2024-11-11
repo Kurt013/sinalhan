@@ -174,7 +174,7 @@
             <tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyclearance_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
                         <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                         <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
                         <button class="btn btn-danger"  style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="archive_clearance"> Archive </button>
@@ -312,7 +312,7 @@
                 <tr>
                     <td>    
                         <form action="" method="post">
-                            <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyclearance_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                            <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
                             <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                             <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
                             <button class="btn btn-danger"  style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="archive_clearance"> Archive </button>

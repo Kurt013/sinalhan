@@ -181,7 +181,7 @@
         <tr>
             <td>    
                 <form action="" method="post">
-                    <a class="btn btn-success" target="blank"  style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="businesspermit_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                    <a class="btn btn-success" target="blank"  style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="bspermit_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
                     <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
                     <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
                     <button class="btn btn-danger"  style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_bspermit"> Delete </button>
@@ -319,7 +319,7 @@
         <tr>
             <td>    
                 <form action="" method="post">
-                    <a class="btn btn-success" target="blank"  style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="businesspermit_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                    <a class="btn btn-success" target="blank"  style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="bspermit_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
                     <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
                     <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
                     <button class="btn btn-danger"  style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_bspermit"> Delete </button>
