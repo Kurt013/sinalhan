@@ -12,7 +12,10 @@
     $cdate = $dt->format('Y/m/d');
     $ctime = $tm->format('H');
 
+    
+
 ?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -30,12 +33,47 @@
         <!-- fontawesome icons --> 
         <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
-        
+
+        <?php 
+    include('user-sidebar.php');
+?>   
+
+        <?php include('user-header.php'); ?>
+
+
+
 
     <style>
 
 
-    /* Back-to-Top */
+
+
+@font-face {
+            font-family: 'OSMedium'; 
+            src: url('fonts/OpenSauceSans-Medium.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSBold'; 
+            src: url('fonts/OpenSauceSans-Bold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSBlack'; 
+            src: url('fonts/OpenSauceSans-Black.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSExBold'; 
+            src: url('fonts/OpenSauceSans-ExtraBold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSBlackIt'; 
+            src: url('fonts/OpenSauceSans-BlackItalic.ttf') format('truetype'); 
+        }
+       
+  
 
     .top-link {
     transition: all 0.25s ease-in-out;
@@ -53,6 +91,10 @@
     height: 80px;
     background-color: #3661D5;
     }
+
+    .content {
+        margin-left: 270px;
+    }
     .top-link.show {
     visibility: visible;
     opacity: 1;
@@ -61,16 +103,17 @@
     visibility: hidden;
     opacity: 0;
     }
+   
     .top-link svg {
     fill: white;
     width: 24px;
     height: 12px;
     }
     .top-link:hover {
-    background-color: #3498DB;
+    background-color: #00357b;
     }
     .top-link:hover svg {
-    fill: #000000;
+    fill: white;
     }
 
     .screen-reader-text {
@@ -102,84 +145,139 @@
     clip: auto !important;
     }
 
+    .header h2 {
+        text-align: left; 
+            color: white; 
+            font-family: 'OSBlackIt' !important; 
+            font-size: 2.2rem; 
+            z-index: 1; 
+            width: 85%;
+            letter-spacing: 3px;
+            margin-left: 10px;
+            margin-bottom: 1px;
+            margin-top: 70px;
+               
+             
+            text-shadow: 5px 5px 10px rgba(1, 60, 139, 0.9);
+            line-height: 42px;
+            -webkit-text-stroke: 7px #012049;
+         
+            paint-order: stroke fill;
+            line-height: 40px;
+           
+    }
+
+    .header h3 {
+        font-family: "OSMedium";
+        font-size: 1.1rem;
+        margin-left: 10px;
+        color: #012049;
+        width: 85%;
+        line-height: 25px;
+
+    }
+
+/* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container for Announcements */
+.announcement-container {
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5%;
+    border-radius: 15px;
+    width: 65%;
+    background-color: #2C3E50; /* Darker background */
+    color: #ECF0F1; /* Softer white text */
+    padding: 0; /* Remove padding from container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 4px solid #014bae; /* Outline for the container */
+    overflow: hidden; /* Ensure rounded corners include the title */
+}
+
+/* Title Styling */
+.announcement-title {
+    background-color: #014bae; /* Distinct background color for the title */
+    color: #FFFFFF; /* White text for contrast */
+    padding: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    border-top-left-radius: 15px; /* Rounded corners for the top */
+    border-top-right-radius: 15px;
+}
+
+/* Content Styling */
+.announcement-content {
+    padding: 20px;
+    font-size: 1rem;
+    text-align: left; /* Formal left alignment */
+    line-height: 1.5; /* Improved readability */
+    background-color: white; /* Same background as the container */
+    color:#014bae;
+    font-family: "OSBold";
+}
+
+.announcement-content2 {
+    padding: 20px;
+    font-size: 1rem;
+    font-style: italic;
+    text-align: center; /* Formal left alignment */
+    line-height: 1.5; /* Improved readability */
+    background-color: white; /* Same background as the container */
+    
+    color: rgba(44, 62, 80, 0.7);
+    font-family: "OSBold";
+}
+
+/* Close Button Styling */
+
+
+.announcement-container .close:hover {
+    opacity: 1;
+}
+
+/* No Announcement Styling */
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .announcement-container, .no-announcement {
+        width: 90%;
+    }
+}
+
+
+
 
 
     </style>
     <body> 
-        <p><a href="./login.php">Sign in as ADMIN</a></p>
+
+    
+   <div class = "content">
+                    
+       
         <!-- Back-to-Top and Back Button -->
 
-        <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
+        <a data-toggle="tooltip"  class="top-link hide" href="" id="js-top">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
             <span class="screen-reader-text">Back to top</span>
         </a>
 
+    
+
         <!-- Eto yung navbar -->
 
-        <nav class="navbar navbar-dark bg-primary sticky-top">
-            <a class="navbar-brand" href="index.php">Home</a>
-            <a href="#down2" data-toggle="tooltip" title="Announcement" class="btn1 bg-primary"><i class="fa fa-bullhorn fa-lg"></i></a>
-            <a href="#down1" data-toggle="tooltip" title="E-Services" class="btn2 bg-primary"><i class="fa fa-edit fa-lg"></i></a>
-            <a href="#down" data-toggle="tooltip" title="Contact" class="btn3 bg-primary"><i class="fa fa-phone fa-lg"></i></a>
-            
-           
-            <div class="dropdown ml-auto">
-                <ul class="dropdown-menu" style="width: 175px;" >
-                </ul>
-            </div>
-        </nav>
 
-        <div  id="down2"></div>
 
-        <?php 
-            $view = $bmis->view_announcement();
-
-            if($view > 0 ) { ?>
-            <table class="table table-dark table-responsive">
-                <thead style="display:none"> 
-                    <tr>
-                        <th> Announcement </th>
-                    </tr>
-                </thead>
-                <tbody style="display:none"> 
-                <?php if(is_array($view)) {?>
-                    <?php foreach($view as $view) {?>
-                        <tr>
-                            <td> <?= $view['event'];?> </td>             
-                        </tr>
-                    <?php }?>
-                <?php } ?>
-                </tbody>
-            </table>
-
-            <div class="alert alert-info alert-dismissible fade show" role="alert"
-                 style="margin-top: 4%; 
-                        margin-left: 17.5%;
-                        margin-bottom: 1.5%;
-                        border-radius:30px; 
-                        width:65%;
-                        height:30%;
-                        color: white;
-                        background-color:#3498DB;">
-                <strong><h3>ANNOUNCEMENT!<h3></strong> 
-                <hr> 
-                <br> 
-                <p> 
-                    <?= $view['event'];?> 
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-        <?php 
-            }
-
-            else {
-            
-            }
-
-        ?>
+      
 
         <div id="down1"></div>
 
@@ -194,8 +292,15 @@
                         <br>
 
                         <div class="header"> 
-                            <h2> Welcome to Barangay Information & E-Services Management System </h2><bR>
-                            <h3> You may select the following services offered below </h3>
+                            <h2> We make document request faster and easier for you! </h2><bR>
+                            <h3> Our system makes it simple to get official documents. Just pick the document you need, fill out a quick form, and get a unique QR code. Use this code at the Barangay Office for fast and easy processing—no more long waits or extra paperwork. Get the documents you need, faster and easier!
+
+
+
+
+
+
+</h3>
                         </div>
                     </div>
                 </div>
@@ -203,6 +308,47 @@
 
             <br>
             <br>
+
+            <div id="down2"></div>
+
+<?php 
+$view = $bmis->view_announcement();
+
+if ($view && is_array($view) && count($view) > 0) { ?>
+    <!-- Announcement Section -->
+    <div class="announcement-container alert alert-info alert-dismissible fade show" role="alert">
+        <!-- Announcement Title -->
+        <h3 class="announcement-title">
+            <span class="icon"><i class="fa fa-bullhorn" aria-hidden="true"></i></span>
+            Announcement
+        </h3>
+
+        <!-- Display Announcement Content -->
+        <?php foreach ($view as $announcement) { ?>
+            <p class="announcement-content"><?= htmlspecialchars($announcement['event']); ?></p>
+        <?php } ?>
+
+        <!-- Close Button -->
+
+    </div>
+<?php 
+} else { ?>
+    <!-- No Announcement Section -->
+    <div class="announcement-container alert alert-info alert-dismissible fade show" role="alert">
+        <!-- Announcement Title -->
+        <h3 class="announcement-title">
+            <span class="icon"><i class="fa fa-bullhorn" aria-hidden="true"></i></span>
+            Announcement
+        </h3>
+        <p class="announcement-content2">No announcement as of the moment</p>
+        
+
+    </div>
+<?php } ?>
+
+
+
+
 
             <div class="container"> 
                 <div class="row title-spacing">
@@ -280,15 +426,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+             <!-- Footer -->
 
-        <br>
-        <br>
-        <br>
-
-        <!-- Footer -->
-
-        <footer id="footer" class="bg-primary text-white d-flex-column text-center">
+        <footer id="footer" class="bg-primary text-white">
             <hr class="mt-0">
 
             <div class="text-center">
@@ -325,7 +465,7 @@
                 </li>
                 </ul>
             </div>
-
+        </section>
             <hr class="mb-0">
 
             <!--Footer Links-->
@@ -345,14 +485,7 @@
                                 </div>
                             </div>
                         </div>
-                        <ul class="list-unstyled collapse" id="Documentation">
-                            <li><a class="footerlinks" href="services_certofres.php">Certificate of Residency</a></li>
-                            <li><a class="footerlinks" href="services_brgyclearance.php">Barangay Clearance</a></li>
-                            <li><a class="footerlinks" href="services_certofindigency.php">Certificate of Indigency</a></li>
-                            <li><a class="footerlinks" href="services_business.php">Business Permit</a></li>
-                            <li><a class="footerlinks" href="services_brgyid.php">Barangay ID</a></li>
-                        </ul>
-                    </div>
+
 
 
                     <div class="col-md-3 mx-auto shfooter" id="down">
@@ -417,86 +550,330 @@
             </div>
 
         </footer>
+        </div>
+        
+
+        <br>
+        <br>
+        <br>
+
+       
 
         <script>
-            function logout() {
-                window.location.href = "logout.php";
-            }
+    // Logout function
+    function logout() {
+        window.location.href = "logout.php";
+    }
 
-            // Set a variable for our button element.
-            const scrollToTopButton = document.getElementById('js-top');
+    // Scroll to top button functionality
+    const scrollToTopButton = document.getElementById('js-top');
 
-            // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
-            const scrollFunc = () => {
-            // Get the current scroll value
-            let y = window.scrollY;
-            
-            // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
-            if (y > 0) {
-                scrollToTopButton.className = "top-link show";
-            } else {
-                scrollToTopButton.className = "top-link hide";
-            }
-            };
+    const scrollFunc = () => {
+        let y = window.scrollY;
+        
+        // Show or hide scroll-to-top button based on scroll position
+        if (y > 0) {
+            scrollToTopButton.className = "top-link show";
+        } else {
+            scrollToTopButton.className = "top-link hide";
+        }
+    };
 
-            window.addEventListener("scroll", scrollFunc);
+    window.addEventListener("scroll", scrollFunc);
 
-            const scrollToTop = () => {
-            // Let's set a variable for the number of pixels we are from the top of the document.
-            const c = document.documentElement.scrollTop || document.body.scrollTop;
-            
-            // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
-            // We'll also animate that scroll with requestAnimationFrame:
-            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-            if (c > 0) {
-                window.requestAnimationFrame(scrollToTop);
-                // ScrollTo takes an x and a y coordinate.
-                // Increase the '10' value to get a smoother/slower scroll!
-                window.scrollTo(0, c - c / 10);
-            }
-            };
+    const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
 
-            // When the button is clicked, run our ScrolltoTop function above!
-            scrollToTopButton.onclick = function(e) {
-            e.preventDefault();
-            scrollToTop();
-            }
-        </script>
+        if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, c - c / 10);
+        }
+    };
 
-        <script>
-            $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-            });
-        </script>
+    scrollToTopButton.onclick = function(e) {
+        e.preventDefault();
+        scrollToTop();
+    }
 
-        <script>
-            $(document).ready(function(){
-            // Add smooth scrolling to all links
-            $("a").on('click', function(event) {
+    // Initialize Bootstrap tooltip
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
 
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                // Prevent default anchor click behavior
+    const ANIMATION_DURATION = 300;
+
+const SIDEBAR_EL = document.getElementById("sidebar");
+
+const SUB_MENU_ELS = document.querySelectorAll(
+  ".menu > ul > .menu-item.sub-menu"
+);
+
+const FIRST_SUB_MENUS_BTN = document.querySelectorAll(
+  ".menu > ul > .menu-item.sub-menu > a"
+);
+
+const INNER_SUB_MENUS_BTN = document.querySelectorAll(
+  ".menu > ul > .menu-item.sub-menu .menu-item.sub-menu > a"
+);
+
+class PopperObject {
+  instance = null;
+  reference = null;
+  popperTarget = null;
+
+  constructor(reference, popperTarget) {
+    this.init(reference, popperTarget);
+  }
+
+  init(reference, popperTarget) {
+    this.reference = reference;
+    this.popperTarget = popperTarget;
+    this.instance = Popper.createPopper(this.reference, this.popperTarget, {
+      placement: "right",
+      strategy: "fixed",
+      resize: true,
+      modifiers: [
+        {
+          name: "computeStyles",
+          options: {
+            adaptive: false
+          }
+        },
+        {
+          name: "flip",
+          options: {
+            fallbackPlacements: ["left", "right"]
+          }
+        }
+      ]
+    });
+
+    document.addEventListener(
+      "click",
+      (e) => this.clicker(e, this.popperTarget, this.reference),
+      false
+    );
+
+    const ro = new ResizeObserver(() => {
+      this.instance.update();
+    });
+
+    ro.observe(this.popperTarget);
+    ro.observe(this.reference);
+  }
+
+  clicker(event, popperTarget, reference) {
+    if (
+      SIDEBAR_EL.classList.contains("collapsed") &&
+      !popperTarget.contains(event.target) &&
+      !reference.contains(event.target)
+    ) {
+      this.hide();
+    }
+  }
+
+  hide() {
+    this.instance.state.elements.popper.style.visibility = "hidden";
+  }
+}
+
+class Poppers {
+  subMenuPoppers = [];
+
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    SUB_MENU_ELS.forEach((element) => {
+      this.subMenuPoppers.push(
+        new PopperObject(element, element.lastElementChild)
+      );
+      this.closePoppers();
+    });
+  }
+
+  togglePopper(target) {
+    if (window.getComputedStyle(target).visibility === "hidden")
+      target.style.visibility = "visible";
+    else target.style.visibility = "hidden";
+  }
+
+  updatePoppers() {
+    this.subMenuPoppers.forEach((element) => {
+      element.instance.state.elements.popper.style.display = "none";
+      element.instance.update();
+    });
+  }
+
+  closePoppers() {
+    this.subMenuPoppers.forEach((element) => {
+      element.hide();
+    });
+  }
+}
+
+const slideUp = (target, duration = ANIMATION_DURATION) => {
+  const { parentElement } = target;
+  parentElement.classList.remove("open");
+  target.style.transitionProperty = "height, margin, padding";
+  target.style.transitionDuration = `${duration}ms`;
+  target.style.boxSizing = "border-box";
+  target.style.height = `${target.offsetHeight}px`;
+  target.offsetHeight;
+  target.style.overflow = "hidden";
+  target.style.height = 0;
+  target.style.paddingTop = 0;
+  target.style.paddingBottom = 0;
+  target.style.marginTop = 0;
+  target.style.marginBottom = 0;
+  window.setTimeout(() => {
+    target.style.display = "none";
+    target.style.removeProperty("height");
+    target.style.removeProperty("padding-top");
+    target.style.removeProperty("padding-bottom");
+    target.style.removeProperty("margin-top");
+    target.style.removeProperty("margin-bottom");
+    target.style.removeProperty("overflow");
+    target.style.removeProperty("transition-duration");
+    target.style.removeProperty("transition-property");
+  }, duration);
+};
+const slideDown = (target, duration = ANIMATION_DURATION) => {
+  const { parentElement } = target;
+  parentElement.classList.add("open");
+  target.style.removeProperty("display");
+  let { display } = window.getComputedStyle(target);
+  if (display === "none") display = "block";
+  target.style.display = display;
+  const height = target.offsetHeight;
+  target.style.overflow = "hidden";
+  target.style.height = 0;
+  target.style.paddingTop = 0;
+  target.style.paddingBottom = 0;
+  target.style.marginTop = 0;
+  target.style.marginBottom = 0;
+  target.offsetHeight;
+  target.style.boxSizing = "border-box";
+  target.style.transitionProperty = "height, margin, padding";
+  target.style.transitionDuration = `${duration}ms`;
+  target.style.height = `${height}px`;
+  target.style.removeProperty("padding-top");
+  target.style.removeProperty("padding-bottom");
+  target.style.removeProperty("margin-top");
+  target.style.removeProperty("margin-bottom");
+  window.setTimeout(() => {
+    target.style.removeProperty("height");
+    target.style.removeProperty("overflow");
+    target.style.removeProperty("transition-duration");
+    target.style.removeProperty("transition-property");
+  }, duration);
+};
+
+const slideToggle = (target, duration = ANIMATION_DURATION) => {
+  if (window.getComputedStyle(target).display === "none")
+    return slideDown(target, duration);
+  return slideUp(target, duration);
+};
+
+const PoppersInstance = new Poppers();
+
+/**
+ * wait for the current animation to finish and update poppers position
+ */
+const updatePoppersTimeout = () => {
+  setTimeout(() => {
+    PoppersInstance.updatePoppers();
+  }, ANIMATION_DURATION);
+};
+
+/**
+ * sidebar collapse handler
+ */
+document.getElementById("btn-collapse").addEventListener("click", () => {
+  SIDEBAR_EL.classList.toggle("collapsed");
+  PoppersInstance.closePoppers();
+  if (SIDEBAR_EL.classList.contains("collapsed"))
+    FIRST_SUB_MENUS_BTN.forEach((element) => {
+      element.parentElement.classList.remove("open");
+    });
+
+  updatePoppersTimeout();
+});
+
+/**
+ * sidebar toggle handler (on break point )
+ */
+document.getElementById("btn-toggle").addEventListener("click", () => {
+  SIDEBAR_EL.classList.toggle("toggled");
+
+  updatePoppersTimeout();
+});
+
+/**
+ * toggle sidebar on overlay click
+ */
+document.getElementById("overlay").addEventListener("click", () => {
+  SIDEBAR_EL.classList.toggle("toggled");
+});
+
+const defaultOpenMenus = document.querySelectorAll(".menu-item.sub-menu.open");
+
+defaultOpenMenus.forEach((element) => {
+  element.lastElementChild.style.display = "block";
+});
+
+/**
+ * handle top level submenu click
+ */
+FIRST_SUB_MENUS_BTN.forEach((element) => {
+  element.addEventListener("click", () => {
+    if (SIDEBAR_EL.classList.contains("collapsed"))
+      PoppersInstance.togglePopper(element.nextElementSibling);
+    else {
+      const parentMenu = element.closest(".menu.open-current-submenu");
+      if (parentMenu)
+        parentMenu
+          .querySelectorAll(":scope > ul > .menu-item.sub-menu > a")
+          .forEach(
+            (el) =>
+              window.getComputedStyle(el.nextElementSibling).display !==
+                "none" && slideUp(el.nextElementSibling)
+          );
+      slideToggle(element.nextElementSibling);
+    }
+  });
+});
+
+/**
+ * handle inner submenu click
+ */
+INNER_SUB_MENUS_BTN.forEach((element) => {
+  element.addEventListener("click", () => {
+    slideToggle(element.nextElementSibling);
+  });
+});
+
+    // Smooth scrolling for anchor links
+    $(document).ready(function(){
+        $("a").on('click', function(event) {
+            if (this.hash !== "") {
                 event.preventDefault();
-
-                // Store hash
                 var hash = this.hash;
 
-                // Using jQuery's animate() method to add smooth page scroll
-                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
                 $('html, body').animate({
                     scrollTop: $(hash).offset().top
                 }, 800, function(){
-
-                    // Add hash (#) to URL when done scrolling (default click behavior)
                     window.location.hash = hash;
                 });
-                } // End if
-            });
-            });
-        </script>
+            }
+        });
+    });
+</script>
 
-        <!-- Back to Top -->
-        <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js" type="text/javascript"> </script>
+<!-- Back to Top -->
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js" type="text/javascript"></script>
+
     </body>
 </html>
+        

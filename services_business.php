@@ -18,13 +18,24 @@
       <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
       <!-- fontawesome icons --> 
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-  
+    
+    <?php 
+    include('user-sidebar.php');
+?>
+
+<?php 
+    include('user-header.php');
+?>
+
+
         <style>
             /* Back-to-Top */
+            .content {margin-left: 270px;}
+
+    
 
             .top-link {
             transition: all 0.25s ease-in-out;
-            position: fixed;
             bottom: 0;
             right: 0;
             display: inline-flex;
@@ -89,12 +100,51 @@
 
             .container1
             {
-                background-color: #3498DB;
+                background-color: transparent;
                 height: 342px;
                 color: black;
                 font-family: Arial, Helvetica, sans-serif;
                 text-align: center;
             }
+
+            /* Back-To-Top Button */
+#js-top {
+    position: fixed;
+     /* Distance from the right */
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+    padding: 2px 6px;
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5px;
+    z-index: 999; /* Ensure it is on top of other elements */
+    transition: background-color 0.3s;
+}
+
+/* Change background color on hover */
+#js-top:hover {
+    background-color: #ff7b00;
+}
+
+/* Optional: Hide the element initially if desired */
+.hide {
+    display: none;
+}
+
+#js-top svg {
+    width: auto; /* Adjust the size of the arrow */
+    height: 20%;
+    fill: #fff; /* Arrow color */
+}
+
+
+.dropdown {
+    display: flex;
+    justify-content: flex-end; /* Aligns to the right */
+}
+
 
             .applybutton
             {
@@ -108,7 +158,7 @@
             }
 
             .text1{
-                margin-top: 30px;
+                margin-top: 80px;
                 font-size: 50px;
             }
 
@@ -121,6 +171,7 @@
   </head>
 
     <body>
+        <div class = "content">
 
         <!-- Back-to-Top and Back Button -->
 
@@ -131,14 +182,12 @@
 
         <!-- Eto yung navbar -->
 
-        <nav class="navbar navbar-dark bg-primary sticky-top">
-            <a class="navbar-brand" href="resident_homepage.php">Barangay Information & E-Services Management System</a>
-            <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn1 bg-primary"><i class="fa fa-home fa-lg"></i></a>
-            <a href="#down3" data-toggle="tooltip" title="Procedure" class="btn5 bg-primary"><i class="fa fa-question fa-lg"></i></a>
-            <a href="#down2" data-toggle="tooltip" title="Information" class="btn4 bg-primary"><i class="fa fa-info fa-lg"></i></a>
-            <a href="#down1" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i class="fa fa-edit fa-lg"></i></a>
-            <a href="#down" data-toggle="tooltip" title="Contact" class="btn2 bg-primary"><i class="fa fa-phone fa-lg"></i></a>
-        </nav>
+        
+          
+            <div class="dropdown ml-auto">
+                
+            </div>
+       
 
         <div class="container-fluid container1"> 
             <div class="row"> 
@@ -699,6 +748,7 @@
             </div>
 
         </footer>
+        </div>
 
         <script>
             // Set a variable for our button element.
