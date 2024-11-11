@@ -350,9 +350,9 @@
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="mi" class="mtop">Middle Name: </label>
+                                            <label for="mi" class="mtop">Middle Initial: </label>
                                             <input name="mi" type="text" class="form-control" 
-                                            placeholder="Enter Middle Name" required>
+                                            placeholder="Enter Middle Initial" required>
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
