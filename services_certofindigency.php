@@ -451,14 +451,17 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="purposes">Purposes:</label>
-                                            <select class="form-control" name="purpose" id="purposes" required>
+                                            <select class="form-control" name="purpose" id="purpose" onchange="toggleCustomPurpose()" required>
                                                 <option value="">Choose your Purposes</option>
                                                 <option value="Job/Employment">Job/Employment</option>
                                                 <option value="Business Establishment">Business Requirement</option>
                                                 <option value="Financial Transaction">Financial Transaction</option>
                                                 <option value="Scholarship">Scholarship</option>
-                                                <option value="Other important transactions.">Other important transactions.</option>
+                                                <option value="Other">Other (Please Specify)</option>
                                             </select>
+                                            <div id="customPurposeContainer" style="display:none; margin-top:10px;">
+                                                <input type="text" class="form-control" name="custom_purpose" id="custom_purpose" placeholder="Enter your purpose">
+                                            </div>
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
@@ -666,7 +669,7 @@
             </div>
 
         </footer>
-
+        <script src="./js-components/component-js-custompurpose.js"></script>
         <script>
             // Set a variable for our button element.
             const scrollToTopButton = document.getElementById('js-top');
