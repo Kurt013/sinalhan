@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="html">
+<html lang="en" id="idhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
             src: url('fonts/OpenSauceSans-Medium.ttf') format('truetype'); 
         }
 
-html, body {
+#idhtml, #idbody {
   height: 100%;
   margin: 0;
   box-sizing: border-box;
@@ -31,7 +31,10 @@ html, body {
 
 /* Footer styling (placed at the bottom of the page) */
 #footerend {
-    background-color: #01439c;
+
+  background-color: #01439c;
+
+    
   color: #fff;
   padding: 20px;
   line-height: 25px;
@@ -62,9 +65,7 @@ html, body {
 
 
 
-#footer-left .location, .footer-left .email {
- 
-}
+
 
 #footer-left i {
     margin-right: 10px;
@@ -105,7 +106,7 @@ html, body {
 
 
 </style>
-<body id= "body">
+<body id= "idbody">
 
 
 
