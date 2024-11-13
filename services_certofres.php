@@ -3,6 +3,15 @@
     
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
+
+    if (!$bmis->get_userdata()) {
+        $bmis->set_userdata();
+    }
+
+    if ($userdetails && $userdetails['role'] == 'administrator') {
+        echo '<script>window.location.href="./admn_dashboard.php"</script>';
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -348,10 +357,7 @@
                                             <div class="invalid-feedback">Please fill out this field.</div>
                                         </div>
                                     </div>  
-                                </div>
-
-                                <?php $bmis->create_certofres() ?>
-                        
+                                </div>                        
                         </div>
                         <!-- Modal Footer -->
 

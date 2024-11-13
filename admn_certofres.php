@@ -10,7 +10,6 @@
     $userdetails = $bmis->get_userdata();
     $bmis->validate_admin();
     $bmis->delete_certofres();
-    $bmis->accept_certofres();
     // $bmis->archive_certofres();
 ?>
 
