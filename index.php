@@ -16,8 +16,6 @@
     $tm = new DateTime("now", new DateTimeZone('Asia/Manila'));
     $cdate = $dt->format('Y/m/d');
     $ctime = $tm->format('H');
-
-    echo $
 ?>
 
 

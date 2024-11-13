@@ -308,6 +308,17 @@ class BMISClass {
         }
     }
 
+    public function get_latest_certofres($id) {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare('
+            SELECT id_rescert FROM tbl_rescert WHERE created_by = ? ORDER BY created_on DESC LIMIT 1
+        ');
+        $stmt->execute([$id]);
+
+        $latestRecord = $stmt->fetch();
+        return $latestRecord;
+    }
+
     public function create_certofres() {
         if (isset($_POST['create_certofres'])) {
             // Gather the form data
@@ -321,8 +332,7 @@ class BMISClass {
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
-            $doc_type = 'rescert';
-            // $created_by = $_POST['created_by']; //Pedeng lagyan ng session mga guest para ma-track kung ilan sinusubmit na docu (ADD RESTRICTIONS TO AVOID SPAMS)
+            $created_by = $_POST['created_by'];
             
             // Check if "Other" was selected and handle custom purpose
             if ($purpose === "Other" && !empty($_POST['custom_purpose'])) {
@@ -330,7 +340,8 @@ class BMISClass {
             }
         
             $connection = $this->openConn();
-
+            
+            // Insert new data
             $stmt = $connection->prepare('
                 INSERT INTO tbl_rescert(fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by)
                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -347,15 +358,22 @@ class BMISClass {
                 $city,
                 $municipality,
                 $purpose,
+                $created_by
             ]);
 
-            $qrCode = $this->generateQRCode($json_data);
+            // Get the latest requested docu by the user and store it in qr code
+
+            $residentId = $this->get_latest_certofres($created_by);
+            
+            $qrCode = $this->generateQRCode($residentId['id_rescert'], 'rescert');
 
             echo '<script>alert("QR Code Successfully Generated!")</script>
             <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
             <img src="'.$qrCode.'" alt="QR Code" />';
         }
     }
+
+    
 
     // public function insert_certofres() {
     //     ob_start();
@@ -1263,9 +1281,10 @@ class BMISClass {
 
 // ------------------------------------- ADDITIONAL FUNCTIONS --------------------------------------------------
 
-    function generateQRCode($resident_data) {
+    function generateQRCode($doc_id, $doc_type) {
         ob_start();
-        QRcode::png($resident_data, null, QR_ECLEVEL_L, 10);
+        $link = "./{$doc_type}_form?id_{$doc_type}={$doc_id}";
+        QRcode::png($link, null, QR_ECLEVEL_L, 10);
         $qrImage = ob_get_clean();
             // Convert the image data to base64 encoding
         $base64Image = base64_encode($qrImage);
