@@ -209,12 +209,12 @@ class BMISClass {
     public function create_announcement() {
         if(isset($_POST['create_announce'])) {
             $event = $_POST['event'];
-            // $created_by = $userdetails['id_user'];
+            $created_by = $_POST['created_by'];
 
             $connection = $this->openConn();
             $stmt = $connection->prepare("INSERT INTO tbl_announcement (`event`, `created_by`)
                 VALUES (?, ?)");
-            $stmt->execute([$event, 1]);
+            $stmt->execute([$event, $created_by]);
 
             $message2 = "Announcement Added";
             echo "<script type='text/javascript'>alert('$message2');</script>";

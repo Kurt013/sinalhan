@@ -58,7 +58,7 @@
 
                         <div class="row"> 
                             <div class="col"> 
-                                <input name="generated_by" type="hidden" value="<?= $userdetails['id'] ?>">
+                                <input name="created_by" type="hidden" value="<?= $userdetails['id'] ?>">
                                 <button type="submit" name="create_announce" class="btn btn-primary" style="margin-left: 34%; border-radius: 15px; width: 150px; font-size: 18px;"> Submit Entry </button>
                             </div>
                         </div>       
@@ -91,7 +91,7 @@
                                                 </form>
                                             </td>
                                             <td> <?= $view['event'];?> </td>
-                                            <td> <?= $view['generated_date'];?> </td>
+                                            <td> <?= $view['created_date'];?> </td>
                                             <td style="text-transform: capitalize;"> <?= $view['fname'];?> <?= $view['mi'];?>. <?= $view['lname'];?></td>              
                                         </tr>
                                     <?php }?>
