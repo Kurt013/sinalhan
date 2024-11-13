@@ -1283,7 +1283,7 @@ class BMISClass {
 
     function generateQRCode($doc_id, $doc_type) {
         ob_start();
-        $link = "./{$doc_type}_form?id_{$doc_type}={$doc_id}";
+        $link = "./{$doc_type}_form.php?id_{$doc_type}={$doc_id}";
         QRcode::png($link, null, QR_ECLEVEL_L, 10);
         $qrImage = ob_get_clean();
             // Convert the image data to base64 encoding
