@@ -38,34 +38,35 @@ let isScanning = false; // Track if the scanner is already active
 // Listener to handle the QR code scan
 scanner.addListener('scan', function (content) {
   console.log("Scanned content:", content);
-  
-  try {
-    $.ajax({
-      url: window.location.href, 
-      type: 'POST',
-      data: {
-        added_by: <?= $userdetails['id'] ?>,
-        qr_data: content
-      },
-      success: function(response) {
-        let coc_type = JSON.parse(content);
-        let result = JSON.parse(response);
+  window.open(content, "_blank");
 
-        if (result.status === 'success') {
-          alert(result.message);
-          window.open(`${doc_type}_form.php?id_${doc_type}=${result.lastId}`, "_blank");
-        } else {
-          console.error('Error:', result.message);
-        }
-      },
-      error: function(xhr, status, error) {
-        console.error('Error sending data:', error);
-      }
-    });
+  // try {
+  //   $.ajax({
+  //     url: window.location.href, 
+  //     type: 'POST',
+  //     data: {
+  //       added_by: <?= $userdetails['id'] ?>,
+  //       qr_data: content
+  //     },
+  //     success: function(response) {
+  //       let coc_type = JSON.parse(content);
+  //       let result = JSON.parse(response);
 
-  } catch (e) {
-    console.error("Error parsing QR content as JSON:", e);
-  }
+  //       if (result.status === 'success') {
+  //         alert(result.message);
+  //         window.open(`${doc_type}_form.php?id_${doc_type}=${result.lastId}`, "_blank");
+  //       } else {
+  //         console.error('Error:', result.message);
+  //       }
+  //     },
+  //     error: function(xhr, status, error) {
+  //       console.error('Error sending data:', error);
+  //     }
+  //   });
+
+  // } catch (e) {
+  //   console.error("Error parsing QR content as JSON:", e);
+  // }
 });
 
 // Fetch available cameras and populate the dropdown

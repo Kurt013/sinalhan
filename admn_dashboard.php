@@ -1,10 +1,11 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
     include('classes/staff.class.php');
-    include('classes/resident.class.php');
 
     $userdetails = $bmis->get_userdata();
     $bmis->validate_admin();
+
+
 
     $staffcount = $staffbmis->count_staff();
     $staffcountm = $staffbmis->count_mstaff();
@@ -30,10 +31,16 @@
 <div class="container-fluid">
 
 <!-- Page Heading -->
+
+<canvas id="documentIssuanceTrendChart" width="100px" height="100px"></canvas>
+
+<canvas id="documentTypesDistributionChart" width="400" height="200"></canvas>
+
     <div class="row"> 
     <div class="col-md-4">
         <h4> Barangay Staff Data </h4> 
         <br>
+
         <div class="card border-left-info shadow">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -101,7 +108,67 @@
 
 <br>
 <br>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+ // Data for Document Issuance Trends (example: monthly data)
+const documentIssuanceTrendData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'], // Example months
+    datasets: [{
+        label: 'Documents Issued',
+        data: [50, 100, 150, 200, 250, 300], // Example values for documents issued
+        fill: false,  // No filling for line chart
+        borderColor: 'rgba(75, 192, 192, 1)', // Line color
+        tension: 0.1
+    }]
+};
 
+// Create the line chart
+const ctx1 = document.getElementById('documentIssuanceTrendChart').getContext('2d');
+const documentIssuanceTrendChart = new Chart(ctx1, {
+    type: 'line', // 'line' or 'area'
+    data: documentIssuanceTrendData,
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+// Data for Document Types Distribution (example: document types)
+const documentTypesDistributionData = {
+    labels: ['Certificate', 'Permit', 'Clearance'], // Example document types
+    datasets: [{
+        label: 'Document Types',
+        data: [45, 35, 20], // Example proportions for each document type
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+// Create the pie chart
+const ctx2 = document.getElementById('documentTypesDistributionChart').getContext('2d');
+const documentTypesDistributionChart = new Chart(ctx2, {
+    type: 'pie', // 'pie' or 'doughnut'
+    data: documentTypesDistributionData,
+    options: {
+        responsive: true
+    }
+});
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
 <!-- responsive tags for screen compatibility -->
