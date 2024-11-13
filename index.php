@@ -3,8 +3,13 @@
 
     $userdetails = $bmis->get_userdata();
 
+    if (!$bmis->get_userdata()) {
+        $bmis->set_userdata();
+    }
+
     if ($userdetails && $userdetails['role'] == 'administrator') {
         echo '<script>window.location.href="./admn_dashboard.php"</script>';
+        exit;
     }
 
     $dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
@@ -12,8 +17,7 @@
     $cdate = $dt->format('Y/m/d');
     $ctime = $tm->format('H');
 
-    
-
+    echo $
 ?>
 
 

@@ -2,7 +2,16 @@
     require('classes/main.class.php');
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
+    $userdetails = $bmis->get_userdata();
    
+    if (!$bmis->get_userdata()) {
+        $bmis->set_userdata();
+    }
+
+    if ($userdetails && $userdetails['role'] == 'administrator') {
+        echo '<script>window.location.href="./admn_dashboard.php"</script>';
+        exit;
+    }
 ?>
 
 <?php

@@ -95,21 +95,21 @@ class BMISClass {
         return isset($_SESSION['userdata']) ? $_SESSION['userdata'] : null;
     }
 
-    public function set_userdata($array) {
+    public function set_userdata($array = []) {
 
         if(!isset($_SESSION)) {
             session_start();
         }
-
+    
         $_SESSION['userdata'] = array(
-            "id" => $array['id_user'],
-            "email" => $array['email'],
-            "role" => $array['role'],
-            "firstname" => $array['fname'],
-            "surname" => $array['lname'],
-            "mname" => $array['mi']
+            "id" => isset($array['id_user']) ? $array['id_user'] : uniqid('guest_', true),
+            "email" => isset($array['email']) ? $array['email'] : '',
+            "role" => isset($array['role']) ? $array['role'] : 'guest',
+            "firstname" => isset($array['fname']) ? $array['fname'] : '',
+            "surname" => isset($array['lname']) ? $array['lname'] : '',
+            "mname" => isset($array['mi']) ? $array['mi'] : ''
         );
-
+    
         return $_SESSION['userdata'];
     }
 
@@ -322,30 +322,33 @@ class BMISClass {
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
             $doc_type = 'rescert';
+            // $created_by = $_POST['created_by']; //Pedeng lagyan ng session mga guest para ma-track kung ilan sinusubmit na docu (ADD RESTRICTIONS TO AVOID SPAMS)
             
             // Check if "Other" was selected and handle custom purpose
             if ($purpose === "Other" && !empty($_POST['custom_purpose'])) {
                 $purpose = $_POST['custom_purpose'];
             }
         
-            // Create the data array
-            $data = [
-                'lname' => $lname,
-                'fname' => $fname,
-                'mi' => $mi,
-                'age' => $age,
-                'houseno' => $houseno,
-                'street' => $street,
-                'brgy' => $brgy,
-                'city' => $city,
-                'municipality' => $municipality,
-                'purpose' => $purpose,
-                'doc_type' => $doc_type
-            ];
-        
-            // Convert data to JSON
-            $json_data = json_encode($data);
+            $connection = $this->openConn();
+
+            $stmt = $connection->prepare('
+                INSERT INTO tbl_rescert(fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ');
             
+            $stmt->execute([
+                $fname, 
+                $mi,
+                $lname,
+                $age,
+                $houseno,
+                $street,
+                $brgy,
+                $city,
+                $municipality,
+                $purpose,
+            ]);
+
             $qrCode = $this->generateQRCode($json_data);
 
             echo '<script>alert("QR Code Successfully Generated!")</script>
@@ -354,60 +357,60 @@ class BMISClass {
         }
     }
 
-    public function insert_certofres() {
-        ob_start();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = isset($_POST['qr_data']) ? json_decode($_POST['qr_data'], true) : null;
+    // public function insert_certofres() {
+    //     ob_start();
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $data = isset($_POST['qr_data']) ? json_decode($_POST['qr_data'], true) : null;
     
-            if (isset($data) && $data['doc_type'] === 'rescert') {
-                try {
-                    $connection = $this->openConn();
-                    $stmt = $connection->prepare("INSERT INTO tbl_rescert (lname, fname, mi, age, houseno, street, brgy, city, municipality, purpose, created_by) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    //         if (isset($data) && $data['doc_type'] === 'rescert') {
+    //             try {
+    //                 $connection = $this->openConn();
+    //                 $stmt = $connection->prepare("INSERT INTO tbl_rescert (lname, fname, mi, age, houseno, street, brgy, city, municipality, purpose, created_by) 
+    //                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-                    $stmt->execute([
-                        $data['lname'],
-                        $data['fname'],
-                        $data['mi'],
-                        $data['age'],
-                        $data['houseno'],
-                        $data['street'],
-                        $data['brgy'],
-                        $data['city'],
-                        $data['municipality'],  
-                        $data['purpose'],
-                        $_POST['added_by']
-                    ]);
+    //                 $stmt->execute([
+    //                     $data['lname'],
+    //                     $data['fname'],
+    //                     $data['mi'],
+    //                     $data['age'],
+    //                     $data['houseno'],
+    //                     $data['street'],
+    //                     $data['brgy'],
+    //                     $data['city'],
+    //                     $data['municipality'],  
+    //                     $data['purpose'],
+    //                     $_POST['added_by']
+    //                 ]);
     
-                    $stmt = $connection->prepare("SELECT id_rescert FROM tbl_rescert ORDER BY id_rescert DESC LIMIT 1");
-                    $stmt->execute();
-                    $lastRecord = $stmt->fetch();
+    //                 $stmt = $connection->prepare("SELECT id_rescert FROM tbl_rescert ORDER BY id_rescert DESC LIMIT 1");
+    //                 $stmt->execute();
+    //                 $lastRecord = $stmt->fetch();
     
-                    if ($lastRecord) {
-                        $response = [
-                            'status' => 'success',
-                            'message' => 'Data Inserted Successfully!',
-                            'lastId' => $lastRecord['id_rescert']
-                        ];
-                    } else {
-                        $response = [
-                            'status' => 'success',
-                            'message' => 'Data not inserted',
-                            'lastId' => null
-                        ];
-                    }
-                    ob_clean();
-                    echo json_encode($response);
-                    exit;
+    //                 if ($lastRecord) {
+    //                     $response = [
+    //                         'status' => 'success',
+    //                         'message' => 'Data Inserted Successfully!',
+    //                         'lastId' => $lastRecord['id_rescert']
+    //                     ];
+    //                 } else {
+    //                     $response = [
+    //                         'status' => 'success',
+    //                         'message' => 'Data not inserted',
+    //                         'lastId' => null
+    //                     ];
+    //                 }
+    //                 ob_clean();
+    //                 echo json_encode($response);
+    //                 exit;
     
-                } catch (PDOException $e) {
-                    ob_clean();
-                    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
-                    exit;
-                }
-            }
-        } 
-    }
+    //             } catch (PDOException $e) {
+    //                 ob_clean();
+    //                 echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+    //                 exit;
+    //             }
+    //         }
+    //     } 
+    // }
     
     
 

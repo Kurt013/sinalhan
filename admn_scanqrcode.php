@@ -3,7 +3,9 @@
 
   $userdetails = $bmis->get_userdata();
   $bmis->validate_admin();
-  $bmis->insert_certofres();
+  // $bmis->insert_certofres();
+
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +48,7 @@ scanner.addListener('scan', function (content) {
         qr_data: content
       },
       success: function(response) {
-        let doc_type = (JSON.parse(content)).doc_type;
+        let coc_type = JSON.parse(content);
         let result = JSON.parse(response);
 
         if (result.status === 'success') {
