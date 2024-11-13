@@ -8,6 +8,7 @@
     require 'vendor/autoload.php';
 
     $userdetails = $bmis->get_userdata();
+    $conn = $bmis->openConn();
     $bmis->validate_admin();
     $bmis->delete_certofres();
     // $bmis->archive_certofres();
@@ -75,7 +76,7 @@
     <div class="row"> 
         <div class="col-md-12"> 
             <?php 
-                include('admn_table_certofres_search.php');
+                include('./admn_table_certofres_search.php');
             ?>
         </div>
     </div>
