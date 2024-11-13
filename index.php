@@ -16,6 +16,8 @@
     $tm = new DateTime("now", new DateTimeZone('Asia/Manila'));
     $cdate = $dt->format('Y/m/d');
     $ctime = $tm->format('H');
+
+    
 ?>
 
 
@@ -86,7 +88,7 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    margin: 0 1rem 6rem 0;
+    margin: 0 1rem 5em 0;
     border-radius: 50%;
     
     width: 5%;
@@ -152,34 +154,8 @@
     fill: white;
     }
 
-    .screen-reader-text {
-    position: absolute;
-    clip-path: inset(50%);
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    word-wrap: normal !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    }
-    .screen-reader-text:focus {
-    display: block;
-    top: 5px;
-    left: 5px;
-    z-index: 100000;
-    clip-path: none;
-    background-color: #eee;
-    padding: 15px 23px 14px;
-    width: auto;
-    height: auto;
-    text-decoration: none;
-    line-height: normal;
-    color: #444;
-    font-size: 1em;
-    clip: auto !important;
-    }
+
+
 
     .header h2 {
         text-align: left; 
@@ -318,7 +294,7 @@
 
         <a data-toggle="tooltip"  class="top-link hide" href="" id="js-top">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
-            <span class="screen-reader-text">Back to top</span>
+            
         </a>
 
     
@@ -458,7 +434,8 @@ if ($view && is_array($view) && count($view) > 0) { ?>
                 </button>
 </div>
 </div> 
-</div>                        
+</div> 
+
 <?php include('user-footer.php'); ?>
 
              <!-- Footer -->

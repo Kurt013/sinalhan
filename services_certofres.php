@@ -15,7 +15,90 @@
         exit;
     }
 ?>
+<?php 
+    include('user-sidebar.php');
+?>   
 
+        <?php include('user-header.php'); ?>
+<style>
+*{
+    margin: 0
+    ;}
+    .content {margin-left: 270px;}
+    .top-link.show {
+    visibility: visible;
+    opacity: 1;
+    }
+    .top-link.hide {
+    visibility: hidden;
+    opacity: 0;
+    }
+   
+    .top-link svg {
+    fill: white;
+    width: 24px;
+    height: 12px;
+    }
+    .top-link:hover {
+    background-color: #00357b;
+    }
+    .top-link:hover svg {
+    fill: white;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .header h1 {
+    color: white;
+    font-family: 'OSBlack' !important;
+    font-size: 2.2rem;
+
+    width: 85%;
+    letter-spacing: 3px;
+    margin-bottom: 1px;
+    margin-top: 115px; /* Remove margin to fully center */
+    text-shadow: 5px 5px 10px rgba(1, 60, 139, 0.9);
+    line-height: 42px;
+    -webkit-text-stroke: 7px #012049;
+    paint-order: stroke fill;
+}
+
+.header h5 {
+    font-family: "OSMedium";
+        font-size: 1rem;
+        margin-top: 15px;
+        color: #012049;
+        width: 85%;
+        line-height: 25px;
+}
+    
+    .top-link {
+    transition: all 0.25s ease-in-out;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1rem 5em 0;
+    border-radius: 50%;
+    
+    width: 5%;
+    height: 10%;
+    background-color: #3661D5;
+    }
+
+
+
+
+</style>
 <!DOCTYPE html>
 
 <html>
@@ -35,44 +118,32 @@
 
     <body>
         <!-- Back-to-Top and Back Button -->
-
-        <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
+       <div class = content>
+        <a data-toggle="tooltip"  class="top-link hide" href="" id="js-top">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
-            <span class="screen-reader-text">Back to top</span>
+            
         </a>
-
+ 
         <!-- Eto yung navbar -->
-
-        <nav class="navbar navbar-dark bg-primary sticky-top">
-            <a href="index.php" data-toggle="tooltip" title="Home" class="btn1 bg-primary"><i class="fa fa-home fa-lg"></i></a>
-            <a href="#down3" data-toggle="tooltip" title="Procedure" class="btn5 bg-primary"><i class="fa fa-question fa-lg"></i></a>
-            <a href="#down2" data-toggle="tooltip" title="Information" class="btn4 bg-primary"><i class="fa fa-info fa-lg"></i></a>
-            <a href="#down1" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i class="fa fa-edit fa-lg"></i></a>
-            <a href="#down" data-toggle="tooltip" title="Contact" class="btn2 bg-primary"><i class="fa fa-phone fa-lg"></i></a>
-        </nav>
+       
+      
 
         <div class="container-fluid container1"> 
             <div class="row"> 
                 <div class="col"> 
                     <div class="header">
-                        <h1 class="text1">Certificate Of Residency </h1>
+                        <h1>Certificate Of Residency </h1>
                         <h5>Certificate of Residency is one the Philippine government issued identification documents 
-                        <br>needed for many important business, job, or personal transactions. You might need it for 
-                        <br> the following reasons: when you apply a job/employment. when you apply or open a bank account. </h5>
+                        needed for many important business, job, or personal transactions. You might need it for 
+                         the following reasons: when you apply a job/employment. when you apply or open a bank account. </h5>
                     </div>
 
                     <br>
 
-                    <img class="picture" src="./icons/Documents/docu1.png">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img class="picture" src="./icons/Documents/docu3.png">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img class="picture" src="./icons/Documents/docu2.png">
+                   
                 </div>
             </div>
-        </div>
+       
 
         <div id="down3"></div>
 
@@ -80,38 +151,7 @@
         <br>
         <br>
 
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <h1>Procedure</h1>
-                    <hr style="background-color: black;">
-                </div>
-            </div>
-
-            <br>
-
-            <div class="row">
-                <div class="col">
-                    <i class="fas fa-id-card fa-7x"></i>
-
-                    <br>
-                    <br>
-
-                    <h3>Step 1: Prepare</h3>
-                    <p>First step is to prepare all of the information that will be<br> needed
-                    in acquiring a certificate of residency.</p>
-                </div>
-                <div class="col" >
-                    <i class="fas fa-laptop fa-7x"></i>
-
-                    <br>
-                    <br>
-
-                    <h3>Step 2: Apply</h3>
-                    <p>Second Step is to apply in our system and<br> fill-up the entire form
-                    given below.</p>
-                </div>
-            </div>
+        
 
             <div id="down2"></div>
 
@@ -383,185 +423,9 @@
 
         <!-- Footer -->
 
-        <footer id="footer" class="bg-primary text-white d-flex-column text-center">
-            <hr class="mt-0">
+</div>
+<?php include('user-footer.php'); ?>
 
-            <div class="text-center">
-                <h1>Services</h1>
-                <ul class="list-unstyled list-inline">
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Documents">
-                    <i class="fas fa-file fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Card">
-                    <i class="fas fa-id-card fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Friend">
-                    <i class="fas fa-user-friends fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Blotter">
-                    <i class="fas fa-user-shield fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Contact">
-                    <i class="fas fa-phone fa-2x"></i>
-                    </a>
-                </li>
-                </ul>
-            </div>
-
-            <hr class="mb-0">
-
-            <!--Footer Links-->
-
-            <div class="container text-left text-md-center">
-                <div class="row">
-
-                    <!--First column-->
-
-                    <div class="col-md-3 mx-auto shfooter">
-                        <h5 class="my-2 font-weight-bold d-none d-md-block">Documentation</h5>
-                        <div class="d-md-none title" data-target="#Documentation" data-toggle="collapse">
-                            <div class="mt-3 font-weight-bold">Documentation
-                                <div class="float-right navbar-toggler">
-                                    <i class="fas fa-angle-down"></i>
-                                    <i class="fas fa-angle-up"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="list-unstyled collapse" id="Documentation">
-                            <li><a href="services_certofres.php">Certificate of Residency</a></li>
-                            <li><a href="services_brgyclearance.php">Barangay Clearance</a></li>
-                            <li><a href="services_certofindigency.php">Certificate of Indigency</a></li>
-                            <li><a href="services_business.php">Business Permit</a></li>
-                            <li><a href="services_brgyid.php">Barangay ID</a></li>
-                        </ul>
-                    </div>
-
-                    <!--/.First column-->
-
-                    <hr class="clearfix w-100 d-md-none mb-0">
-
-                    <!--Third column-->
-
-                    <div class="col-md-3 mx-auto shfooter">
-                        <h5 class="my-2 font-weight-bold d-none d-md-block">Other Services</h5>
-                        <div class="d-md-none title" data-target="#OtherServices" data-toggle="collapse">
-                            <div class="mt-3 font-weight-bold">Other Services
-                                <div class="float-right navbar-toggler">
-                                    <i class="fas fa-angle-down"></i>
-                                    <i class="fas fa-angle-up"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="list-unstyled collapse" id="OtherServices">
-                            <li><a href="services_blotter.php">Peace and Order</a></li>
-                        </ul>
-                    </div>
-
-                    <!--/.Third column-->
-
-                    <hr class="clearfix w-100 d-md-none mb-0">
- 
-                    <!--Fourth column-->
-
-                    <div class="col-md-3 mx-auto shfooter" id="down">
-                        <h5 class="my-2 font-weight-bold d-none d-md-block">Contact Us</h5>
-                        <div class="d-md-none title" data-target="#Contact-Us" data-toggle="collapse">
-                        <div class="mt-3 font-weight-bold">Contact Us
-                            <div class="float-right navbar-toggler">
-                            <i class="fas fa-angle-down"></i>
-                            <i class="fas fa-angle-up"></i>
-                            </div>
-                        </div>
-                        </div>
-                        <ul class="list-unstyled collapse" id="Contact-Us">
-                            <li>
-                                <div class="zoom">
-                                    <div class="chip" style="font-size:10px;">
-                                        <img src="./icons/Contact/mikhos.png" alt="Person" width="96" height="96">
-                                        Mikhos Dungca | 09514053044
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="zoom">
-                                    <div class="chip" style="font-size:10px;">
-                                        <img src="./icons/Contact/pj.png" alt="Person" width="96" height="96">
-                                        PJ Mendros | 09179450661
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="zoom">
-                                    <div class="chip" style="font-size:10px;">
-                                        <img src="./icons/Contact/vincent.png" alt="Person" width="96" height="96">
-                                        Vincent Vilfamat | 09512873394
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="zoom">
-                                    <div class="chip" style="font-size:10px;">
-                                        <img src="./icons/Contact/eugene.png" alt="Person" width="96" height="96">
-                                        Joel Evangelista | 09301112368
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="zoom">
-                                    <div class="chip" style="font-size:10px;">
-                                        <img src="./icons/Contact/kyle.png" alt="Person" width="96" height="96">
-                                        Kyle Pilapil | 09618853017
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!--/.Fourth column-->
-
-                </div>
-            </div>
-
-            <!--/.Footer Links-->
-
-            <hr class="mb-0">
-
-            <!--Copyright-->
-
-            <div class="py-3 text-center">
-                Copyright 2021 -
-                <script>
-                document.write(new Date().getFullYear())
-                </script> 
-                BI & ESMS | For Educational Purposes Only
-            </div>
-
-        </footer>
         <script src="./js-components/component-js-custompurpose.js"></script>
         <script>
             // Set a variable for our button element.

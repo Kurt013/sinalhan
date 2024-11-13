@@ -1,8 +1,4 @@
-<?php
-    // Dynamically set the section you want to link to
-    $section = "annsec"; // This could be dynamic, e.g., from a database or user input
-    $baseUrl = "http://localhost/sinalhan/index.php";
-?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -80,7 +76,7 @@
   z-index: 3;
   height: 100vh;
   width: 250px;
-  margin:0;
+  margin:0 !important;
   overflow-y: scroll;
 }
 
