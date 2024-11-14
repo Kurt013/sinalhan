@@ -1,22 +1,18 @@
-<?php
-	// require the database connection
-	require 'classes/conn.php';
+<?php    
 	if(isset($_POST['search_certofres'])){
 		$keyword = $_POST['keyword'];
 ?>
-<h2>Accepted Requests</h2>
 
 <table class="table table-hover text-center table-bordered table-responsive" >
     <thead class="alert-info">
         
         <tr>
             <th>  </th>
-            <th> Clearance No. </th>
+            <th> Issuance No. </th>
             <th> Surname </th>
             <th> First Name </th>
             <th> Middle Name </th>
             <th> Age </th>
-            <th> Nationality </th>
             <th> House Number </th>
             <th> Street </th>
             <th> Barangay </th>
@@ -28,42 +24,42 @@
 
     <tbody>    
         <?php
-            $stmnt = $conn->prepare("
+            $stmt = $conn->prepare("
             SELECT *
             FROM
                 tbl_rescert
             WHERE
-                id_rescert LIKE ? AND
-                fname LIKE ? AND
-                mi LIKE ? AND
-                lname LIKE ? AND
-                age LIKE ? AND
-                nationality LIKE ? AND
-                houseno LIKE ? AND
-                street LIKE ? AND
-                brgy LIKE ? AND
-                city LIKE ? AND
-                municipality LIKE ? AND
-                purpose LIKE ? AND
-                generated_by LIKE ? AND
-                generated_on LIKE ?
+                id_rescert LIKE ? OR
+                fname LIKE ? OR
+                mi LIKE ? OR
+                lname LIKE ? OR
+                age LIKE ? OR
+                houseno LIKE ? OR
+                street LIKE ? OR
+                brgy LIKE ? OR
+                city LIKE ? OR
+                municipality LIKE ? OR
+                purpose LIKE ? OR
+                created_by LIKE ? OR
+                created_on LIKE ? OR
+                doc_status LIKE ?
             ");
         
         $keywordLike = "%$keyword%";
 
-        $stmnt->execute([
+        $stmt->execute([
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike
         ]);
             
-            while($view = $stmnt->fetch()){
+            while($view = $stmt->fetch()){
         ?>
             <tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?>">Generate</a> 
                         <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                         <button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_certofres"> Archive </button>
                     </form>
@@ -73,12 +69,11 @@
                 <td> <?= $view['fname'];?> </td>
                 <td> <?= $view['mi'];?> </td>
                 <td> <?= $view['age'];?> </td>
-                <td> <?= $view['nationality'];?> </td>
                 <td> <?= $view['houseno'];?> </td>
                 <td> <?= $view['street'];?> </td>
                 <td> <?= $view['brgy'];?> </td>
                 <td> <?= $view['city'];?> </td>
-                <td> <?= $view['municipal'];?> </td>
+                <td> <?= $view['municipality'];?> </td>
                 <td> <?= $view['purpose'];?> </td>
 
             </tr>
@@ -94,18 +89,15 @@
 <?php		
 	}else{
 ?>
-    <h2>Accepted Requests</h2>
-
     <table class="table table-hover text-center table-bordered table-responsive">
 		<thead class="alert-info">
 			<tr>
                 <th> Actions</th>
-                <th> Clearance No. </th>
+                <th> Issuance No. </th>
                 <th> Surname </th>
                 <th> First Name </th>
                 <th> Middle Name </th>
                 <th> Age </th>
-                <th> Nationality </th>
                 <th> House Number </th>
                 <th> Street </th>
                 <th> Barangay </th>
@@ -116,15 +108,16 @@
 		</thead>
 		<tbody>
 		    <?php 
-            $stmnt = $conn->prepare("SELECT * FROM tbl_rescert");
+            $stmt = $conn->prepare("SELECT * FROM tbl_rescert");
+            $stmt->execute();
             $views = $stmt->fetchAll();
-            if ($stmnt->rowCount() > 0) {
-                foreach ($view as $views) {
+            if ($stmt->rowCount() > 0) {
+                foreach ($views as $view) {
                 ?>
                         <tr>
                             <td>    
                                 <form action="" method="post">
-                                    <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                                    <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?>">Generate</a> 
                                     <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                             <button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="delete_certofres"> Archive </button>
                                 </form>
@@ -134,12 +127,11 @@
                             <td> <?= $view['fname'];?> </td>
                             <td> <?= $view['mi'];?> </td>
                             <td> <?= $view['age'];?> </td>
-                            <td> <?= $view['nationality'];?> </td>
                             <td> <?= $view['houseno'];?> </td>
                             <td> <?= $view['street'];?> </td>
                             <td> <?= $view['brgy'];?> </td>
                             <td> <?= $view['city'];?> </td>
-                            <td> <?= $view['municipal'];?> </td>
+                            <td> <?= $view['municipality'];?> </td>
                             <td> <?= $view['purpose'];?> </td>
                         </tr>
                 <?php

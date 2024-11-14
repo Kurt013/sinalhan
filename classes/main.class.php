@@ -375,60 +375,30 @@ class BMISClass {
 
     
 
-    // public function insert_certofres() {
-    //     ob_start();
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $data = isset($_POST['qr_data']) ? json_decode($_POST['qr_data'], true) : null;
-    
-    //         if (isset($data) && $data['doc_type'] === 'rescert') {
-    //             try {
-    //                 $connection = $this->openConn();
-    //                 $stmt = $connection->prepare("INSERT INTO tbl_rescert (lname, fname, mi, age, houseno, street, brgy, city, municipality, purpose, created_by) 
-    //                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    //                 $stmt->execute([
-    //                     $data['lname'],
-    //                     $data['fname'],
-    //                     $data['mi'],
-    //                     $data['age'],
-    //                     $data['houseno'],
-    //                     $data['street'],
-    //                     $data['brgy'],
-    //                     $data['city'],
-    //                     $data['municipality'],  
-    //                     $data['purpose'],
-    //                     $_POST['added_by']
-    //                 ]);
-    
-    //                 $stmt = $connection->prepare("SELECT id_rescert FROM tbl_rescert ORDER BY id_rescert DESC LIMIT 1");
-    //                 $stmt->execute();
-    //                 $lastRecord = $stmt->fetch();
-    
-    //                 if ($lastRecord) {
-    //                     $response = [
-    //                         'status' => 'success',
-    //                         'message' => 'Data Inserted Successfully!',
-    //                         'lastId' => $lastRecord['id_rescert']
-    //                     ];
-    //                 } else {
-    //                     $response = [
-    //                         'status' => 'success',
-    //                         'message' => 'Data not inserted',
-    //                         'lastId' => null
-    //                     ];
-    //                 }
-    //                 ob_clean();
-    //                 echo json_encode($response);
-    //                 exit;
-    
-    //             } catch (PDOException $e) {
-    //                 ob_clean();
-    //                 echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
-    //                 exit;
-    //             }
-    //         }
-    //     } 
-    // }
+    public function insert_certofres($user) {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("INSERT INTO tbl_rescert (lname, fname, mi, age, houseno, street, purpose, created_by, doc_status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $stmt->execute([
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            $user['firstname'] . '_' . $user['surname'],
+            'temporary'
+        ]);
+        
+        $stmt = $connection->prepare("SELECT id_rescert FROM tbl_rescert WHERE created_by = ? ORDER BY created_on DESC LIMIT 1");
+
+        $stmt->execute([$user['firstname'] . '_' . $user['surname']]);
+        $resident_id = $stmt->fetch();
+
+        return './rescert_form.php?id_rescert='.$resident_id['id_rescert'];
+    }
     
     
 
@@ -468,6 +438,7 @@ class BMISClass {
                 $city = $_POST['city'];
                 $municipality = $_POST['municipality'];
                 $purpose = $_POST['purpose'];
+                $doc_status = 'pending';
 
                 $stmt = $connection->prepare("UPDATE tbl_rescert SET 
                     lname = ?,
@@ -479,7 +450,8 @@ class BMISClass {
                     brgy = ?,
                     city = ?,
                     municipality = ?,
-                    purpose = ? 
+                    purpose = ?,
+                    doc_status = ?
                     WHERE
                     id_rescert = ?
                 ");
@@ -495,6 +467,7 @@ class BMISClass {
                     $city,
                     $municipality,
                     $purpose,
+                    $doc_status,
                     $id_rescert
                 ]);
             }
@@ -504,6 +477,7 @@ class BMISClass {
             }
         }
     }
+
 
     public function archive_certofres() {
         if (isset($_POST['archive_certofres'])) {
@@ -1283,7 +1257,7 @@ class BMISClass {
 
     function generateQRCode($doc_id, $doc_type) {
         ob_start();
-        $link = "./{$doc_type}_form?id_{$doc_type}={$doc_id}";
+        $link = "./{$doc_type}_form.php?id_{$doc_type}={$doc_id}";
         QRcode::png($link, null, QR_ECLEVEL_L, 10);
         $qrImage = ob_get_clean();
             // Convert the image data to base64 encoding
@@ -1336,6 +1310,31 @@ class BMISClass {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
+
+    public function deleteTemporaryDocs() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Sanitize and validate the table name
+            $allowedTables = ['tbl_rescert', 'tbl_clearance', 'tbl_indigency', 'tbl_brgyid', 'tbl_bspermit'];  // List of allowed table names
+            $tbl = $_POST['tbl'];
+    
+            if (!in_array($tbl, $allowedTables)) {
+                die('Invalid table specified');
+            }
+    
+            $connection = $this->openConn();
+    
+            // Prepare and execute the deletion statement
+            $stmt = $connection->prepare('DELETE FROM tbl_rescert WHERE doc_status = ');
+            $success = $stmt->execute(['temporary']);
+    
+            if ($success) {
+                echo "Records successfully deleted.";
+            } else {
+                echo "Error: Unable to delete records.";
+            }
+        }
+    }
+
 }
     
 

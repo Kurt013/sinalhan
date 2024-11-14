@@ -5,9 +5,15 @@
 
     $staffbmis->validate_staff();
 
-    $id = $_GET['id_rescert'];
+    if ($_GET) {
+        $id = $_GET['id_rescert'];
+        $resident = $staffbmis->get_single_certofres($id);
+    }
+    else {
+        $link = $bmis->insert_certofres($user);
+        echo "<script>window.location.href = '{$link}' </script>";
+    }
 
-    $resident = $staffbmis->get_single_certofres($id);
     $staffbmis->update_certofres();
   ?>
 
@@ -31,74 +37,87 @@
             font-weight: bold;
             text-transform: uppercase;
         }
+
+        .empty-field {
+            display: inline-block;
+            padding: 2px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: black;
+        }
+
+        span[contenteditable="true"]:empty {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: #aaa;
+        }
+
     </style>
 </head>
  <body>
-    <?php include './form_header.php' ?>
+    <?php include './form_header.php' 
+    ?>
 
-    <h1 style="text-transform: uppercase;">Certificate of Residency</h1>
+<h1 style="text-transform: uppercase;">Certificate of Residency</h1>
 
-    <p>ISSUANCE NO.: <u id="id_rescert"><?= $resident['id_rescert'] ?></u></p>
+    <p>ISSUANCE NO.: <u id="id_rescert"><?= !empty($resident['id_rescert']) ?$resident['id_rescert'] : 'N/A'?></u></p>
     <p>TO WHOM IT MAY CONCERN:</p>
     <p> This document hereby certifies that
-        <span contenteditable="true" id="fname">
-            <?= $resident['fname']; ?>
+        <span contenteditable="true" id="fname" class="<?= empty($resident['fname']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['fname']) ? $resident['fname'] : '[Enter First Name]'; ?>
         </span>
-        <span contenteditable="true" id="mi">
-            <?= $resident['mi']; ?>.
+        <span contenteditable="true" id="mi" class="<?= empty($resident['mi']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['mi']) ? $resident['mi'] : '[Enter MI]'; ?>.
         </span>
-        <span contenteditable="true" id="lname">
-            <?= $resident['lname']; ?> 
+        <span contenteditable="true" id="lname" class="<?= empty($resident['lname']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['lname']) ? $resident['lname'] : '[Enter Last Name]'; ?>
         </span>, aged
-        <span contenteditable="true" id="age">
-            <?= $resident['age']; ?>
+        <span contenteditable="true" id="age" class="<?= empty($resident['age']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['age']) ? $resident['age'] : '[Enter Age]'; ?>
         </span>, is officially recognized as a legitimate resident of
-        <span contenteditable="true" id="houseno">
-            <?= $resident['houseno']; ?>
+        <span contenteditable="true" id="houseno" class="<?= empty($resident['houseno']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['houseno']) ? $resident['houseno'] : '[Enter House No]'; ?>
         </span> 
-        <span contenteditable="true" id="street">
-            <?= $resident['street']; ?>
+        <span contenteditable="true" id="street" class="<?= empty($resident['street']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['street']) ? $resident['street'] : '[Enter Street]'; ?>
         </span>
-        <span contenteditable="true" id="brgy">
+        <span contenteditable="true" id="brgy" class="<?= empty($resident['brgy']) ? 'empty-field' : '' ?>">
             <?= $resident['brgy']; ?>
         </span> 
-        <span contenteditable="true" id="city">
+        <span contenteditable="true" id="city" class="<?= empty($resident['city']) ? 'empty-field' : '' ?>">
             <?= $resident['city']; ?>
         </span> 
-        <span contenteditable="true" id="municipality">
-            <?= $resident['municipality']; ?>
+        <span contenteditable="true" id="municipality" class="<?= empty($resident['municipality']) ? 'empty-field' : '' ?>">
+            <?= $resident['municipality'] ?>
         </span>
         The said person is of good moral character and an active member of the community.
     .</p>
 
     <p>
         This certification is being issued upon the request of the above mentioned person for
-        <span contenteditable="true" id="purpose"><?= $resident['purpose']?></span>.
+        <span contenteditable="true" id="purpose" class="<?= empty($resident['purpose']) ? 'empty-field' : '' ?>">
+            <?= !empty($resident['purpose']) ? $resident['purpose'] : '[Enter Purpose]'; ?>
+        </span>.
     </p>
 
     <br><br>
 
     <p>
-        Signed this date <?= $resident['date'] ?> at Barangay Sinalhan, Santa Rosa City, Laguna.
+        Signed this date <?= !empty($resident['date']) ? $resident['date'] : 'Enter Date'; ?> at Barangay Sinalhan, Santa Rosa City, Laguna.
     </p>
-    
+
     <br>
 
     <img src="" alt="Insert Signature Image here.">
     <p>HON. LADISLAO B. ALICBUSAN</p>
-    <p>Punong Barangay</p>
-                 
+    <p>Punong Barangay</p>                 
+
     <button class="btn btn-primary noprint" id="printpagebutton" onclick="PrintElem()">Print</button>
     <button class="noprint btn-update">Update</button>
-    <script>
 
-    if (window.opener) {
-        // Add an event listener for when the new tab (this window) is closed
-        window.addEventListener('beforeunload', function () {
-        // Refresh the parent window
-        window.opener.location.reload();
-        });
-    }
+    <script>
 
          function PrintElem()
     {
@@ -145,8 +164,6 @@
                 purpose: $('#purpose').text().trim(),  // Using trim() to clean the text
                 id_rescert: $('#id_rescert').text().trim()
             };
-
-            console.log(data);
 
             $.ajax({
                 type: "POST",
