@@ -1,3 +1,11 @@
+<?php 
+    include './classes/staff.class.php';
+    $brgyidcount = $staffbmis->count_brgyid();
+    $indigencycount = $staffbmis->count_indigency();
+    $clearancecount = $staffbmis->count_clearance();
+    $rescertcount = $staffbmis->count_rescert();
+    $bspermitcount = $staffbmis->count_bspermit();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +28,28 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+
+    <style>
+        .nav-item {
+            position: relative;
+        }
+
+        .notif {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: red;
+            padding: 5px;
+            width: 20px;
+            font-size: 13px;
+            height: 20px;
+            border-radius: 100%;
+            right: 0;
+            top: 0;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -90,18 +120,21 @@
                 <a class="nav-link" href="admn_certofres.php">
                     <i class="fas fa-file-word"></i>
                     <span>Certificate of Residency</span></a>
+                <span class="notif"><?= $rescertcount ?></span>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="admn_brgyid.php">
                     <i class="fas fa-id-card"></i>
                     <span>Barangay ID </span></a>
+                    <span class="notif"><?= $brgyidcount ?></span>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="admn_bspermit.php">
                     <i class="fas fa-file-contract"></i>
                     <span>Business Permit</span></a>
+                    <span class="notif"><?= $bspermitcount ?></span>
             </li>
 
 
@@ -111,6 +144,7 @@
                 <a class="nav-link" href="admn_brgyclearance.php">
                     <i class="fas fa-file"></i>
                     <span>Barangay Clearance</span></a>
+                    <span class="notif"><?= $clearancecount ?></span>
             </li>
 
             <!-- Certificate of Indigency -->
@@ -118,6 +152,7 @@
                 <a class="nav-link" href="admn_certofindigency.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Certificate of Indigency</span></a>
+                    <span class="notif"><?= $indigencycount ?></span>
             </li>
 
             <!-- Divider -->
