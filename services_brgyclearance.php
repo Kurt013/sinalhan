@@ -62,8 +62,16 @@
             src: url('fonts/OpenSauceSans-BlackItalic.ttf') format('truetype'); 
         }
             /* Back-to-Top */
-            .content {margin-left: 270px;}
-            .top-link {
+    .content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 270px;
+    margin-right: 20px;
+    max-width: 100%; /* Ensure it doesn't overflow */
+    box-sizing: border-box; /* Ensures padding is included in total width */
+    }
+
+    .top-link {
     transition: all 0.25s ease-in-out;
     position: fixed;
     bottom: 0;
@@ -74,9 +82,8 @@
     justify-content: center;
     margin: 0 1rem 5em 0;
     border-radius: 50%;
-    
-    width: 5%;
-    height: 10%;
+    width: 70px;
+    height: 70px;
     background-color: #3661D5;
     }
     .top-link.show {
@@ -90,9 +97,10 @@
    
     .top-link svg {
     fill: white;
-    width: 24px;
-    height: 12px;
+    width: 40%;
+    height: 40%;
     }
+
     .top-link:hover {
     background-color: #00357b;
     }
@@ -162,14 +170,7 @@
 
 
 
-            .container1
-            {
-                background-color: white;
-                height: 342px;
-                color: black;
-                
-                text-align: center;
-            }
+
 
             .applybutton
             {
@@ -183,15 +184,6 @@
             }
 
 
-            .text1{
-                margin-top: 30px;
-                font-size: 50px;
-            }
-
-            .picture{
-                height: 120px;
-                width: 120px;
-            }
 
             * {
     margin:0;
