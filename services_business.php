@@ -192,10 +192,7 @@
 
 
 
-.dropdown {
-    display: flex;
-    justify-content: flex-end; /* Aligns to the right */
-}
+
 
 
             .applybutton
@@ -209,15 +206,9 @@
                 letter-spacing: 3px;
             }
 
-            .text1{
-                margin-top: 80px;
-                font-size: 50px;
-            }
 
-            .picture{
-                height: 120px;
-                width: 120px;
-            }
+
+
 
         </style>
   </head>

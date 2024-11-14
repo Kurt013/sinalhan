@@ -27,7 +27,32 @@
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
   
         <style>
+@font-face {
+            font-family: 'OSMedium'; 
+            src: url('fonts/OpenSauceSans-Medium.ttf') format('truetype'); 
+        }
 
+        @font-face {
+            font-family: 'OSBold'; 
+            src: url('fonts/OpenSauceSans-Bold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSBlack'; 
+            src: url('fonts/OpenSauceSans-Black.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSExBold'; 
+            src: url('fonts/OpenSauceSans-ExtraBold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'OSBlackIt'; 
+            src: url('fonts/OpenSauceSans-BlackItalic.ttf') format('truetype'); 
+        }
+            /* Back-to-Top */
+            .content {margin-left: 270px;}
             /* Back-to-Top */
 
             .top-link {
