@@ -1,9 +1,9 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
-    include('classes/staff.class.php');
+    include_once('classes/staff.class.php');
 
     $userdetails = $bmis->get_userdata();
-    $bmis->validate_admin();
+    $staffbmis->validate_admin();
 
     $current_month = isset($_POST['month']) ? $_POST['month'] : date('n');
     $total_pending = 0;
