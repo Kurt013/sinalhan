@@ -48,8 +48,8 @@ include_once('classes/staff.class.php');
             font-size: 13px;
             height: 20px;
             border-radius: 100%;
-            right: 0;
-            top: 0;
+            right: 45px;
+            top: 10px;
         }
     </style>
 </head>

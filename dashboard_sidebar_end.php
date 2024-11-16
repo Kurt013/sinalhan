@@ -3,15 +3,6 @@
 
         <footer id="footer" class="d-flex-column text-center">
 
-            <!--Copyright-->
-
-            <div class="py-3 text-center">
-                Copyright 2021 -
-                <script>
-                document.write(new Date().getFullYear())
-                </script> 
-                BI & ESMS | For Educational Purposes Only
-            </div>
 
         </footer>
 

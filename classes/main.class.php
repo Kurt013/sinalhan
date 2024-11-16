@@ -280,8 +280,12 @@ class BMISClass {
     }
 
     //------------------------------------------ Certificate of Residency CRUD -----------------------------------------------
-    public function get_single_certofres($id_rescert){        
+    public function get_single_certofres(){
+        $id_rescert = $_GET['id_rescert'];
+        $status = isset($_GET['status']) ? $_GET['status'] : null ;
+        
         $connection = $this->openConn();
+
         $stmt = $connection->prepare("SELECT 
             id_rescert,
             fname,
@@ -298,6 +302,26 @@ class BMISClass {
             DATE_FORMAT(STR_TO_DATE(created_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date` 
             FROM tbl_rescert 
             WHERE id_rescert = ?");
+
+       if ($status === 'archived') {
+            $stmt = $connection->prepare("SELECT 
+                id_rescert,
+                fname,
+                mi,
+                lname,
+                age,
+                houseno,
+                street,
+                brgy,
+                city,
+                municipality,
+                purpose,
+                archived_by,
+                DATE_FORMAT(STR_TO_DATE(archived_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date` 
+                FROM tbl_rescert_archive
+                WHERE id_rescert = ?");
+        }
+        
         $stmt->execute([$id_rescert]);
         $rescert = $stmt->fetch();
         $total = $stmt->rowCount();
@@ -363,11 +387,7 @@ class BMISClass {
                 $created_by
             ]);
 
-            // Get the latest requested docu by the user and store it in qr code
-
             $residentId = $this->get_latest_certofres($created_by);
-            
-
             $qrCode = $this->generateQRCode($residentId['id_rescert'], 'rescert');
 
             echo '<script>alert("QR Code Successfully Generated!")</script>
@@ -391,13 +411,11 @@ class BMISClass {
             $connection = $this->openConn();
             $stmt = $connection->prepare("DELETE FROM tbl_rescert where id_rescert = ?");
             $stmt->execute([$id_rescert]);
-
-            header("Refresh:0");
         }
     }
 
     public function update_certofres() {
-        if (isset($_POST['update_rescert'])) {  // Checks if update was triggered
+        if (isset($_POST['update_rescert'])) {
             $connection = $this->openConn();
     
             try {                
@@ -444,10 +462,28 @@ class BMISClass {
                     $doc_status,
                     $id_rescert
                 ]);
+
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Updated Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
             }
             catch (PDOException $e) {
                 echo "<script>alert('Failed to update records: " . $e->getMessage() . "')</script>";
-                exit;
+                
             }
         }
     }
@@ -461,10 +497,8 @@ class BMISClass {
             $connection = $this->openConn();
         
             try {
-                // Begin transaction
                 $connection->beginTransaction();
         
-                // Step 1: Insert into archive table
                 $insertStmt = $connection->prepare("
                 INSERT INTO tbl_rescert_archive (id_rescert, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, archived_by)
                 SELECT id_rescert, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, :archived_by
@@ -472,14 +506,11 @@ class BMISClass {
                 WHERE id_rescert = :id_rescert
                 ");
                 
-                // Bind parameters
-                $insertStmt->bindParam(':archived_by', $id); // Bind the archived_by parameter
+                $insertStmt->bindParam(':archived_by', $id);
                 $insertStmt->bindParam(':id_rescert', $id_rescert);
                 
-                // Execute the query
                 $insertStmt->execute();
         
-                // Step 2: Delete from original table
                 $deleteStmt = $connection->prepare("
                     DELETE FROM tbl_rescert
                     WHERE id_rescert = :id_rescert
@@ -487,15 +518,48 @@ class BMISClass {
                 $deleteStmt->bindParam(':id_rescert', $id_rescert);
                 $deleteStmt->execute();
         
-                // Commit transaction
                 $connection->commit();
 
-                echo "<script>alert('Archived Successfully');</script>";
+                echo '
+                <dialog class="message-popup success" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>Archived Successfully!</h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                    ';
         
             } catch (Exception $e) {
-                // Rollback if there is an error
                 $connection->rollBack();
-                echo "Failed to archive record: " . $e->getMessage();
+                echo '
+                <dialog class="message-popup error" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>
+                                    Failed to retrieve record:
+                                    '.$e->getMessage().'
+                                </h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                ';
             }
         }
     }
@@ -507,10 +571,8 @@ class BMISClass {
             $connection = $this->openConn();
     
             try {
-                // // Begin transaction
                 $connection->beginTransaction();
     
-                // Step 1: Insert the record back into tbl_rescert from tbl_archive_rescert
                 $insertStmt = $connection->prepare("
                     INSERT INTO tbl_rescert (id_rescert, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by, doc_status)
                     SELECT id_rescert, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, :created_by, 'accepted'
@@ -521,7 +583,6 @@ class BMISClass {
                 $insertStmt->bindParam(':id_rescert', $id_rescert);
                 $insertStmt->execute();
     
-                // Step 2: Delete the record from tbl_archive_rescert
                 $deleteStmt = $connection->prepare("
                     DELETE FROM tbl_rescert_archive
                     WHERE id_rescert = :id_rescert
@@ -529,15 +590,50 @@ class BMISClass {
                 $deleteStmt->bindParam(':id_rescert', $id_rescert);
                 $deleteStmt->execute();
     
-                // // Commit the transaction
                 $connection->commit();
     
-                echo "<script>alert('Unarchived Successfully');</script>";
+                
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Retrieved Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                    ';
+        
     
             } catch (Exception $e) {
-                // Rollback if there is an error
                 $connection->rollBack();
-                echo "Failed to unarchive record: " . $e->getMessage();
+                echo '
+                 <dialog class="message-popup error" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>
+                                        Failed to retrieve record:
+                                        '.$e->getMessage().'
+                                    </h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
             }
         }
     }

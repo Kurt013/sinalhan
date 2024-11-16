@@ -1,4 +1,5 @@
 <?php
+    $list = $_GET['list'];
     
     error_reporting(E_ALL ^ E_WARNING);
     ini_set('display_errors',0);
@@ -11,7 +12,6 @@
     $conn = $bmis->openConn();
     $bmis->validate_admin();
     $bmis->delete_certofres();
-    $bmis->archive_certofres();
     $bmis->unarchive_certofres();
 ?>
 
@@ -63,14 +63,16 @@
                 <button class="btn btn-success" name="search_certofres" style="width: 90px; font-size: 17px; border-radius:30px; margin-left:41.5%;">
                     Search
                 </button>
-                <a href="admn_certofres.php?list=active" class="btn btn-info" style="width: 90px; font-size: 17px; border-radius:30px;">Reload</a>
+                <a href="admn_certofres.php?list=<?= $list ?>" class="btn btn-info" style="width: 90px; font-size: 17px; border-radius:30px;">Reload</a>
             </form>
             <br>
         </div>
     </div>
 
     <br>
-
+<?php
+    $bmis->archive_certofres();
+?>
     <div class="row"> 
         <div class="col-md-12"> 
             <?php 
@@ -87,10 +89,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-<!-- custom css --> 
-<link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
-<!-- bootstrap css --> 
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
+<link rel="stylesheet" href="./css/general.css">
+<script src="./js-components/component-js-popup.js"></script>
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>

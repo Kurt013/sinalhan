@@ -5,14 +5,7 @@
 
     $staffbmis->validate_staff();
 
-    if ($_GET) {
-        $id = $_GET['id_rescert'];
-        $resident = $staffbmis->get_single_certofres($id);
-    }
-    else {
-        $link = $bmis->insert_certofres($user);
-        echo "<script>window.location.href = '{$link}' </script>";
-    }
+    $resident = $staffbmis->get_single_certofres();
 
     $staffbmis->update_certofres();
   ?>
