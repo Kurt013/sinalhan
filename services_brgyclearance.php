@@ -5,7 +5,7 @@
 
     $userdetails = $bmis->get_userdata();
 
-    if (!$bmis->get_userdata()) {
+    if (!$userdetails) {
         $bmis->set_userdata();
     }
 
@@ -27,153 +27,142 @@
       <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
       <!-- fontawesome icons --> 
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-  
-      <?php 
-    include('user-sidebar.php');
-?>
 
-<?php 
-    include('user-header.php');
-?>
-        <style>
-            /* Back-to-Top */
+    <style>
             @font-face {
-            font-family: 'OSMedium'; 
-            src: url('fonts/OpenSauceSans-Medium.ttf') format('truetype'); 
-        }
+                font-family: 'OSMedium'; 
+                src: url('fonts/OpenSauceSans-Medium.ttf') format('truetype'); 
+            }
 
-        @font-face {
-            font-family: 'OSBold'; 
-            src: url('fonts/OpenSauceSans-Bold.ttf') format('truetype'); 
-        }
+            @font-face {
+                font-family: 'OSBold'; 
+                src: url('fonts/OpenSauceSans-Bold.ttf') format('truetype'); 
+            }
 
-        @font-face {
-            font-family: 'OSBlack'; 
-            src: url('fonts/OpenSauceSans-Black.ttf') format('truetype'); 
-        }
+            @font-face {
+                font-family: 'OSBlack'; 
+                src: url('fonts/OpenSauceSans-Black.ttf') format('truetype'); 
+            }
 
-        @font-face {
-            font-family: 'OSExBold'; 
-            src: url('fonts/OpenSauceSans-ExtraBold.ttf') format('truetype'); 
-        }
+            @font-face {
+                font-family: 'OSExBold'; 
+                src: url('fonts/OpenSauceSans-ExtraBold.ttf') format('truetype'); 
+            }
 
-        @font-face {
-            font-family: 'OSBlackIt'; 
-            src: url('fonts/OpenSauceSans-BlackItalic.ttf') format('truetype'); 
-        }
-            /* Back-to-Top */
-    .content {
-    display: flex;
-    flex-direction: column;
-    margin-left: 270px;
-    margin-right: 20px;
-    max-width: 100%; /* Ensure it doesn't overflow */
-    box-sizing: border-box; /* Ensures padding is included in total width */
-    }
+            @font-face {
+                font-family: 'OSBlackIt'; 
+                src: url('fonts/OpenSauceSans-BlackItalic.ttf') format('truetype'); 
+            }
 
-    .top-link {
-    transition: all 0.25s ease-in-out;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    display: inline-flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    margin: 0 1rem 5em 0;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    background-color: #3661D5;
-    }
-    .top-link.show {
-    visibility: visible;
-    opacity: 1;
-    }
-    .top-link.hide {
-    visibility: hidden;
-    opacity: 0;
-    }
-   
-    .top-link svg {
-    fill: white;
-    width: 40%;
-    height: 40%;
-    }
+                /* Back-to-Top */
+            .content {
+                display: flex;
+                flex-direction: column;
+                margin-left: 270px;
+                margin-right: 20px;
+                max-width: 100%; /* Ensure it doesn't overflow */
+                box-sizing: border-box; /* Ensures padding is included in total width */
+            }
 
-    .top-link:hover {
-    background-color: #00357b;
-    }
-    .top-link:hover svg {
-    fill: white;
-    }
+            .top-link {
+                transition: all 0.25s ease-in-out;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                display: inline-flex;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                margin: 0 1rem 5em 0;
+                border-radius: 50%;
+                width: 70px;
+                height: 70px;
+                background-color: #3661D5;
+            }
+            .top-link.show {
+                visibility: visible;
+                opacity: 1;
+            }
+            .top-link.hide {
+                visibility: hidden;
+                opacity: 0;
+            }
+        
+            .top-link svg {
+                fill: white;
+                width: 40%;
+                height: 40%;
+            }
 
-    .screen-reader-text {
-    position: absolute;
-    clip-path: inset(50%);
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    word-wrap: normal !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    }
-    .screen-reader-text:focus {
-    display: block;
-    top: 5px;
-    left: 5px;
-    z-index: 100000;
-    clip-path: none;
-    background-color: #eee;
-    padding: 15px 23px 14px;
-    width: auto;
-    height: auto;
-    text-decoration: none;
-    line-height: normal;
-    color: #444;
-    font-size: 1em;
-    clip: auto !important;
-    }
+            .top-link:hover {
+                background-color: #00357b;
+            }
+            .top-link:hover svg {
+                fill: white;
+            }
 
-    .header h1 {
-    color: white;
-    font-family: 'OSBlack' !important;
-    font-size: 2.2rem;
-    width: 85%;
-    letter-spacing: 3px;
-    margin-bottom: 1px;
-    margin-top: 115px; /* Remove margin to fully center */
-    text-shadow: 5px 5px 10px rgba(1, 60, 139, 0.9);
-    line-height: 42px;
-    -webkit-text-stroke: 7px #012049;
-    paint-order: stroke fill;
-}
+            .screen-reader-text {
+                position: absolute;
+                clip-path: inset(50%);
+                margin: -1px;
+                border: 0;
+                padding: 0;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                word-wrap: normal !important;
+                clip: rect(1px, 1px, 1px, 1px);
+            }
 
-.header h5 {
-    font-family: "OSMedium";
-        font-size: 1rem;
-        margin-top: 15px;
-        color: #012049;
-        width: 85%;
-        line-height: 25px;
-}
+            .screen-reader-text:focus {
+                display: block;
+                top: 5px;
+                left: 5px;
+                z-index: 100000;
+                clip-path: none;
+                background-color: #eee;
+                padding: 15px 23px 14px;
+                width: auto;
+                height: auto;
+                text-decoration: none;
+                line-height: normal;
+                color: #444;
+                font-size: 1em;
+                clip: auto !important;
+            }
 
-.header {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
+            .header h1 {
+                color: white;
+                font-family: 'OSBlack' !important;
+                font-size: 2.2rem;
+                width: 85%;
+                letter-spacing: 3px;
+                margin-bottom: 1px;
+                margin-top: 115px; /* Remove margin to fully center */
+                text-shadow: 5px 5px 10px rgba(1, 60, 139, 0.9);
+                line-height: 42px;
+                -webkit-text-stroke: 7px #012049;
+                paint-order: stroke fill;
+            }
 
+            .header h5 {
+                font-family: "OSMedium";
+                font-size: 1rem;
+                margin-top: 15px;
+                color: #012049;
+                width: 85%;
+                line-height: 25px;
+            }
 
+            .header {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+            }
 
-
-
-            .applybutton
-            {
+            .applybutton {
                 width: 100% !important;
                 height: 50px !important;
                 border-radius: 20px;
@@ -183,19 +172,17 @@
                 letter-spacing: 2px;
             }
 
-
-
             * {
-    margin:0;
-}
-
-
-
+                margin:0;
+            }
         </style>
-  </head>
+    </head>
 
     <body>
-
+        <?php 
+            include('user-header.php');
+            include('user-sidebar.php');
+        ?>
         <!-- Back-to-Top and Back Button -->
 
         <a data-toggle="tooltip"  class="top-link hide" href="" id="js-top">
@@ -484,6 +471,7 @@
                         <div class="modal-footer">
                             <div class="paa">
                                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="created_by" value="<?= $userdetails['id'] ?>">
                                 <button name ="create_brgyclearance" type="submit" class="btn btn-primary">Submit Request</button>
                             </div>
                         </div> 

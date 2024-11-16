@@ -6,7 +6,7 @@
 
     $userdetails = $bmis->get_userdata();
 
-    if (!$bmis->get_userdata()) {
+    if (!$userdetails) {
         $bmis->set_userdata();
     }
 
@@ -15,11 +15,7 @@
         exit;
     }
 ?>
-<?php 
-    include('user-sidebar.php');
-?>   
 
-        <?php include('user-header.php'); ?>
 <style>
 *{
     margin: 0
@@ -120,22 +116,20 @@
       <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
       <!-- fontawesome icons --> 
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-  
-
   </head>
 
     <body>
+        <?php 
+            include('user-sidebar.php');
+            include('user-header.php');
+        ?>
+
         <!-- Back-to-Top and Back Button -->
        <div class = content>
         <a data-toggle="tooltip"  class="top-link hide" href="" id="js-top">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
             
         </a>
- 
-        <!-- Eto yung navbar -->
-       
-      
-
         <div class="container-fluid container1"> 
             <div class="row"> 
                 <div class="col"> 

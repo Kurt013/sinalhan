@@ -842,6 +842,17 @@ class BMISClass {
         }
     }
 
+    public function get_latest_brgyclearance($id) {
+        $connection = $this->openConn();            
+
+        $stmt = $connection->prepare('
+            SELECT * FROM tbl_clearance WHERE created_by = ? ORDER BY created_on DESC LIMIT 1
+        ');
+        $stmt->execute([$id]);
+
+        $latestRecord = $stmt->fetch();
+        return $latestRecord;
+    }
 
      public function create_brgyclearance() {
         if(isset($_POST['create_brgyclearance'])) {
@@ -856,32 +867,37 @@ class BMISClass {
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
-            $doc_type = 'clearance';
-            
+            $created_by = $_POST['created_by'];
+        
             // Check if "Other" was selected and handle custom purpose
             if ($purpose === "Other" && !empty($_POST['custom_purpose'])) {
                 $purpose = $_POST['custom_purpose'];
             }
         
-            // Create the data array
-            $data = [
-                'lname' => $lname,
-                'fname' => $fname,
-                'mi' => $mi,
-                'age' => $age,
-                'houseno' => $houseno,
-                'street' => $street,
-                'brgy' => $brgy,
-                'city' => $city,
-                'municipality' => $municipality,
-                'purpose' => $purpose,
-                'doc_type' => $doc_type
-            ];
-        
-            // Convert data to JSON
-            $json_data = json_encode($data);
+            $connection = $this->openConn();
+
+            // Insert new data
+            $stmt = $connection->prepare('
+                INSERT INTO tbl_clearance(fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ');
             
-            $qrCode = $this->generateQRCode($json_data);
+            $stmt->execute([
+                $fname, 
+                $mi,
+                $lname,
+                $age,
+                $houseno,
+                $street,
+                $brgy,
+                $city,
+                $municipality,
+                $purpose,
+                $created_by
+            ]);
+
+            $residentId = $this->get_latest_brgyclearance($created_by);
+            $qrCode = $this->generateQRCode($residentId['id_clearance'], 'clearance');
 
             echo '<script>alert("QR Code Successfully Generated!")</script>
             <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
