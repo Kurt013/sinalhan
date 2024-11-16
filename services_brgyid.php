@@ -4,7 +4,7 @@
     require 'vendor/autoload.php';
     $userdetails = $bmis->get_userdata();
 
-    if (!$bmis->get_userdata()) {
+    if (!$userdetails) {
         $bmis->set_userdata();
     }
 
@@ -28,13 +28,7 @@
 
 
 
-<?php 
-    include('user-header.php');
-?>
 
-<?php 
-    include('user-sidebar.php');
-?>
 
         <style>
         @font-face {
@@ -186,7 +180,10 @@
   </head>
 
     <body>
-       
+        <?php 
+            include('user-header.php');
+            include('user-sidebar.php');
+        ?>
 
       
         <div class = "content">
@@ -614,6 +611,7 @@
             
                         <div class="modal-footer">
                             <div class="paa">
+                                <input type="hidden" name="created_by" value="<?= $userdetails['id'] ?>">
                                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                 <button name ="create_brgyid" type="submit" class="btn btn-primary">Submit Request</button>
                             </div>

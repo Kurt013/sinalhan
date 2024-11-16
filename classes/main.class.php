@@ -1104,7 +1104,6 @@ class BMISClass {
             echo '<script>alert("QR Code Successfully Generated!")</script>
             <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
             <img src="'.$qrCode.'" alt="QR Code" />';
-        
         }  
     }
 
@@ -1186,21 +1185,39 @@ class BMISClass {
 
   //------------------------------------------ BRGY ID CRUD -----------------------------------------------
 
+  public function get_latest_brgyid($id) {
+    $connection = $this->openConn();            
+
+    $stmt = $connection->prepare('
+        SELECT * FROM tbl_brgyid WHERE created_by = ? ORDER BY created_on DESC LIMIT 1
+    ');
+    $stmt->execute([$id]);
+
+    $latestRecord = $stmt->fetch();
+    return $latestRecord;
+}
 
 
     public function create_brgyid() {
 
         if(isset($_POST['create_brgyid'])) {
-            $lname = $_POST['lname'];
+            $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
+
+
+            echo "<script>alert('{$res_photo}');</script>";
+
+
             $fname = $_POST['fname'];
             $mi = $_POST['mi']; 
+            $lname = $_POST['lname'];
             $houseno = $_POST['houseno'];
             $street = $_POST['street'];
             $brgy = $_POST['brgy'];
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $bdate = $_POST['bdate'];
-            $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
+            $status = $_POST['status'];
+            $precint_no = $_POST['precint_no'];
             $inc_lname = $_POST['inc_lname']; 
             $inc_fname = $_POST['inc_fname'];
             $inc_mi = $_POST['inc_mi'];
@@ -1210,40 +1227,43 @@ class BMISClass {
             $inc_brgy = $_POST['inc_brgy'];
             $inc_city = $_POST['inc_city'];
             $inc_municipality = $_POST['inc_municipality'];
-            $doc_type = 'brgyid';
+            $created_by = $_POST['created_by'];
 
-            // Upload the image to ImgBB using the API
-            $imageBase64 = base64_encode($res_photo);
+            $connection = $this->openConn();
 
-            $tempLink = $this->set_temp_link($imageBase64);
-
-            $data = [
-                'lname' => $lname,
-                'fname' => $fname,
-                'mi' => $mi,
-                'bdate' => $bdate,
-                'houseno' => $houseno,
-                'street' => $street,
-                'brgy' => $brgy,
-                'city' => $city,
-                'municipality' => $municipality,
-                'inc_lname' => $inc_lname,
-                'inc_fname' => $inc_fname,
-                'inc_mi' => $inc_mi,
-                'inc_contact' => $inc_contact,
-                'inc_houseno' => $inc_houseno,
-                'inc_street' => $inc_street,
-                'inc_brgy' => $inc_brgy,
-                'inc_city' => $inc_city,
-                'inc_municipality' => $inc_municipality,
-                'res_photo' => $tempLink,
-                'doc_type' => $doc_type
-            ];
-        
-            // Convert data to JSON
-            $json_data = json_encode($data);
+            // Insert new data
+            $stmt = $connection->prepare('
+                INSERT INTO tbl_brgyid(res_photo, fname, mi, lname, houseno, street, brgy, city, municipality, bdate, status, precint_no, inc_lname, inc_fname, inc_mi, inc_contact, inc_houseno, inc_street, inc_brgy, inc_city, inc_municipality, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ');
             
-            $qrCode = $this->generateQRCode($json_data);
+            $stmt->execute([
+                $res_photo,
+                $fname, 
+                $mi,
+                $lname,
+                $houseno,
+                $street,
+                $brgy,
+                $city,
+                $municipality,
+                $bdate,
+                $status,
+                $precint_no,
+                $inc_lname, 
+                $inc_fname,
+                $inc_mi,
+                $inc_contact,
+                $inc_houseno,
+                $inc_street,
+                $inc_brgy,
+                $inc_city,
+                $inc_municipality,
+                $created_by
+            ]);
+
+            $residentId = $this->get_latest_brgyid($created_by);
+            $qrCode = $this->generateQRCode($residentId['id_brgyid'], 'brgyid');
 
             echo '<script>alert("QR Code Successfully Generated!")</script>
             <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>

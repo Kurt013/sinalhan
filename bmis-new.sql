@@ -48,6 +48,7 @@ CREATE TABLE tbl_brgyid (
     mi VARCHAR(1),
     lname VARCHAR(20),
     houseno VARCHAR(20),
+    street VARCHAR(20),
     brgy VARCHAR(20) DEFAULT 'sinalhan',
     city VARCHAR(20) DEFAULT 'city of santa rosa',
     municipality VARCHAR(20) DEFAULT 'laguna',
@@ -63,7 +64,7 @@ CREATE TABLE tbl_brgyid (
     inc_brgy VARCHAR(20),
     inc_city VARCHAR(20),
     inc_municipality VARCHAR(20),
-    valid_until DATE,
+    valid_until TIMESTAMP DEFAULT CURRENT_TIMESTAMP + 1, --- FIX THIS
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(20),
     doc_status VARCHAR(20) DEFAULT 'pending'
