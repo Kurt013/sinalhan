@@ -28,13 +28,7 @@
       <!-- fontawesome icons --> 
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
   
-    <?php 
-        include('user-sidebar.php');
-    ?>
 
-    <?php 
-        include('user-header.php');
-    ?>
         <style>
             /* Back-to-Top */
             @font-face {
@@ -199,7 +193,10 @@
   </head>
 
     <body>
-
+    <?php 
+        include('user-sidebar.php');
+        include('user-header.php');
+    ?>
         <!-- Back-to-Top and Back Button -->
 <div class = "content">
         <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
@@ -477,6 +474,7 @@
                         
                         <div class="modal-footer">
                             <div class="paa">
+                                <input type="hidden" name="created_by" value="<?= $userdetails['id'] ?>">
                                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                 <button name="create_certofindigency" type="submit" class="btn btn-primary">Submit Request</button>
                             </div>

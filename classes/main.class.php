@@ -643,6 +643,19 @@ class BMISClass {
  
      //------------------------------------------ CERT OF INIDIGENCY CRUD -----------------------------------------------
 
+     public function get_latest_certofindigency($id) {
+        $connection = $this->openConn();            
+
+        $stmt = $connection->prepare('
+            SELECT * FROM tbl_indigency WHERE created_by = ? ORDER BY created_on DESC LIMIT 1
+        ');
+        $stmt->execute([$id]);
+
+        $latestRecord = $stmt->fetch();
+        return $latestRecord;
+    }
+
+
      public function create_certofindigency() {
 
         if(isset($_POST['create_certofindigency'])) {
@@ -658,37 +671,42 @@ class BMISClass {
                 $city = $_POST['city'];
                 $municipality = $_POST['municipality'];
                 $purpose = $_POST['purpose'];
-                $doc_type = 'indigency';
-                
-                // Check if "Other" was selected and handle custom purpose
-                if ($purpose === "Other" && !empty($_POST['custom_purpose'])) {
-                    $purpose = $_POST['custom_purpose'];
-                }
+                $created_by = $_POST['created_by'];
+        
+            // Check if "Other" was selected and handle custom purpose
+            if ($purpose === "Other" && !empty($_POST['custom_purpose'])) {
+                $purpose = $_POST['custom_purpose'];
+            }
+        
+            $connection = $this->openConn();
+
+            // Insert new data
+            $stmt = $connection->prepare('
+                INSERT INTO tbl_indigency(fname, mi, lname, age, nationality, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ');
             
-                // Create the data array
-                $data = [
-                    'lname' => $lname,
-                    'fname' => $fname,
-                    'mi' => $mi,
-                    'age' => $age,
-                    'nationality' => $nationality,
-                    'houseno' => $houseno,
-                    'street' => $street,
-                    'brgy' => $brgy,
-                    'city' => $city,
-                    'municipality' => $municipality,
-                    'purpose' => $purpose,
-                    'doc_type' => $doc_type
-                ];
-            
-                // Convert data to JSON
-                $json_data = json_encode($data);
-                
-                $qrCode = $this->generateQRCode($json_data);
-    
-                echo '<script>alert("QR Code Successfully Generated!")</script>
-                <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
-                <img src="'.$qrCode.'" alt="QR Code" />';
+            $stmt->execute([
+                $fname, 
+                $mi,
+                $lname,
+                $age,
+                $nationality,
+                $houseno,
+                $street,
+                $brgy,
+                $city,
+                $municipality,
+                $purpose,
+                $created_by
+            ]);
+
+            $residentId = $this->get_latest_certofindigency($created_by);
+            $qrCode = $this->generateQRCode($residentId['id_indigency'], 'indigency');
+
+            echo '<script>alert("QR Code Successfully Generated!")</script>
+            <h1>Here is your generated qr code go to the brgy.hall to get your document!"</h1>
+            <img src="'.$qrCode.'" alt="QR Code" />';
         }
         
         
