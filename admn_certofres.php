@@ -1,22 +1,18 @@
 <?php
-    $list = $_GET['list'];
+    include('dashboard_sidebar_start.php');
     
-    error_reporting(E_ALL ^ E_WARNING);
-    ini_set('display_errors',0);
-    require('classes/main.class.php');
+    $list = $_GET['list'];
 
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
 
-    $userdetails = $bmis->get_userdata();
-    $conn = $bmis->openConn();
-    $bmis->validate_admin();
-    $bmis->delete_certofres();
-    $bmis->unarchive_certofres();
+    $conn = $staffbmis->openConn();
+    $staffbmis->validate_admin();
+    $staffbmis->delete_certofres();
+    $staffbmis->unarchive_certofres();
 ?>
 
 <?php 
-    include('dashboard_sidebar_start.php');
 ?>
 
 <style>

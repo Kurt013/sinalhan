@@ -1,8 +1,8 @@
 <?php
-    error_reporting(E_ALL ^ E_WARNING);
-    include_once('classes/staff.class.php');
+    include('dashboard_sidebar_start.php');
 
-    $userdetails = $bmis->get_userdata();
+    error_reporting(E_ALL ^ E_WARNING);
+
     $staffbmis->validate_admin();
 
     $current_month = isset($_POST['month']) ? $_POST['month'] : date('n');
@@ -10,13 +10,6 @@
     $total_reservations = 0;
 
     $total_days_in_month = cal_days_in_month(CAL_GREGORIAN, $current_month, date('Y'));
-
-    $brgyidcount = $staffbmis->count_brgyid();
-    $indigencycount = $staffbmis->count_indigency();
-    $clearancecount = $staffbmis->count_clearance();
-    $rescertcount = $staffbmis->count_rescert();
-    $bspermitcount = $staffbmis->count_bspermit();
-
 
     $staffcount = $staffbmis->count_staff();
     $staffcountm = $staffbmis->count_mstaff();
@@ -53,9 +46,6 @@
 </style>
 
 
-<?php 
-    include('dashboard_sidebar_start.php');
-?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -235,7 +225,7 @@ const documentTypesDistributionChart = new Chart(ctx2, {
 <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-<script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"> </script>
                 
 <?php 
     include('dashboard_sidebar_end.php');

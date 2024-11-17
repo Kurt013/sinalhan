@@ -1,5 +1,8 @@
 <?php 
-include_once('classes/staff.class.php');
+    include 'classes/staff.class.php';
+
+    $userdetails = $staffbmis->get_userdata();
+
 
     $brgyidcount = $staffbmis->count_brgyid();
     $indigencycount = $staffbmis->count_indigency();

@@ -480,6 +480,7 @@ class BMISClass {
                         </div>
                     </dialog>
                 ';
+
             }
             catch (PDOException $e) {
                 echo "<script>alert('Failed to update records: " . $e->getMessage() . "')</script>";
@@ -521,21 +522,21 @@ class BMISClass {
                 $connection->commit();
 
                 echo '
-                <dialog class="message-popup success" >
-                    <div class="pop-up">
-                        <div class="left-side">
-                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                        </div>
-                        <div class="right-side">
-                            <div class="right-group">
-                            <div class="content">
-                                <h1>Archived Successfully!</h1>
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
                             </div>
-                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Archived Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </dialog>
+                    </dialog>
                     ';
         
             } catch (Exception $e) {
@@ -561,6 +562,19 @@ class BMISClass {
                 </dialog>
                 ';
             }
+            echo "<script>
+if (sessionStorage.getItem('refreshCount') === null) {
+    sessionStorage.setItem('refreshCount', '1');
+} else {
+    // If the refresh count exists, increment it
+    let refreshCount = parseInt(sessionStorage.getItem('refreshCount')) + 1;
+    sessionStorage.setItem('refreshCount', refreshCount.toString());
+}
+
+// Retrieve and display the refresh count
+console.log('Page has been refreshed ' + sessionStorage.getItem('refreshCount') + ' times.');
+
+            </script>";
         }
     }
 
@@ -610,7 +624,7 @@ class BMISClass {
                         </div>
                     </dialog>
                     ';
-        
+                
     
             } catch (Exception $e) {
                 $connection->rollBack();
