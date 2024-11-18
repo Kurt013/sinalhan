@@ -43,7 +43,6 @@
                 $lname = $_POST['lname'];
                 $fname = $_POST['fname'];
                 $mi = $_POST['mi'];
-                $age = $_POST['age'];
                 $sex = $_POST['sex'];
                 $contact = $_POST['contact'];
                 $position = $_POST['position'];
@@ -53,14 +52,16 @@
 
                     $connection = $this->openConn();
                     $stmt = $connection->prepare("INSERT INTO tbl_user (`username`, `email`,`password`,`lname`,`fname`,
-                        `mi`, `age`, `sex`, `contact`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        `mi`, `sex`, `contact`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-                    $stmt->Execute([$username, $email, $password, $lname, $fname, $mi, $age, $sex, $contact, $position]);
+                    $stmt->Execute([$username, $email, $password, $lname, $fname, $mi, $sex, $contact, $position]);
                     $message2 = "New Staff Added";
     
-                    echo "<script type='text/javascript'>alert('$message2');</script>";
-                    header('refresh:0');
-    
+                    echo "<script type='text/javascript'>
+                        alert('$message2');
+                        window.location.href = location.href;
+                    </script>";
+                
                 }
 
                 else {
@@ -103,43 +104,53 @@
         public function update_staff() {
             if (isset($_POST['update_staff'])) {
                 $id_user = $_GET['id_user'];
-                $password = ($_POST['password']);
+                $password = isset($_POST['password']) ? $_POST['password'] : null;
                 $lname = $_POST['lname'];
                 $fname = $_POST['fname'];
                 $mi = $_POST['mi'];
-                $age = $_POST['age'];
                 $sex = $_POST['sex'];
                 $contact = $_POST['contact'];
                 $position = $_POST['position'];
                 
                     $connection = $this->openConn();
-                    $stmt = $connection->prepare("UPDATE tbl_user SET `password` =?, lname =?, 
-                    fname = ?, mi =?, age =?, sex =?, contact =?, position =?
-                        WHERE id_user = ?");
-                    $stmt->execute([ $password, $lname, $fname, $mi, $age, $sex,
-                    $contact, $position, $id_user]);
+                    if ($password) {
+                        $stmt = $connection->prepare("UPDATE tbl_user SET `password` =?, lname =?, 
+                        fname = ?, mi =?, sex =?, contact =?, position =?
+                            WHERE id_user = ?");
+                        $stmt->execute([ $password, $lname, $fname, $mi, $sex,
+                        $contact, $position, $id_user]);
+                    }
+                    else {
+                        $stmt = $connection->prepare("UPDATE tbl_user SET lname =?, 
+                        fname = ?, mi =?, sex =?, contact =?, position =?
+                            WHERE id_user = ?");
+                        $stmt->execute([ $lname, $fname, $mi, $sex,
+                        $contact, $position, $id_user]);
+                    }
                    
                     $message2 = "Staff Account Updated";
     
-                    echo "<script type='text/javascript'>alert('$message2');</script>";
-                    header('refresh:0');
+                    echo "<script type='text/javascript'>
+                        alert('$message2');
+                    </script>";
 
             }
         }
 
         public function delete_staff(){
-
-            $id_user = $_POST['id_user'];
-
             if(isset($_POST['delete_staff'])) {
+                $id_user = $_POST['id_user'];
+
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("DELETE FROM tbl_user where id_user = ?");
                 $stmt->execute([$id_user]);
                 
                 $message2 = "Staff Account Deleted";
                 
-                echo "<script type='text/javascript'>alert('$message2');</script>";
-                 header('refresh:0');
+                echo "<script type='text/javascript'>
+                    alert('$message2');
+                    window.location.href = location.href;
+                </script>";
             }
         }
 

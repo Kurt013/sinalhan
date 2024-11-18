@@ -1212,50 +1212,161 @@ class BMISClass {
       }
   }
 
-  public function archive_clearance() {
-    $id_clearance = $_POST['id_clearance'];
-    $id_resident = $_POST['id_resident'];
-
-    if (isset($_POST['archive_clearance'])) {
+  public function archive_brgyclearance() {
+    if (isset($_POST['archive_brgyclearance'])) {
+        $id_clearance = $_POST['id_clearance'];
+        $id = $_POST['id'];
+    
         try {
             $connection = $this->openConn();
 
             $connection->beginTransaction();
-
-            $stmt = $connection->prepare("
-                SELECT
-                    r.*, c.*
-                FROM
-                    tbl_resident AS r
-                JOIN
-                    tbl_clearance AS c ON r.id_resident = c.id_resident
-                WHERE
-                    c.id_clearance = ? AND r.id_resident = ?
+    
+            $insertStmt = $connection->prepare("
+            INSERT INTO tbl_clearance_archive (
+                id_clearance, fname, mi, lname, age, houseno, 
+                street, brgy, city, municipality, purpose, archived_by
+            )
+            SELECT 
+                id_clearance, fname, mi, lname, age, houseno, street, 
+                brgy, city, municipality, purpose, :archived_by
+            FROM 
+                tbl_clearance
+            WHERE 
+                id_clearance = :id_clearance
             ");
-            $stmt->execute([$id_clearance, $id_resident]);
-
-            $view = $stmt->fetch();
-
-            $stmt1 = $connection->prepare("
-                INSERT INTO tbl_archive_clearance(id_clearance, lname, fname, mi, age, houseno,
-                    street, brgy, city, municipal, status, purpose) VALUES (?, ?, ?, ?, ?, ?, ?,
-                    ?, ?, ?, ?, ?)
-            ");
-
-            $stmt1->execute([$view['id_clearance'], $view['lname'], $view['fname'], $view['mi'], $view['age'], 
-                $view['houseno'], $view['street'], $view['brgy'], $view['city'], $view['municipal'], $view['status'],
-                $view['purpose']]);
             
-            $stmt2 = $connection->prepare("DELETE FROM tbl_clearance where id_clearance = ?");
-            $stmt2->execute([$id_clearance]);
+            $insertStmt->bindParam(':archived_by', $id);
+            $insertStmt->bindParam(':id_clearance', $id_clearance);
+            
+            $insertStmt->execute();
+    
+            $deleteStmt = $connection->prepare("
+                DELETE FROM tbl_clearance
+                WHERE id_clearance = :id_clearance
+            ");
+            $deleteStmt->bindParam(':id_clearance', $id_clearance);
+            $deleteStmt->execute();
+    
+            $connection->commit();
+
+            echo '
+                <dialog class="message-popup success" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>Archived Successfully!</h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                ';
+    
+        } catch (Exception $e) {
+            $connection->rollBack();
+            echo '
+            <dialog class="message-popup error" >
+                <div class="pop-up">
+                    <div class="left-side">
+                        <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                    </div>
+                    <div class="right-side">
+                        <div class="right-group">
+                        <div class="content">
+                            <h1>
+                                Failed to retrieve record:
+                                '.$e->getMessage().'
+                            </h1>
+                        </div>
+                        <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+            ';
+        }
+    }
+}
+
+public function unarchive_brgyclearance() {
+    if (isset($_POST['unarchive_brgyclearance'])) {
+        $id_clearance = $_POST['id_clearance'];
+        $id = $_POST['id'];
+        $doc_status = 'accepted';
+
+        $connection = $this->openConn();
+
+        try {
+            $connection->beginTransaction();
+
+            $insertStmt = $connection->prepare("
+                INSERT INTO tbl_clearance (id_clearance, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by, doc_status)
+                SELECT id_clearance, fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, :created_by, :doc_status
+                FROM tbl_clearance_archive
+                WHERE id_clearance = :id_clearance
+            ");
+            $insertStmt->bindParam(':created_by', $id);
+            $insertStmt->bindParam(':id_clearance', $id_clearance);
+            $insertStmt->bindParam(':doc_status', $doc_status);
+            $insertStmt->execute();
+
+            $deleteStmt = $connection->prepare("
+                DELETE FROM tbl_clearance_archive
+                WHERE id_clearance = :id_clearance
+            ");
+            $deleteStmt->bindParam(':id_clearance', $id_clearance);
+            $deleteStmt->execute();
 
             $connection->commit();
 
-            echo "<script>alert(" . json_encode('Record archived successfully.') . ");</script>";
-        } catch (PDOException $e) {
+            
+            echo '
+                <dialog class="message-popup success" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>Retrieved Successfully!</h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                ';
+            
+
+        } catch (Exception $e) {
             $connection->rollBack();
-            echo "<script>alert('Failed to update records: " . $e->getMessage() . "')</script>";
-            exit;
+            echo '
+             <dialog class="message-popup error" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>
+                                    Failed to retrieve record:
+                                    '.$e->getMessage().'
+                                </h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+            ';
         }
     }
 }

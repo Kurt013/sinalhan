@@ -1,8 +1,8 @@
 <?php
-    error_reporting(E_ALL ^ E_WARNING);
-    require('classes/staff.class.php');
+    include('dashboard_sidebar_start.php');
+
     $userdetails = $bmis->get_userdata();
-    //$bmis->validate_admin();
+    $bmis->validate_admin();
     $view = $staffbmis->view_staff();
     $staffbmis->create_staff();
     $upstaff = $staffbmis->update_staff();
@@ -10,10 +10,6 @@
     $staffcount = $staffbmis->count_staff();
     $id_user = $_GET['id_user'];
     $staff = $staffbmis->get_single_staff($id_user);
-?>
-
-<?php 
-    include('dashboard_sidebar_start.php');
 ?>
 
 <!-- Begin Page Content -->
@@ -67,17 +63,11 @@
                         <div class="row" style="margin-top: .5em;">
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Age: </label>
-                                    <input type="number" class="form-control" name="age" placeholder="Enter Age" value="<?= $staff['age'];?>">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
                                     <label class="mtop">Sex</label>
                                     <select class="form-control" name="sex" id="sex" required>
                                         <option value="">Choose your Sex</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                        <option value="Male" <?= $staff['sex'] === 'Male' ? 'selected': '' ?>>Male</option>
+                                        <option value="Female" <?= $staff['sex'] === 'Female' ? 'selected': '' ?>>Female</option>
                                     </select>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>

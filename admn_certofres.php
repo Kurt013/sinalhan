@@ -9,7 +9,7 @@
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
     $staffbmis->unarchive_certofres();
-    $bmis->archive_certofres();
+    $staffbmis->archive_certofres();
 
 ?>
 
