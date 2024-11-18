@@ -99,7 +99,7 @@
             <form action="" method="post">
                 <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="bspermit_form.php?id_bspermit=<?= $view['id_bspermit'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
                             <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
-                            <input type="hidden" name="id_bspemit" value="<?= $view['id_bspemit'];?>">
+                            <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
                             <?php 
                         echo $list === 'active' ? 
                             '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_bspermit"> Archive </button>' :

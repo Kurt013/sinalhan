@@ -9,6 +9,8 @@
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
     $staffbmis->unarchive_certofres();
+    $bmis->archive_certofres();
+
 ?>
 
 <?php 
@@ -65,9 +67,6 @@
     </div>
 
     <br>
-<?php
-    $bmis->archive_certofres();
-?>
     <div class="row"> 
         <div class="col-md-12"> 
             <?php 
