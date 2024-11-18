@@ -162,6 +162,7 @@ CREATE TABLE tbl_brgyid_archive (
     mi VARCHAR(1),
     lname VARCHAR(20),
     houseno VARCHAR(20),
+    street VARCHAR(20),
     brgy VARCHAR(20) DEFAULT 'sinalhan',
     city VARCHAR(20) DEFAULT 'city of santa rosa',
     municipality VARCHAR(20) DEFAULT 'laguna',

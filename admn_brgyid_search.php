@@ -1,18 +1,22 @@
 <?php
-	// require the database connection
-	require 'classes/conn.php';
-	if(isset($_POST['search_bspermit'])){
+	if(isset($_POST['search_brgyid'])){
 		$keyword = $_POST['keyword'];
 ?>
-<h2>Pending Requests</h2>
-
+ <form method="GET" action="">
+        <label for="list">Select List: </label>
+        <select name="list" id="list" onchange="this.form.submit()">
+            <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
+            <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
+        </select>
+</form>
 <table class="table table-hover text-center table-bordered table-responsive" >
 
     <thead class="alert-info">
         
         <tr>
-            <th> Actions</th>
-            <th> Resident ID </th>
+            <th> </th>
+            <th> Photo </th>
+            <th> ID No. </th>
             <th> Surname </th>
             <th> First Name </th>
             <th> Middle Name </th>
@@ -22,7 +26,6 @@
             <th> City </th>
             <th> Municipality </th>
             <th> Birth Date </th>
-            <th> Birth Place </th>
             <th> Emergency Contact Person </th>
             <th> Emergency Contact Number </th>
         </tr>
@@ -30,150 +33,91 @@
 
     <tbody> 
         <?php
-         $stmnt = $conn->prepare("
-            SELECT
-               r.*, b.*
-            FROM 
-                tbl_resident AS r
-            JOIN
-                tbl_brgyid AS b ON r.id_resident = b.id_resident
-            WHERE 
-                (b.`id_brgyid` LIKE ? OR
-                r.id_resident LIKE ? OR
-                r.`lname` LIKE ? OR
-                r.`mi` LIKE ? OR
-                r.`fname` LIKE ? OR
-                r.`houseno` LIKE ? OR
-                r.`street` LIKE ? OR
-                r.`brgy` LIKE ? OR
-                r.`city` LIKE ? OR
-                r.`municipal` LIKE ? OR
-                r.`bplace` LIKE ? OR
-                r.`bdate` LIKE ? OR
-                b.`inc_lname` LIKE ? OR
-                b.`inc_fname` LIKE ? OR
-                b.`inc_mi` LIKE ? OR
-                b.`inc_contact` LIKE ? OR
-                b.`inc_houseno` LIKE ? OR
-                b.`inc_street` LIKE ? OR
-                b.`inc_brgy` LIKE ? OR
-                b.`inc_city` LIKE ? OR
-                b.`inc_municipal` LIKE ?)
-            AND b.`req_status` = ?
-        ");
-
-        $keywordLike = "%$keyword%";
-        $pendingStatus = 'pending';
-        
-        $stmnt->execute([
-            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $pendingStatus
-        ]);
-            while($view = $stmnt->fetch()){
-        ?>
-            <tr>
-                <td>    
-                    <form action="" method="post">
-                        <button class="btn btn-success" type="submit" name="accept_brgyid" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;">Accept</a>     
-                        <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
-                        <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
-                        <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_brgyid"> Archive </button>
-                    </form>
-                </td>
-                <td> <?= $view['id_resident'];?> </td> 
-                <td> <?= $view['lname'];?> </td>
-                <td> <?= $view['fname'];?> </td>
-                <td> <?= $view['mi'];?> </td>
-                <td> <?= $view['houseno'];?> </td>
-                <td> <?= $view['street'];?> </td>
-                <td> <?= $view['brgy'];?> </td>
-                <td> <?= $view['city'];?> </td>
-                <td> <?= $view['municipal'];?> </td>
-                <td> <?= $view['bdate'];?> </td>
-                <td> <?= $view['bplace'];?> </td>
-                <td> <?= $view['inc_lname'];?>, <?= $view['inc_fname'];?> </td>
-                <td> <?= $view['inc_contact'];?> </td>
-            </tr>
-        <?php
-        }
-        ?>
-    </tbody>
-    
-</table>
-
-<h2>Accepted Requests</h2>
-
-<table class="table table-hover text-center table-bordered table-responsive" >
-
-    <thead class="alert-info">
-        
-        <tr>
-            <th> Actions</th>
-            <th> Resident ID </th>
-            <th> Surname </th>
-            <th> First Name </th>
-            <th> Middle Name </th>
-            <th> House No. </th>
-            <th> Street </th>
-            <th> Barangay </th>
-            <th> City </th>
-            <th> Municipality </th>
-            <th> Birth Date </th>
-            <th> Birth Place </th>
-            <th> Emergency Contact Person </th>
-            <th> Emergency Contact Number </th>
-        </tr>
-    </thead>
-
-    <tbody> 
-        <?php
-            
+            $list === 'active' ?
             $stmnt = $conn->prepare("
             SELECT
-               r.*, b.*
+              *
             FROM 
-                tbl_resident AS r
-            JOIN
-                tbl_brgyid AS b ON r.id_resident = b.id_resident
+                tbl_brgyid
             WHERE 
-                (b.`id_brgyid` LIKE ? OR
-                r.id_resident LIKE ? OR
-                r.`lname` LIKE ? OR
-                r.`mi` LIKE ? OR
-                r.`fname` LIKE ? OR
-                r.`houseno` LIKE ? OR
-                r.`street` LIKE ? OR
-                r.`brgy` LIKE ? OR
-                r.`city` LIKE ? OR
-                r.`municipal` LIKE ? OR
-                r.`bplace` LIKE ? OR
-                r.`bdate` LIKE ? OR
-                b.`inc_lname` LIKE ? OR
-                b.`inc_fname` LIKE ? OR
-                b.`inc_mi` LIKE ? OR
-                b.`inc_contact` LIKE ? OR
-                b.`inc_houseno` LIKE ? OR
-                b.`inc_street` LIKE ? OR
-                b.`inc_brgy` LIKE ? OR
-                b.`inc_city` LIKE ? OR
-                b.`inc_municipal` LIKE ?)
-            AND b.`req_status` = ?
+                (`id_brgyid` LIKE ? OR
+                `lname` LIKE ? OR
+                `mi` LIKE ? OR
+                `fname` LIKE ? OR
+                `houseno` LIKE ? OR
+                `street` LIKE ? OR
+                `brgy` LIKE ? OR
+                `city` LIKE ? OR
+                `municipality` LIKE ? OR
+                `bdate` LIKE ? OR
+                status LIKE ? OR
+                precint_no LIKE ? OR
+                `inc_lname` LIKE ? OR
+                `inc_fname` LIKE ? OR
+                `inc_mi` LIKE ? OR
+                `inc_contact` LIKE ? OR
+                `inc_houseno` LIKE ? OR
+                `inc_street` LIKE ? OR
+                `inc_brgy` LIKE ? OR
+                `inc_city` LIKE ? OR
+                `inc_municipality` LIKE ? OR
+                valid_until LIKE ? OR
+                created_on LIKE ? OR
+                created_by LIKE ?)
+            AND `doc_status` = ?
+        ") :
+        $stmnt = $conn->prepare("
+            SELECT
+              *
+            FROM 
+                tbl_brgyid_archive
+            WHERE 
+                `id_brgyid` LIKE ? OR
+                `lname` LIKE ? OR
+                `mi` LIKE ? OR
+                `fname` LIKE ? OR
+                `houseno` LIKE ? OR
+                `street` LIKE ? OR
+                `brgy` LIKE ? OR
+                `city` LIKE ? OR
+                `municipality` LIKE ? OR
+                `bdate` LIKE ? OR
+                status LIKE ? OR
+                precint_no LIKE ? OR
+                `inc_lname` LIKE ? OR
+                `inc_fname` LIKE ? OR
+                `inc_mi` LIKE ? OR
+                `inc_contact` LIKE ? OR
+                `inc_houseno` LIKE ? OR
+                `inc_street` LIKE ? OR
+                `inc_brgy` LIKE ? OR
+                `inc_city` LIKE ? OR
+                `inc_municipality` LIKE ? OR
+                valid_until LIKE ? OR
+                archived_on LIKE ? OR
+                archived_by LIKE ?
         ");
 
         $keywordLike = "%$keyword%";
         $pendingStatus = 'accepted';
         
+        $list === 'active' ?
         $stmnt->execute([
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-            $keywordLike, $pendingStatus
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike,
+            $pendingStatus
+        ]):
+        $stmnt->execute([
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+            $keywordLike, $keywordLike, $keywordLike, $keywordLike,
         ]);
             
             while($view = $stmnt->fetch()){
@@ -181,13 +125,19 @@
             <tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-success" target="blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyid_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
-                        <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
-                        <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
-                        <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_brgyid"> Archive </button>
+                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyid_form.php?id_brgyid=<?= $view['id_brgyid'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                                    <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
+                                    <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
+                                    <?php 
+                                echo $list === 'active' ? 
+                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_certofres"> Archive </button>' :
+                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="unarchive_certofres"> Retrieve </button>'
+                                    ;
+                            ?>    
                     </form>
                 </td>
-                <td> <?= $view['id_resident'];?> </td> 
+                <td> <?= $staffbmis->convertToImg($view['res_photo']) ;?> </td> 
+                <td> <?= $view['id_brgyid'];?> </td> 
                 <td> <?= $view['lname'];?> </td>
                 <td> <?= $view['fname'];?> </td>
                 <td> <?= $view['mi'];?> </td>
@@ -195,9 +145,8 @@
                 <td> <?= $view['street'];?> </td>
                 <td> <?= $view['brgy'];?> </td>
                 <td> <?= $view['city'];?> </td>
-                <td> <?= $view['municipal'];?> </td>
+                <td> <?= $view['municipality'];?> </td>
                 <td> <?= $view['bdate'];?> </td>
-                <td> <?= $view['bplace'];?> </td>
                 <td> <?= $view['inc_lname'];?>, <?= $view['inc_fname'];?> </td>
                 <td> <?= $view['inc_contact'];?> </td>
             </tr>
@@ -211,15 +160,20 @@
 <?php		
 	}else{
 ?>
-
-<h2>Pending Requests</h2>
-
+    <form method="GET" action="">
+        <label for="list">Select List: </label>
+        <select name="list" id="list" onchange="this.form.submit()">
+            <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
+            <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
+        </select>
+    </form>
 <table class="table table-hover text-center table-bordered table-responsive">
 
     <thead class="alert-info">
         <tr>
-            <th> Actions</th>
-            <th> Resident ID </th>
+            <th> </th>
+            <th> Photo </th>
+            <th> ID No. </th>
             <th> Surname </th>
             <th> First Name </th>
             <th> Middle Name </th>
@@ -229,7 +183,6 @@
             <th> City </th>
             <th> Municipality </th>
             <th> Birth Date </th>
-            <th> Birth Place </th>
             <th> Emergency Contact Person </th>
             <th> Emergency Contact Number </th>
         </tr>
@@ -237,30 +190,37 @@
     
     <tbody>
         <?php 
-              $stmnt = $conn->prepare("
-                SELECT 
-                    r.*, b.* 
-                FROM 
-                    tbl_resident AS r
-                JOIN
-                    tbl_brgyid AS b ON r.id_resident = b.id_resident
-                WHERE 
-                    b.`req_status` = ?");
-    
-              $pendingStatus = 'pending';
-              $stmnt->execute([$pendingStatus]);
+              $pendingStatus = 'accepted';
+
+              if ($list === 'active') {
+                  $stmt = $conn->prepare("SELECT * FROM tbl_brgyid WHERE doc_status = ?");
+                  $stmt->execute([$pendingStatus]);
+              } else {
+                  $stmt = $conn->prepare("SELECT * FROM tbl_brgyid_archive");
+                  $stmt->execute();
+              }
+              $views = $stmt->fetchAll();
+              if ($stmt->rowCount() > 0) {
             
-            while($view = $stmnt->fetch()){?>
+                foreach ($views as $view) {
+                ?>
                 <tr>
                     <td>    
                         <form action="" method="post">
-                            <button class="btn btn-success" type="submit" name="accept_brgyid" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;">Accept</a> 
-                            <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
-                            <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
-                            <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_brgyid"> Decline </button>
+                                    <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyid_form.php?id_brgyid=<?= $view['id_brgyid'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                                    <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
+                                    <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
+                            <?php 
+                                echo $list === 'active' ? 
+                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_brgyid"> Archive </button>' :
+                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="unarchive_brgyid"> Retrieve </button>'
+                                    ;
+                            ?>    
+                            
                         </form>
                     </td>
-                    <td> <?= $view['id_resident'];?> </td> 
+                    <td> <?= $staffbmis->convertToImg($view['res_photo']) ;?> </td> 
+                    <td> <?= $view['id_brgyid'];?> </td> 
                     <td> <?= $view['lname'];?> </td>
                     <td> <?= $view['fname'];?> </td>
                     <td> <?= $view['mi'];?> </td>
@@ -268,89 +228,19 @@
                     <td> <?= $view['street'];?> </td>
                     <td> <?= $view['brgy'];?> </td>
                     <td> <?= $view['city'];?> </td>
-                    <td> <?= $view['municipal'];?> </td>
+                    <td> <?= $view['municipality'];?> </td>
                     <td> <?= $view['bdate'];?> </td>
-                    <td> <?= $view['bplace'];?> </td>
                     <td> <?= $view['inc_lname'];?>, <?= $view['inc_fname'];?> </td>
                     <td> <?= $view['inc_contact'];?> </td>
                 </tr>
         <?php
             }
+        }
+        else {
+            echo "<tr><td colspan='13'>No existing list</td></tr>";
+        }
         ?>
     </tbody>
-
-</table>
-
-<h2>Accepted Requests</h2>
-
-<table class="table table-hover text-center table-bordered table-responsive">
-
-    <thead class="alert-info">
-        <tr>
-            <th> Actions</th>
-            <th> Resident ID </th>
-            <th> Surname </th>
-            <th> First Name </th>
-            <th> Middle Name </th>
-            <th> House No. </th>
-            <th> Street </th>
-            <th> Barangay </th>
-            <th> City </th>
-            <th> Municipality </th>
-            <th> Birth Date </th>
-            <th> Birth Place </th>
-            <th> Emergency Contact Person </th>
-            <th> Emergency Contact Number </th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        <?php 
-            $stmnt = $conn->prepare("
-            SELECT 
-                r.*, b.* 
-            FROM 
-                tbl_resident AS r
-            JOIN
-                tbl_brgyid AS b ON r.id_resident = b.id_resident
-            WHERE 
-                b.`req_status` = ?");
-
-            $pendingStatus = 'accepted';
-            $stmnt->execute([$pendingStatus]);
-
-            while($view = $stmnt->fetch()){?>
-                <tr>
-                    <td>    
-                        <form action="" method="post">
-                            <a class="btn btn-success" target="blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="brgyid_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
-                            <input type="hidden" name="id_resident" value="<?= $view['id_resident'];?>">
-                            <input type="hidden" name="id_brgyid" value="<?= $view['id_brgyid'];?>">
-                            <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;" type="submit" name="delete_brgyid"> Delete </button>
-                        </form>
-                    </td>
-                    <td> <?= $view['id_resident'];?> </td> 
-                    <td> <?= $view['lname'];?> </td>
-                    <td> <?= $view['fname'];?> </td>
-                    <td> <?= $view['mi'];?> </td>
-                    <td> <?= $view['houseno'];?> </td>
-                    <td> <?= $view['street'];?> </td>
-                    <td> <?= $view['brgy'];?> </td>
-                    <td> <?= $view['city'];?> </td>
-                    <td> <?= $view['municipal'];?> </td>
-                    <td> <?= $view['bdate'];?> </td>
-                    <td> <?= $view['bplace'];?> </td>
-                    <td> <?= $view['inc_lname'];?>, <?= $view['inc_fname'];?> </td>
-                    <td> <?= $view['inc_contact'];?> </td>
-                </tr>
-        <?php
-            }
-        ?>
-    </tbody>
-
-</table>
-
-
 <?php
 	}
 $con = null;

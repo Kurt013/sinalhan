@@ -1,71 +1,46 @@
 <?php
-require('classes/resident.class.php');
-$userdetails = $residentbmis->get_userdata();
-$residentbmis->validate_admin();
-$residentbmis->update_brgyid();
-$residentbmis->update_brgyid_photo();
+    require('classes/staff.class.php');
 
-$id_resident = $_GET['id_resident'];
-$resident = $residentbmis->get_single_brgyid($id_resident);
+    $user = $staffbmis->get_userdata();
 
-$imageData = $resident['res_photo'];
+    $staffbmis->validate_staff();
 
-$finfo = new finfo(FILEINFO_MIME_TYPE);
-$mimeType = $finfo->buffer($imageData); // Detects MIME type from the binary data
+    $resident = $staffbmis->get_single_brgyid();
 
-// Encode the image data to base64
-$base64Image = base64_encode($imageData);
+    $staffbmis->update_brgyid();
   ?>
 <!DOCTYPE html>
 <html id="barangayid">
-<style>
-    @media print {
-        .noprint {
-        visibility: hidden;
-         }
-    }
-    @page { size: auto;  margin: 4mm; }
-    
-label {
-  color: black !important;
-}
-
-
-
-</style>
-
  <head>
-    <meta charset="UTF-8">
+ <meta charset="UTF-8">
     <title>Barangay Information System</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- bootstrap 3.0.2 -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- font Awesome -->
-    <link href="../BarangaySystem/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons -->
-    <link href="../BarangaySystem/bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../BarangaySystem/bootstrap/css/morris-0.4.3.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="../BarangaySystem/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link href="./BarangaySystem/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../BarangaySystem/bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
-    <script src="../BarangaySystem/bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
-    
-    
+    <style>
+    @page { size: auto;  margin: 4mm; }
 
+    [contenteditable] {
+      border: 2px solid black;
+      min-width: 10px;
+      display: inline-block;
+    }
+
+    @media print {
+      .noprint {
+        visibility: hidden;
+        }
+
+      [contenteditable] {
+        border: none;
+        min-width: 0;
+      }
+      
+    }
+    </style>
 </head>
- <body class="skin-black" >
-     <!-- header logo: style can be found in header.less -->
-    
-    
-     <?php 
-     
-     include "classes/conn.php"; 
-
-     ?> 
-
-    <img style="width: 192px; height: 192px; object-fit:cover;" src="data:<?= $mimeType ?>;base64,<?= $base64Image ?>" alt="Resident Image">
+ <body >
+    <?php $staffbmis->convertToImg($resident['res_photo']) ?>
     <button class="noprint" onclick="changePic('camera.php?id_resident=<?= $id_resident ?>');" > Retake Photo </button>
 
                       
@@ -81,7 +56,7 @@ label {
       <span contenteditable="true" id="street"><?= $resident['street'] ?></span>,
       <span contenteditable="true" id="brgy"><?= $resident['brgy'] ?></span>,
       <span contenteditable="true" id="city"><?= $resident['city'] ?></span>,
-      <span contenteditable="true" id="municipal"><?= $resident['municipal'] ?></span>
+      <span contenteditable="true" id="municipality"><?= $resident['municipality'] ?></span>
     </p>
 
     <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p>
@@ -105,7 +80,7 @@ label {
       <span contenteditable="true" id="inc_street"><?= $resident['inc_street'] ?></span>,
       <span contenteditable="true" id="inc_brgy"><?= $resident['inc_brgy'] ?></span>,
       <span contenteditable="true" id="inc_city"><?= $resident['inc_city'] ?></span>,
-      <span contenteditable="true" id="inc_municipal"><?= $resident['inc_municipal'] ?></span>
+      <span contenteditable="true" id="inc_municipality"><?= $resident['inc_municipality'] ?></span>
     </p>
             
     <button class="btn btn-primary noprint" id="printpagebutton" onclick="PrintElem('#clearance')">Print</button>
@@ -159,7 +134,7 @@ label {
                 street: $('#street').text(),
                 brgy: $('#brgy').text(),
                 city: $('#city').text(),
-                municipal: $('#municipal').text(),
+                municipality: $('#municipality').text(),
                 valid_until: $('#valid_until').text(),
                 status: $('#status').text(),
                 inc_fname: $('#inc_fname').text(),
@@ -169,7 +144,7 @@ label {
                 inc_street: $('#inc_street').text(),
                 inc_brgy: $('#inc_brgy').text(),
                 inc_city: $('#inc_city').text(),
-                inc_municipal: $('#inc_municipal').text()
+                inc_municipality: $('#inc_municipality').text()
             };
 
             $.ajax({

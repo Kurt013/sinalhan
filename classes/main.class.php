@@ -1803,11 +1803,6 @@ public function unarchive_brgyclearance() {
 
         if(isset($_POST['create_brgyid'])) {
             $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
-
-
-            echo "<script>alert('{$res_photo}');</script>";
-
-
             $fname = $_POST['fname'];
             $mi = $_POST['mi']; 
             $lname = $_POST['lname'];
@@ -1832,7 +1827,6 @@ public function unarchive_brgyclearance() {
 
             $connection = $this->openConn();
 
-            // Insert new data
             $stmt = $connection->prepare('
                 INSERT INTO tbl_brgyid(res_photo, fname, mi, lname, houseno, street, brgy, city, municipality, bdate, status, precint_no, inc_lname, inc_fname, inc_mi, inc_contact, inc_houseno, inc_street, inc_brgy, inc_city, inc_municipality, created_by)
                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -1913,9 +1907,26 @@ public function unarchive_brgyclearance() {
         }
     }
 
-    public function get_single_brgyid($id_brgyid){
+    public function get_single_brgyid(){
+        $id_brgyid = $_GET['id_brgyid'];
+        $status = isset($_GET['status']) ? $_GET['status'] : null ;
+        
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_brgyid WHERE id_brgyid = ?");
+
+        $stmt = $connection->prepare("SELECT 
+            *,
+            DATE_FORMAT(STR_TO_DATE(created_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date`
+            FROM tbl_brgyid 
+            WHERE id_brgyid = ?");
+
+       if ($status === 'archived') {
+            $stmt = $connection->prepare("SELECT 
+                *,
+                DATE_FORMAT(STR_TO_DATE(archived_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date` 
+                FROM tbl_brgyid_archive
+                WHERE id_brgyid = ?");
+        }
+        
         $stmt->execute([$id_brgyid]);
         $brgyid = $stmt->fetch();
         $total = $stmt->rowCount();
@@ -1927,6 +1938,181 @@ public function unarchive_brgyclearance() {
         }
     }
 
+    public function archive_brgyid() {
+        if (isset($_POST['archive_brgyid'])) {
+            $id_brgyid = $_POST['id_brgyid'];
+            $id = $_POST['id'];
+        
+            try {
+                $connection = $this->openConn();
+
+                $connection->beginTransaction();
+        
+                $insertStmt = $connection->prepare("
+                INSERT INTO tbl_brgyid_archive (
+                    id_brgyid, res_photo, fname, mi, lname, houseno, 
+                    street, brgy, city, municipality, bdate, status,
+                    precint_no, inc_lname, inc_fname, inc_mi, inc_contact,
+                    inc_houseno, inc_street, inc_brgy, inc_city, 
+                    inc_municipality, valid_until, archived_by
+                )
+                SELECT 
+                    id_brgyid, res_photo, fname, mi, lname, houseno, 
+                    street, brgy, city, municipality, bdate, status,
+                    precint_no, inc_lname, inc_fname, inc_mi, inc_contact,
+                    inc_houseno, inc_street, inc_brgy, inc_city, 
+                    inc_municipality, valid_until, :archived_by
+                FROM 
+                    tbl_brgyid
+                WHERE 
+                    id_brgyid = :id_brgyid
+                ");
+                
+                $insertStmt->bindParam(':archived_by', $id);
+                $insertStmt->bindParam(':id_brgyid', $id_brgyid);
+                
+                $insertStmt->execute();
+        
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_brgyid
+                    WHERE id_brgyid = :id_brgyid
+                ");
+                $deleteStmt->bindParam(':id_brgyid', $id_brgyid);
+                $deleteStmt->execute();
+        
+                $connection->commit();
+
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Archived Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                    ';
+        
+            } catch (Exception $e) {
+                $connection->rollBack();
+                echo '
+                <dialog class="message-popup error" >
+                    <div class="pop-up">
+                        <div class="left-side">
+                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                        </div>
+                        <div class="right-side">
+                            <div class="right-group">
+                            <div class="content">
+                                <h1>
+                                    Failed to retrieve record:
+                                    '.$e->getMessage().'
+                                </h1>
+                            </div>
+                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                ';
+            }
+        }
+    }
+
+    public function unarchive_brgyid() {
+        if (isset($_POST['unarchive_brgyid'])) {
+            $id_brgyid = $_POST['id_brgyid'];
+            $id = $_POST['id'];
+            $doc_status = 'accepted';
+
+            $connection = $this->openConn();
+    
+            try {
+                $connection->beginTransaction();
+    
+                $insertStmt = $connection->prepare("
+                    INSERT INTO tbl_brgyid (
+                        id_brgyid, res_photo, fname, mi, lname, houseno, 
+                        street, brgy, city, municipality, bdate, status,
+                        precint_no, inc_lname, inc_fname, inc_mi, inc_contact,
+                        inc_houseno, inc_street, inc_brgy, inc_city, 
+                        inc_municipality, valid_until, created_by, doc_status
+                    )
+                    SELECT 
+                        id_brgyid, res_photo, fname, mi, lname, houseno, 
+                        street, brgy, city, municipality, bdate, status,
+                        precint_no, inc_lname, inc_fname, inc_mi, inc_contact,
+                        inc_houseno, inc_street, inc_brgy, inc_city, 
+                        inc_municipality, valid_until, :created_by, :doc_status
+                    FROM tbl_brgyid_archive
+                    WHERE id_brgyid = :id_brgyid
+                ");
+                $insertStmt->bindParam(':created_by', $id);
+                $insertStmt->bindParam(':id_brgyid', $id_brgyid);
+                $insertStmt->bindParam(':doc_status', $doc_status);
+                $insertStmt->execute();
+    
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_brgyid_archive
+                    WHERE id_brgyid = :id_brgyid
+                ");
+                $deleteStmt->bindParam(':id_brgyid', $id_brgyid);
+                $deleteStmt->execute();
+    
+                $connection->commit();
+    
+                
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Retrieved Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                    ';
+                
+    
+            } catch (Exception $e) {
+                $connection->rollBack();
+                echo '
+                 <dialog class="message-popup error" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>
+                                        Failed to retrieve record:
+                                        '.$e->getMessage().'
+                                    </h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
+            }
+        }
+    }
 
     public function view_brgyid(){
         $connection = $this->openConn();
@@ -1950,59 +2136,104 @@ public function unarchive_brgyclearance() {
     } 
 
     public function update_brgyid() {
-        if (isset($_POST['update_brgyid'])) {  // Checks if update was triggered
-            $connection = $this->openConn();
-    
-            try {
-                $id_resident = $_GET['id_resident'];
-                
-                // Retrieving data from POST request
-                $fname = $_POST['fname'];
-                $mi = $_POST['mi'];
-                $lname = $_POST['lname'];
-                $houseno = $_POST['houseno'];
-                $street = $_POST['street'];
-                $brgy = $_POST['brgy'];
-                $city = $_POST['city'];
-                $status = $_POST['status'];
-                
-                $municipal = $_POST['municipal'];
-                $valid_until = $_POST['valid_until'];
-                $inc_fname = $_POST['inc_fname'];
-                $inc_mi = $_POST['inc_mi'];
-                $inc_lname = $_POST['inc_lname'];
-                $inc_houseno = $_POST['inc_houseno'];
-                $inc_street = $_POST['inc_street'];
-                $inc_brgy = $_POST['inc_brgy'];
-                $inc_city = $_POST['inc_city'];
-                $inc_municipal = $_POST['inc_municipal'];
+        if (isset($_POST['update_brgyid'])) {
+            $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
+            $fname = $_POST['fname'];
+            $mi = $_POST['mi']; 
+            $lname = $_POST['lname'];
+            $houseno = $_POST['houseno'];
+            $street = $_POST['street'];
+            $brgy = $_POST['brgy'];
+            $city = $_POST['city'];
+            $municipality = $_POST['municipality'];
+            $bdate = $_POST['bdate'];
+            $status = $_POST['status'];
+            $precint_no = $_POST['precint_no'];
+            $inc_lname = $_POST['inc_lname']; 
+            $inc_fname = $_POST['inc_fname'];
+            $inc_mi = $_POST['inc_mi'];
+            $inc_contact = $_POST['inc_contact'];
+            $inc_houseno = $_POST['inc_houseno'];
+            $inc_street = $_POST['inc_street'];
+            $inc_brgy = $_POST['inc_brgy'];
+            $inc_city = $_POST['inc_city'];
+            $inc_municipality = $_POST['inc_municipality'];
+            $created_by = $_POST['created_by'];
+            $doc_status = 'accepted';
 
-                $connection->beginTransaction();
-        
-                $stmt = $connection->prepare("UPDATE tbl_resident SET 
-                        lname = ?, fname = ?, mi = ?, houseno = ?, street = ?, 
-                        brgy = ?, city = ?, municipal = ?, `status` = ?, valid_until = ?
-                        WHERE id_resident = ?");
-        
-                // Attempt to execute the query
-                $stmt->execute([$lname, $fname, $mi, $houseno, 
-                    $street, $brgy, $city, $municipal, $status, $valid_until, $id_resident]);
+            try {                
+                $connection = $this->openConn();
+                $stmt = $connection->prepare("UPDATE tbl_brgyid SET 
+                    lname = ?,
+                    fname = ?,
+                    mi = ?,
+                    bshouseno = ?,
+                    bsstreet = ?,
+                    bsbrgy = ?,
+                    bscity = ?,
+                    bsmunicipality = ?,
+                    bsindustry = ?,
+                    bsname = ?,
+                    aoe = ?,
+                    doc_status = ?
+                    WHERE
+                    id_brgyid = ?
+                ");
 
-                $stmt = $connection->prepare("UPDATE tbl_indigency SET         
-                    inc_lname = ?, inc_fname = ?, inc_mi = ?, inc_houseno = ?, inc_street = ?, 
-                        inc_brgy = ?, inc_city = ?, inc_municipal = ?, `inc_status` = ?
-                        WHERE id_resident = ?");
-        
-                // Attempt to execute the query
-                $stmt->execute([$inc_lname, $inc_fname, $inc_mi, $inc_houseno, $inc_street,
-                    $inc_brgy, $inc_city, $inc_municipal, $id_resident]);
+                $stmt->execute([
+                    $lname,
+                    $fname,
+                    $mi,
+                    $bshouseno,
+                    $bsstreet,
+                    $bsbrgy,
+                    $bscity,
+                    $bsmunicipality,
+                    $bsindustry,
+                    $bsname,
+                    $aoe,
+                    $doc_status,
+                    $id_brgyid
+                ]);
 
-                $connection->commit();
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Updated Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
+
             }
             catch (PDOException $e) {
-                $connection->rollBack();
-                echo "<script>alert('Failed to update records: " . $e->getMessage() . "')</script>";
-                exit;
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>'.$e->getMessage().'</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
+                
             }
         }
     }
@@ -2153,6 +2384,16 @@ public function unarchive_brgyclearance() {
                 echo "Error: Unable to delete records.";
             }
         }
+    }
+
+
+    public function convertToImg($dataImg) {
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->buffer($dataImg); 
+
+        $base64Image = base64_encode($dataImg);
+
+        echo "<img style='width: 100px; height: 100px; object-fit: cover;' src='data:{$mimeType};base64,{$base64Image}' alt='profile_photo'>";
     }
 
     // -------------------------- DOCUMENTS EXTRA FUNCTIONS ----------------------

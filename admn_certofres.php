@@ -13,9 +13,6 @@
 
 ?>
 
-<?php 
-?>
-
 <style>
     .input-icons i {
         position: absolute;
