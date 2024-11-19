@@ -41,8 +41,7 @@
 </head>
  <body >
     <?php $staffbmis->convertToImg($resident['res_photo']) ?>
-    <button class="noprint" onclick="changePic('camera.php?id_resident=<?= $id_resident ?>');" > Retake Photo </button>
-
+    <button class="noprint" onclick="changePic('camera.php?id_brgyid=<?= $resident['id_brgyid'] ?>');" > Retake Photo </button>
                       
       <p>
       <span contenteditable="true" id="fname"><?= $resident['fname'] ?></span> 
@@ -54,16 +53,16 @@
     <p>
       <span contenteditable="true" id="houseno"><?= $resident['houseno'] ?></span>
       <span contenteditable="true" id="street"><?= $resident['street'] ?></span>,
-      <span contenteditable="true" id="brgy"><?= $resident['brgy'] ?></span>,
-      <span contenteditable="true" id="city"><?= $resident['city'] ?></span>,
-      <span contenteditable="true" id="municipality"><?= $resident['municipality'] ?></span>
+      <span id="brgy"><?= $resident['brgy'] ?></span>,
+      <span id="city"><?= $resident['city'] ?></span>,
+      <span id="municipality"><?= $resident['municipality'] ?></span>
     </p>
 
     <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p>
-    <p contenteditable="true" id="valid_until"><?= $resident['valid_until']?><p>
+    <p contenteditable="true" id="valid_date"><?= $resident['valid_date']?><p>
 
     <p contenteditable="true" id="status"><?= $resident['status']?><p>
-    <p id="precint_no"><?= $resident['precint_no'] ?></p>
+    <p contenteditable="true" id="precint_no"><?= $resident['precint_no'] ?></p>
 
     <h1>In case of emergency please notify</h1>
         
@@ -127,6 +126,8 @@
             // Capture the editable content
             const data = {
                 update_brgyid: true,
+                res_photo: $('#res_photo').attr('src'),
+                id_brgyid: $('#id_brgyid').text(),
                 fname: $('#fname').text(),
                 mi: $('#mi').text(),
                 lname: $('#lname').text(),
@@ -135,11 +136,13 @@
                 brgy: $('#brgy').text(),
                 city: $('#city').text(),
                 municipality: $('#municipality').text(),
-                valid_until: $('#valid_until').text(),
+                bdate: $('#bdate').text(),
                 status: $('#status').text(),
+                precint_no: $('#precint_no').text(),
                 inc_fname: $('#inc_fname').text(),
                 inc_mi: $('#inc_mi').text(),
                 inc_lname: $('#inc_lname').text(),
+                inc_contact: $('#inc_contact').text(),
                 inc_houseno: $('#inc_houseno').text(),
                 inc_street: $('#inc_street').text(),
                 inc_brgy: $('#inc_brgy').text(),
@@ -162,4 +165,5 @@
         });
     });
     </script>
+    <script src="./js-components/component-js-popup.js"></script>
 </html>

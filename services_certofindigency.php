@@ -18,24 +18,6 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
     exit;
 }
 
-// Form handling for creating Certificate of Indigency
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['create_certofindigency'])) {
-        // Ensure the object and method exist
-        if (isset($bmis) && method_exists($bmis, 'create_certofindigency')) {
-            try {
-                // Call the method to create the certificate
-                $bmis->create_certofindigency();
-            } catch (Exception $e) {
-                // Handle any exceptions that may occur during execution
-                echo '<script>alert("Error: ' . $e->getMessage() . '");</script>';
-            }
-        } else {
-            // Handle the case when the object or method is not available
-            echo '<script>alert("Error: Method or object not found.");</script>';
-        }
-    }
-}
 ?>
 
 
@@ -1086,7 +1068,8 @@ h2 {
   
         </div>
 
-       
+<?php $bmis->create_certofindigency(); ?>
+    
 
 
      

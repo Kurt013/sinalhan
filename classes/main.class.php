@@ -1925,14 +1925,14 @@ public function unarchive_brgyclearance() {
 
         $stmt = $connection->prepare("SELECT 
             *,
-            DATE_FORMAT(STR_TO_DATE(created_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date`
+            DATE_FORMAT(STR_TO_DATE(valid_until, '%Y-%m-%d'), '%m-%d-%Y') AS `valid_date`
             FROM tbl_brgyid 
             WHERE id_brgyid = ?");
 
        if ($status === 'archived') {
             $stmt = $connection->prepare("SELECT 
                 *,
-                DATE_FORMAT(STR_TO_DATE(archived_on, '%Y-%m-%d'), '%b. %d, %Y') AS `date` 
+                DATE_FORMAT(STR_TO_DATE(valid_until, '%Y-%m-%d'), '%m-%d-%Y') AS `valid_date`
                 FROM tbl_brgyid_archive
                 WHERE id_brgyid = ?");
         }
@@ -2147,7 +2147,8 @@ public function unarchive_brgyclearance() {
 
     public function update_brgyid() {
         if (isset($_POST['update_brgyid'])) {
-            $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
+            $res_photo = $_POST['res_photo'];
+            $id_brgyid = $_POST['id_brgyid'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi']; 
             $lname = $_POST['lname'];
@@ -2168,40 +2169,64 @@ public function unarchive_brgyclearance() {
             $inc_brgy = $_POST['inc_brgy'];
             $inc_city = $_POST['inc_city'];
             $inc_municipality = $_POST['inc_municipality'];
-            $created_by = $_POST['created_by'];
             $doc_status = 'accepted';
+
+            if (preg_match('/^data:image\/(\w+);base64,/', $res_photo, $matches)) {
+                $imageData = substr($res_photo, strpos($res_photo, ',') + 1);
+                $imageData = base64_decode($imageData);
+            }
 
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_brgyid SET 
-                    lname = ?,
+                    res_photo = ?,
                     fname = ?,
-                    mi = ?,
-                    bshouseno = ?,
-                    bsstreet = ?,
-                    bsbrgy = ?,
-                    bscity = ?,
-                    bsmunicipality = ?,
-                    bsindustry = ?,
-                    bsname = ?,
-                    aoe = ?,
+                    mi = ?, 
+                    lname = ?,
+                    houseno = ?,
+                    street = ?,
+                    brgy = ?,
+                    city = ?,
+                    municipality = ?,
+                    bdate =  ?,
+                    `status` = ?,
+                    precint_no = ?,
+                    inc_lname = ?, 
+                    inc_fname = ?,
+                    inc_mi = ?,
+                    inc_contact = ?,
+                    inc_houseno = ?,
+                    inc_street = ?,
+                    inc_brgy = ?,
+                    inc_city = ?,
+                    inc_municipality = ?,
                     doc_status = ?
                     WHERE
                     id_brgyid = ?
                 ");
 
                 $stmt->execute([
-                    $lname,
+                    $imageData,
                     $fname,
-                    $mi,
-                    $bshouseno,
-                    $bsstreet,
-                    $bsbrgy,
-                    $bscity,
-                    $bsmunicipality,
-                    $bsindustry,
-                    $bsname,
-                    $aoe,
+                    $mi, 
+                    $lname,
+                    $houseno,
+                    $street,
+                    $brgy,
+                    $city,
+                    $municipality,
+                    $bdate,
+                    $status,
+                    $precint_no,
+                    $inc_lname, 
+                    $inc_fname,
+                    $inc_mi,
+                    $inc_contact,
+                    $inc_houseno,
+                    $inc_street,
+                    $inc_brgy,
+                    $inc_city,
+                    $inc_municipality,
                     $doc_status,
                     $id_brgyid
                 ]);
@@ -2248,24 +2273,6 @@ public function unarchive_brgyclearance() {
         }
     }
 
-    public function update_brgyid_photo() {
-        if (isset($_POST['update_resphoto'])) {
-            $id_resident = $_GET['id_resident'];
-            $res_photo = isset($_POST['res_photo'])? base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['res_photo'])) : null;           
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare('UPDATE tbl_brgyid SET res_photo = ? WHERE id_resident = ?');
-            $stmt->execute([$res_photo, $id_resident]);
-            
-            echo "<script>window.location.href</script>";
-        }
-    }
-
- //  ----------------------------------------------- RESIDENT RECORDS CRUD ---------------------------------------------------------
-
-
-
-    
     //------------------------------------------ EXTRA FUNCTIONS ----------------------------------------------
 
     public function check_admin($email) {
@@ -2403,7 +2410,7 @@ public function unarchive_brgyclearance() {
 
         $base64Image = base64_encode($dataImg);
 
-        echo "<img style='width: 100px; height: 100px; object-fit: cover;' src='data:{$mimeType};base64,{$base64Image}' alt='profile_photo'>";
+        echo "<img id='res_photo' style='width: 100px; height: 100px; object-fit: cover;' src='data:{$mimeType};base64,{$base64Image}' alt='profile_photo'>";
     }
 
     // -------------------------- DOCUMENTS EXTRA FUNCTIONS ----------------------

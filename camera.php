@@ -7,9 +7,6 @@
         </label>
 
         <button type="button" class="capture-button" id="captureButton">Capture Image</button>
-        <button class="save-button" id="saveButton">Save</button>
-
-        <input type="hidden" name="res_photo" id="res_photo">
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,7 +15,7 @@
         const canvas = document.getElementById('canvas');
         const captureButton = document.getElementById('captureButton');
         const cameraSelect = document.getElementById('cameraSelect');
-        const res_photoInput = document.getElementById('res_photo');
+        const res_photoInput = window.opener.document.getElementById('res_photo');
         const context = canvas.getContext('2d');
         const addFileInput = document.getElementById('addFile');
         let currentStream = null;
@@ -100,47 +97,10 @@
             context.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
             
             // Convert canvas image to base64 string
-            const imageDataUrl = canvas.toDataURL('image/jpeg');
+            const imageDataUrl = canvas.toDataURL('image/png');
             
             // Set the value of the hidden input to the base64 string for form submission
-            res_photoInput.value = imageDataUrl;
+            res_photoInput.src = imageDataUrl;
 
-            // Optional: Show the captured image on the canvas
-            canvas.style.display = 'inline-block';
         });
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const residentId = urlParams.get('id_resident');
-
-        // Set the URL dynamically based on the 'resident' parameter
-        let ajaxUrl = `brgyid_form.php ${residentId}`;
-        // if (residentId) {
-        //     ajaxUrl += `?resident=${residentId}`;
-        // }
-
-        $(document).ready(function () {
-            $('.save-button').on('click', function () {
-                // Capture the editable content
-                const data = {
-                    update_resphoto: true,
-                    res_photo: $('#res_photo').val()
-                };
-
-                $.ajax({
-                    type: "POST",
-                    url: ajaxUrl,
-                    data: data,
-                    success: function (response) {
-                        alert("updated succesfully!");
-                        console.log("Data being sent:", data);
-                        window.opener.location.reload();
-                        window.close();
-                },
-                    error: function () {
-                        alert("An error occurred while updating.");
-                    }
-                });
-            });
-        });
-
     </script>
