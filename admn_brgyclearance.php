@@ -1,33 +1,17 @@
 <?php
+    include('dashboard_sidebar_start.php');
     
-    error_reporting(E_ALL ^ E_WARNING);
-    ini_set('display_errors',0);
-    require('classes/resident.class.php');
+    $list = $_GET['list'];
 
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
 
-    if (isset($_POST['accept_clearance'])) {
-        $id_clearance = $_POST['id_clearance'];
-        $id_resident = $_POST['id_resident'];
-
-        $link = 'clearance_form.php?id_resident='.$id_resident;
-
-        $qrImage = $bmis->generateQRCode($link);
-        $bmis->sendEmailWithQRCode($qrImage, $id_resident);
-    }
-
-    $userdetails = $bmis->get_userdata();
-    $bmis->validate_admin();
-    $bmis->delete_clearance();
-    $bmis->accept_clearance();
-    $bmis->archive_clearance();
-   
+    $conn = $staffbmis->openConn();
+    $staffbmis->validate_admin();
+    $staffbmis->unarchive_brgyclearance();
+    $staffbmis->archive_brgyclearance();
 ?>
 
-<?php 
-    include('dashboard_sidebar_start.php');
-?>
 <style>
     .input-icons i {
         position: absolute;
@@ -72,7 +56,7 @@
                 <input type="search" class="form-control" style="border-radius: 30px;" name="keyword" value="" required=""/>
             </div>
                 <button class="btn btn-success" name="search_clearance" style="width: 90px; font-size: 18px; border-radius:30px; margin-left:41.5%;">Search</button>
-                <a href="admn_brgyclearance.php" class="btn btn-info" style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
+                <a href="admn_brgyclearance.php?list=<?= $list ?>" class="btn btn-info" style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
             
             </form>
             <br>
@@ -93,5 +77,9 @@
     
 </div>
 <!-- End of Main Content -->
+ 
+<?php 
+    include('dashboard_sidebar_end.php');
+?>
 
 

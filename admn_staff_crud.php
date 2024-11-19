@@ -1,7 +1,6 @@
 <?php
-    ini_set('display_errors',0);
-    error_reporting(E_ALL ^ E_WARNING);
-    require('classes/staff.class.php');
+    include('dashboard_sidebar_start.php');
+
     $userdetails = $bmis->get_userdata();
     $bmis->validate_admin();
     $view = $staffbmis->view_staff();
@@ -13,7 +12,6 @@
 ?>
 
 <?php 
-    include('dashboard_sidebar_start.php');
 ?>
 <!-- Begin Page Content -->
 
@@ -93,7 +91,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>Password:</label>
-                                    <input class="form-control" id="password-field" name="password" value="staff123" placeholder="Enter Password" disabled>
+                                    <input class="form-control" id="password-field" name="password" value="staff123" placeholder="Enter Password" readonly>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -179,13 +177,12 @@
                 <form action="" method="post">
                     <thead class="alert-info"> 
                         <tr>
-                            <th> Actions </th>
+                            <th> </th>
                             <th> Username </th>
                             <th> Email </th>
                             <th> Surname </th>
                             <th> First name </th>
                             <th> Middle Initial </th>
-                            <th> Age </th>
                             <th> Sex </th>
                             <th> Contact </th>
                             <th> Position </th>
@@ -208,7 +205,6 @@
                                     <td> <?= $view['lname'];?> </td>
                                     <td> <?= $view['fname'];?> </td>
                                     <td> <?= $view['mi'];?> </td>
-                                    <td> <?= $view['age'];?> </td>
                                     <td> <?= $view['sex'];?> </td>
                                     <td> <?= $view['contact'];?> </td>
                                     <td> <?= $view['position'];?> </td>

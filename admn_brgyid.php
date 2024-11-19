@@ -1,31 +1,18 @@
 <?php
+    include('dashboard_sidebar_start.php');
     
-    error_reporting(E_ALL ^ E_WARNING);
-    ini_set('display_errors',0);
-    require('classes/resident.class.php');
+    $list = $_GET['list'];
 
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
 
-    if (isset($_POST['accept_brgyid'])) {
-        $id_brgyid = $_POST['id_brgyid'];
-        $id_resident = $_POST['id_resident'];
+    $conn = $staffbmis->openConn();
+    $staffbmis->validate_admin();
+    $staffbmis->unarchive_brgyid();
+    $staffbmis->archive_brgyid();
 
-        $link = 'brgyid_form.php?id_resident='.$id_resident;
-
-        $qrImage = $bmis->generateQRCode($link);
-        $bmis->sendEmailWithQRCode($qrImage, $id_resident);
-    }
-
-    $userdetails = $bmis->get_userdata();
-    $bmis->validate_admin();
-    $bmis->delete_brgyid();
-    $bmis->accept_brgyid();
 ?>
 
-<?php 
-    include('dashboard_sidebar_start.php');
-?>
 
 <style>
     .input-icons i {
@@ -70,7 +57,7 @@
                 <input type="search" class="form-control" name="keyword" value=""style="border-radius: 30px;" required=""/>
             </div>
                 <button class="btn btn-success" name="search_brgyid" style="width: 90px; font-size: 18px; border-radius:30px; margin-left:41.7%;">Search</button>
-                <a href="admn_brgyid.php" class="btn btn-info" style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
+                <a href="admn_brgyid.php?list=<?= $list ?>" class="btn btn-info" style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
             </form>
             <br>
         </div>
