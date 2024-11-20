@@ -2405,6 +2405,15 @@ public function unarchive_brgyclearance() {
     }
 
 
+    public function exportToPDF() {
+
+    }
+
+    public function exportToExcel() {
+
+    }
+
+
     public function convertToImg($dataImg) {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->buffer($dataImg); 
