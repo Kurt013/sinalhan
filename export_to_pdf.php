@@ -29,7 +29,7 @@ if (isset($_POST['views_data']) && isset($_POST['table_name'])) {
 
     // Set default header data
     $pdf->SetHeaderData('', 0, 'AUTO-GENERATED PDF', 'List of Transactions (ARCHIVED)');
-
+    $pdf->setPageOrientation('L');
     // Set header and footer fonts
     $pdf->setHeaderFont(['helvetica', '', 10]);
     $pdf->setFooterFont(['helvetica', '', 8]);
@@ -53,7 +53,10 @@ if (isset($_POST['views_data']) && isset($_POST['table_name'])) {
                 <thead>
                     <tr>';
     foreach ($columns as $column) {
-        $html .= '<th>' . htmlspecialchars($column['Field']) . '</th>';
+        if ($column['Field'] === 'res_photo') {
+            continue; // Skip the 'res_photo' column
+        }
+            $html .= '<th>' . htmlspecialchars($column['Field']) . '</th>';
     }
     $html .= '    </tr>
                 </thead>
@@ -62,7 +65,10 @@ if (isset($_POST['views_data']) && isset($_POST['table_name'])) {
     foreach ($rows as $row) {
         $html .= '<tr>';
         foreach ($columns as $column) {
-            $html .= '<td>' . htmlspecialchars($row[$column['Field']]) . '</td>';
+            if ($column['Field'] === 'res_photo') {
+                continue; // Skip the 'res_photo' column
+            }
+                $html .= '<td>' . htmlspecialchars($row[$column['Field']]) . '</td>';
         }
         $html .= '</tr>';
     }

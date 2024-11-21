@@ -25,13 +25,13 @@
 	<tbody>     
 		<?php
 			
-			$stmnt = $conn->prepare("SELECT * FROM `tbl_resident` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
+			$stmt = $conn->prepare("SELECT * FROM `tbl_resident` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
 			or `age` LIKE '%$keyword%' or  `sex` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%' or  `contact` LIKE '%$keyword%' or  `street` LIKE '%$keyword%'
 			or  `brgy` LIKE '%$keyword%'
 			or `email` LIKE '%$keyword%'");
-			$stmnt->execute();
+			$stmt->execute();
 			
-			while($view = $stmnt->fetch()){
+			while($view = $stmt->fetch()){
 		?>
 			<tr>
 				<td> <?= $view['email'];?> </td>

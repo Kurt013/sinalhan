@@ -2409,9 +2409,16 @@ public function unarchive_brgyclearance() {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->buffer($dataImg); 
 
-        $base64Image = base64_encode($dataImg);
+        $dataImg = base64_encode($dataImg);
 
-        echo "<img id='res_photo' style='width: 100px; height: 100px; object-fit: cover;' src='data:{$mimeType};base64,{$base64Image}' alt='profile_photo'>";
+
+        echo "<img id='res_photo' style='width: 100px; height: 100px; object-fit: cover;' src='data:{$mimeType};base64,{$dataImg}' alt='profile_photo'>";
+    }
+
+    public function convertToJSON($dataImg) {
+        $dataImg = base64_encode($dataImg);
+
+        
     }
 
     // -------------------------- DOCUMENTS EXTRA FUNCTIONS ----------------------

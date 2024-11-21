@@ -27,12 +27,12 @@
                     
 			<?php
 				
-				$stmnt = $conn->prepare("SELECT * FROM `tbl_rescert` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
+				$stmt = $conn->prepare("SELECT * FROM `tbl_rescert` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
 				or `age` LIKE '%$keyword%' or  `id_resident` LIKE '%$keyword%' or  `address` LIKE '%$keyword%' or  `contact` LIKE '%$keyword%'
 				or `email` LIKE '%$keyword%'");
-				$stmnt->execute();
+				$stmt->execute();
 				
-				while($view = $stmnt->fetch()){
+				while($view = $stmt->fetch()){
 			?>
 			<tr>
             <td>    

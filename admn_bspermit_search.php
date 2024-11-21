@@ -34,7 +34,7 @@
     <?php
             $list === 'active' ?
 
-            $stmnt = $conn->prepare("
+            $stmt = $conn->prepare("
                 SELECT *
                 FROM
                     tbl_bspermit
@@ -54,7 +54,7 @@
                         created_by LIKE ? OR
                         created_on LIKE ?) 
                     AND `doc_status` = ?") : 
-            $stmnt = $conn->prepare("
+            $stmt = $conn->prepare("
                 SELECT *
                 FROM
                     tbl_bspermit_archive
@@ -79,13 +79,13 @@
         $pendingStatus = 'accepted';
         
         $list === 'active' ?
-            $stmnt->execute([
+            $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
                 $keywordLike, $keywordLike, $pendingStatus
             ]):
-            $stmnt->execute([
+            $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,

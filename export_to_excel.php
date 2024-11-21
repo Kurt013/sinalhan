@@ -33,8 +33,10 @@ if (isset($_POST['views_data']) && isset($_POST['table_name'])) {
         // Set column headers
         $colIndex = 'A'; // Start with column A
         foreach ($columns as $column) {
-            $sheet->setCellValue($colIndex . '1', $column['Field']);
-            $colIndex++;
+            if (!$column['res_photo']) {
+                $sheet->setCellValue($colIndex . '1', $column['Field']);
+                $colIndex++;
+            }
         }
 
         // Fill data rows

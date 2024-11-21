@@ -1,14 +1,15 @@
-<?php
-	if(isset($_POST['search_brgyid'])){
-		$keyword = $_POST['keyword'];
-?>
- <form method="GET" action="">
+<form method="GET" action="">
         <label for="list">Select List: </label>
         <select name="list" id="list" onchange="this.form.submit()">
             <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
             <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
         </select>
 </form>
+<?php
+	if(isset($_POST['search_brgyid'])){
+		$keyword = $_POST['keyword'];
+?>
+
 <table class="table table-hover text-center table-bordered table-responsive" >
 
     <thead class="alert-info">
@@ -34,7 +35,7 @@
     <tbody> 
         <?php
             $list === 'active' ?
-            $stmnt = $conn->prepare("
+            $stmt = $conn->prepare("
             SELECT
               *
             FROM 
@@ -66,7 +67,7 @@
                 created_by LIKE ?)
             AND `doc_status` = ?
         ") :
-        $stmnt = $conn->prepare("
+        $stmt = $conn->prepare("
             SELECT
               *
             FROM 
@@ -102,7 +103,7 @@
         $pendingStatus = 'accepted';
         
         $list === 'active' ?
-        $stmnt->execute([
+        $stmt->execute([
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
@@ -111,7 +112,7 @@
             $keywordLike, $keywordLike, $keywordLike, $keywordLike,
             $pendingStatus
         ]):
-        $stmnt->execute([
+        $stmt->execute([
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
             $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
@@ -120,7 +121,10 @@
             $keywordLike, $keywordLike, $keywordLike, $keywordLike,
         ]);
             
-            while($view = $stmnt->fetch()){
+        $views = $stmt->fetchAll();
+        if ($stmt->rowCount() > 0) {
+            foreach ($views as $view) {
+
         ?>
             <tr>
                 <td>    
@@ -152,6 +156,10 @@
             </tr>
         <?php
         }
+    }
+    else {
+        echo "<tr><td colspan='13'>No existing list</td></tr>";
+    }
         ?>
     </tbody>
     
@@ -160,13 +168,6 @@
 <?php		
 	}else{
 ?>
-    <form method="GET" action="">
-        <label for="list">Select List: </label>
-        <select name="list" id="list" onchange="this.form.submit()">
-            <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
-            <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
-        </select>
-    </form>
 <table class="table table-hover text-center table-bordered table-responsive">
 
     <thead class="alert-info">
@@ -203,6 +204,7 @@
               if ($stmt->rowCount() > 0) {
             
                 foreach ($views as $view) {
+
                 ?>
                 <tr>
                     <td>    
@@ -235,13 +237,37 @@
                 </tr>
         <?php
             }
+
+            foreach ($views as &$view) {
+                unset($view['res_photo']);
+            }
+        
         }
         else {
             echo "<tr><td colspan='13'>No existing list</td></tr>";
         }
         ?>
     </tbody>
+</table>
 <?php
 	}
-$con = null;
+    $viewsJson = json_encode($views);
+    
+    $list === 'archived' ?
+        $tableName = 'tbl_brgyid_archive' :
+        $tableName = 'tbl_brgyid';
 ?>
+
+
+<?php if ($list === 'archived') {?>
+    <form action="./export_to_pdf.php" method="POST" target="_blank">
+        <button name="export_pdf">Export to PDF</button>
+        <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="hidden" name="table_name" value="<?= $tableName ?>">
+    </form>
+    <form action="./export_to_excel.php" method="POST" target="_blank">
+        <button name="export_excel">Export to Excel</button>
+        <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="hidden" name="table_name" value="<?= $tableName ?>">
+    </form>
+<?php } ?>
