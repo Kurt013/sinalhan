@@ -1,15 +1,16 @@
-<?php    
-
-	if(isset($_POST['search_certofres'])){
-		$keyword = $_POST['keyword'];
-?>
- <form method="GET" action="">
+<form method="GET" action="">
         <label for="list">Select List: </label>
         <select name="list" id="list" onchange="this.form.submit()">
             <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
             <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
         </select>
 </form>
+<?php    
+
+	if(isset($_POST['search_certofres'])){
+		$keyword = $_POST['keyword'];
+?>
+
 <table class="table table-hover text-center table-bordered table-responsive" >
     <thead class="alert-info">
         
@@ -50,7 +51,7 @@
                     purpose LIKE ? OR
                     created_by LIKE ? OR
                     created_on LIKE ?) AND
-                doc_status = ?)
+                doc_status = ?
             ") :
             $stmt = $conn->prepare("
             SELECT *
@@ -80,7 +81,7 @@
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-                $keywordLike, $keywordLike, $pendingStatus
+                $keywordLike, $pendingStatus
             ]):
             $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
@@ -90,7 +91,9 @@
             ])
         ;
             
-            while($view = $stmt->fetch()){
+            $views = $stmt->fetchAll();
+            if ($stmt->rowCount() > 0) {
+                foreach ($views as $view) {
         ?>
             <tr>
                 <td>    
@@ -121,6 +124,10 @@
             </tr>
         <?php
         }
+    }
+    else {
+        echo "<tr><td colspan='13'>No existing list</td></tr>";
+    }
         ?>
     </tbody>
 
@@ -131,13 +138,6 @@
 <?php		
 	}else{
 ?>
-    <form method="GET" action="">
-        <label for="list">Select List: </label>
-        <select name="list" id="list" onchange="this.form.submit()">
-            <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
-            <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
-        </select>
-    </form>
     <table class="table table-hover text-center table-bordered table-responsive">
 		<thead class="alert-info">
 			<tr>
@@ -205,13 +205,34 @@
             }
 			?>
 		</tbody>
-
+        
 	</table>
+
+ 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
-
 <?php
+
 	}
-$con = null;
+
+
+    $viewsJson = json_encode($views);
+    $list === 'archived' ?
+        $tableName = 'tbl_rescert_archive' :
+        $tableName = 'tbl_rescert';
+
 ?>
+
+<?php if ($list === 'archived') {?>
+    <form action="./export_to_pdf.php" method="POST" target="_blank">
+        <button name="export_pdf">Export to PDF</button>
+        <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="hidden" name="table_name" value="<?= $tableName ?>">
+    </form>
+    <form action="./export_to_excel.php" method="POST" target="_blank">
+        <button name="export_excel">Export to Excel</button>
+        <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="hidden" name="table_name" value="<?= $tableName ?>">
+    </form>
+<?php } ?>
