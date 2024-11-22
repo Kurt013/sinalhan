@@ -5,9 +5,9 @@
 
     $staffbmis->validate_staff();
 
-    $resident = $staffbmis->get_single_certofres();
+    $resident = $staffbmis->get_single_clearance();
 
-    $staffbmis->update_certofres();
+    $staffbmis->update_clearance();
   ?>
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
 
 <h1 style="text-transform: uppercase;">Brgy. Clearance</h1>
 
-    <p>ISSUANCE NO.: <u id="id_rescert"><?= $resident['id_rescert'] ?></u></p>
+    <p>ISSUANCE NO.: <u id="id_rescert"><?= $resident['id_clearance'] ?></u></p>
     <p>TO WHOM IT MAY CONCERN:</p>
     <p> This document hereby certifies that
         <span contenteditable="true" id="fname"><?= $resident['fname'];?></span>

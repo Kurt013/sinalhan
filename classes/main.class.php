@@ -1087,9 +1087,48 @@ class BMISClass {
 
      //------------------------------------------ BRGY CLEARANCE CRUD -----------------------------------------------
 
-     public function get_single_clearance($id_clearance){
+     public function get_single_clearance(){
+        $id_clearance = $_GET['id_clearance'];
+        $status = isset($_GET['status']) ? $_GET['status'] : null ;
+        
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_clearance WHERE id_clearance = ?");
+
+        $stmt = $connection->prepare("SELECT 
+            id_clearance,
+            fname,
+            mi,
+            lname,
+            age,
+            houseno,
+            street,
+            brgy,
+            city,
+            municipality,
+            purpose,
+            created_by,
+            DATE_FORMAT(STR_TO_DATE(created_on, '%Y-%m-%d'), '%b. %d, %Y') AS date 
+            FROM tbl_clearance 
+            WHERE id_clearance = ?");
+
+       if ($status === 'archived') {
+            $stmt = $connection->prepare("SELECT 
+                id_clearance,
+                fname,
+                mi,
+                lname,
+                age,
+                houseno,
+                street,
+                brgy,
+                city,
+                municipality,
+                purpose,
+                archived_by,
+                DATE_FORMAT(STR_TO_DATE(archived_on, '%Y-%m-%d'), '%b. %d, %Y') AS date 
+                FROM tbl_clearance_archive
+                WHERE id_clearance = ?");
+        }
+        
         $stmt->execute([$id_clearance]);
         $clearance = $stmt->fetch();
         $total = $stmt->rowCount();
@@ -1158,12 +1197,22 @@ class BMISClass {
             $residentId = $this->get_latest_brgyclearance($created_by);
             $qrCode = $this->generateQRCode($residentId['id_clearance'], 'clearance');
 
-            echo '<script>alert("QR Code Successfully Generated!")</script>
-                <h1>Your QR code has been generated. Please download it and bring it to the barangay hall to get your document!</h1>
-                <img src="' . $qrCode . '" alt="QR Code" style="display:block; margin-bottom:10px;"/>
-                <a href="' . $qrCode . '" download="qr_code_brgyclearance.png">
-                    <button type="button" style="padding:10px 20px; font-size:16px; cursor:pointer;">Download QR Code</button>
-                </a>';
+            echo '
+
+                                  <div id="qr" class="overlay-qr">
+        <div class="popup-qr">
+          <h3>Your QR Code has been generated!</h3>
+<p>Download or take a screenshot of it, and bring it to the barangay hall along with the required documents to claim your certificate.</p>
+<p class = "qrid">BGCLR - ' .strtoupper($lname). ' - ' .$residentId['id_clearance']. '</p>            
+<img src="' . $qrCode . '" alt="QR Code" />
+                <a href="' . $qrCode . '" download="qr_code_certofindigency.png">
+                    <button type="button" class ="btn-dl-qr">Download QR Code</button>
+                </a>
+
+            <button class="btn-close-qr" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+            ';
         }
         
     }
@@ -1192,48 +1241,91 @@ class BMISClass {
 
     public function update_clearance() {
         if (isset($_POST['update_clearance'])) {  // Checks if update was triggered
-          $connection = $this->openConn();
-  
-          try {
-              $id_resident = $_GET['id_resident'];
-              
-              // Retrieving data from POST request
-              $lname = $_POST['lname'];
-              $fname = $_POST['fname'];
-              $mi = $_POST['mi'];
-              $age = $_POST['age'];
-              $houseno = $_POST['houseno'];
-              $street = $_POST['street'];
-              $brgy = $_POST['brgy'];
-              $city = $_POST['city'];
-              $municipal = $_POST['municipal'];
-              $purpose = $_POST['purpose'];
+            $id_clearance = $_POST['id_clearance'];
+            $lname = $_POST['lname'];
+            $fname = $_POST['fname'];
+            $mi = $_POST['mi'];
+            $age = $_POST['age'];
+            $houseno = $_POST['houseno'];
+            $street = $_POST['street'];
+            $brgy = $_POST['brgy'];
+            $city = $_POST['city'];
+            $municipality = $_POST['municipality'];
+            $purpose = $_POST['purpose'];
+            $doc_status = 'pending';
+    
+            try {                
+                $connection = $this->openConn();
+                $stmt = $connection->prepare("UPDATE tbl_clearance SET 
+                    lname = ?,
+                    fname = ?,
+                    mi = ?,
+                    age = ?,
+                    houseno = ?,
+                    street = ?,
+                    brgy = ?,
+                    city = ?,
+                    municipality = ?,
+                    purpose = ?,
+                    doc_status = ?
+                    WHERE
+                    id_clearance = ?
+                ");
 
-              $connection->beginTransaction();
-      
-              $stmt = $connection->prepare("UPDATE tbl_resident SET 
-                      lname = ?, fname = ?, mi = ?, age = ?,
-                      houseno = ?, street = ?, 
-                      brgy = ?, city = ?, municipal = ?
-                      WHERE id_resident = ?");
-      
-              // Attempt to execute the query
-              $stmt->execute([$lname, $fname, $mi, $age, $houseno, 
-                  $street, $brgy, $city, $municipal, $id_resident]);
+                $stmt->execute([
+                    $lname,
+                    $fname,
+                    $mi,
+                    $age,
+                    $houseno,
+                    $street,
+                    $brgy,
+                    $city,
+                    $municipality,
+                    $purpose,
+                    $doc_status,
+                    $id_clearance
+                ]);
 
-              $stmt = $connection->prepare("UPDATE tbl_clearance SET purpose = ? WHERE id_resident = ?");
-      
-              // Attempt to execute the query
-              $stmt->execute([$purpose, $id_resident]);
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>Updated Successfully!</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
 
-              $connection->commit();
-          }
-          catch (PDOException $e) {
-              $connection->rollBack();
-              echo "<script>alert('Failed to update records: " . $e->getMessage() . "')</script>";
-              exit;
-          }
-      }
+            }
+            catch (PDOException $e) {
+                echo '
+                    <dialog class="message-popup success" >
+                        <div class="pop-up">
+                            <div class="left-side">
+                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
+                            </div>
+                            <div class="right-side">
+                                <div class="right-group">
+                                <div class="content">
+                                    <h1>'.$e->getMessage().'</h1>
+                                </div>
+                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                ';
+            }
+        }
   }
 
   public function archive_brgyclearance() {

@@ -17,7 +17,25 @@
     }
 ?>
 
-<style>
+
+<!DOCTYPE html>
+
+<html>
+  <head> 
+    <title> Barangay Management System </title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
+      <script src="./node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
+      <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- responsive tags for screen compatibility -->
+      <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
+      <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+      <!-- fontawesome icons --> 
+      <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+ 
+      
+      <style>
          @font-face {
             font-family: 'PMedium'; 
             src: url('fonts/Poppins-Medium.ttf') format('truetype'); 
@@ -81,8 +99,8 @@
         
         .popup-qr {
             background-color: #fff;
-            width: 26%;
-            height: 95%;
+            width: 27%;
+            height: 96%;
             position: relative;
             border-top: 25px solid;
             border-bottom: 25px solid;
@@ -99,7 +117,7 @@
         .popup-qr img {
             display:block; 
             margin-bottom:20px;
-            width: 80%;
+            width: 75%;
         }
 
         .popup-qr a {
@@ -134,6 +152,7 @@
             text-align: center;
             color: #2c91c9;
             line-height: 20px;
+            font-size: 1.2rem;
         }
 
         .tncpnp label {
@@ -592,20 +611,9 @@ h2 {
 
 
 </style>
-<!DOCTYPE html>
-
-<html>
-  <head> 
-    <title> Barangay Management System </title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
-      <script src="./node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
-      <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- responsive tags for screen compatibility -->
-      <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
-      <!-- fontawesome icons --> 
-      <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-  </head>
+  
+  
+    </head>
 
     <body>
         <?php 

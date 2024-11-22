@@ -39,7 +39,7 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
   
 
         <style>
-            /* Back-to-Top */
+            
         @font-face {
             font-family: 'PMedium'; 
             src: url('fonts/Poppins-Medium.ttf') format('truetype'); 
@@ -98,8 +98,8 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
         
         .popup-qr {
             background-color: #fff;
-            width: 26%;
-            height: 95%;
+            width: 27%;
+            height: 96%;
             position: relative;
             border-top: 25px solid;
             border-bottom: 25px solid;
@@ -116,7 +116,7 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
         .popup-qr img {
             display:block; 
             margin-bottom:20px;
-            width: 80%;
+            width: 75%;
         }
 
         .popup-qr a {
@@ -151,6 +151,7 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
             text-align: center;
             color: #2c91c9;
             line-height: 20px;
+            font-size: 1.2rem;
         }
         .tncpnp label {
             font-family: "PRegular";
@@ -401,17 +402,6 @@ h2 {
     flex-direction: column;
             }
 
-            .applybutton
-            {
-                width: 100% !important;
-                height: 50px !important;
-                border-radius: 20px;
-                margin-top: 5%;
-                margin-bottom: 8%;
-                font-size: 25px;
-                letter-spacing: 2px;
-            }
-
             .btn-open-popup {
     padding: 12px 24px;
     font-size: 1.2rem;
@@ -543,17 +533,7 @@ h2 {
         }
 
         /* Keyframes for fadeInUp animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         /* Animation for popup */
         .overlay-container.show {
