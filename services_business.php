@@ -678,8 +678,7 @@ h2 {
             <h2>Eligibility</h2>
         </div>
         <div class="answer">
-            <h1>To be eligible for a Certificate of Indigency, applicants must meet the following criteria:</h1>
-            <h2>• Applicant must have <b>minimal or no source of income</b>, indicating financial hardship.</h2>
+            <h1>To be eligible for a Business Permit, applicants must meet the following criteria:</h1>
             <h2>• Must be a resident of the barangay for <b>at least 6 months</b> or longer, depending on local barangay requirements.</h2>
             <h2>• Must be <b>at least 18 years old</b> (or a legal guardian should apply on behalf of minors).</h2>
             <h2>• Must be in good standing in the community, with <b>no criminal record or pending legal cases</b>.</h2>
@@ -695,8 +694,8 @@ h2 {
             <h2>Validity</h2>
         </div>
         <div class="answer">
-            <h1>To determine the validity of a Certificate of Indigency, the following guidelines must be considered:</h1>
-            <h2>• The Certificate of Indigency is generally valid for <b>six (6) months </b>from the date of issuance.</h2>
+            <h1>To determine the validity of a Business Permit, the following guidelines must be considered:</h1>
+            <h2>• The Certificate of Indigency is generally valid for <b>one (1) year </b>from the date of issuance.</h2>
             <h2>• After the validity period, <b>a renewal may be required</b> if the certificate is still needed for any services or benefits.</h2>
             <h2>• The certificate must bear the <b>official dry seal of the issuing authority</b> to be considered valid.</h2>
         </div>
@@ -710,9 +709,9 @@ h2 {
             <h2>Duration and Fees</h2>
         </div>
         <div class="answer">
-            <h1>To process a Certificate of Indigency, the following details apply:</h1>
+            <h1>To process a Business Permit, the following details apply:</h1>
             <h2>• The service is available only from <b>8:00 AM to 5:00 PM</b> on business days.</h2>
-            <h2>• The processing time for the Certificate of Indigency is typically <b>a few minutes </b>once the application is submitted.</h2>
+            <h2>• The processing time for the Business Permit is typically <b>a few minutes </b>once the application is submitted.</h2>
             <h2>• Processing time <b>may vary depending on the volume of requests</b>, but it usually takes a few minutes to complete.</h2>
             <h2>• It is recommended to submit applications during <b>service hours</b> for faster processing.</h2>
             <h2>• <b>No processing fees</b> are required for obtaining this document, making it completely free of charge.</h2>
@@ -727,11 +726,21 @@ h2 {
             <h2>What You Need</h2>
         </div>
         <div class="answer">
-            <h1>To obtain a Certificate of Indigency, you need to bring the following documents together with your QR code:</h1>
-            <h2>• Barangay Clearance or Certificate of Residency</h2>
-            <h2>• Valid Identification (ID)</h2>
-            <h2>• Proof of Income or Affidavit of No Income</h2>
-            <h2>• Authorization Letter <i>(if applicable)</i></h2>
+            <h1>To obtain a Business Permit, you need to bring the following documents together with your QR code:</h1>
+            <h2>• DTI Business Name Certificate or SEC Registration Certificate</h2>
+            <h2>• Latest Community Tax Certificate (Cedula)</h2>
+            <h2>• Barangay Clearance</h2>
+            <h2>• Location Clearance</i></h2>
+            <h2>• Certificate of Occupancy</h2>
+            <h2>• Building Permit</h2>
+            <h2>• Contract of Lease or Land Title Tax Declaration <i>(whichever is applicable)</i></h2>
+            <h2>• Picture or Sketch of the Site</i></h2>
+            <h2>• Fire Safety or Inspection Permit</i></h2>
+            <h2>• Electrical Inspection Certificate</h2>
+            <h2>• Sanitary Permit</h2>
+            <h2>• Public Liability Insurance</h2>
+   
+
         </div>
     </div>
 </div>
