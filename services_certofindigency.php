@@ -407,7 +407,7 @@ h2 {
     font-size: 1.2rem;
     background-color: #014BAE;
     width: 50%; /* This defines the width of the button */
-    margin: 0 auto; /* Centers the button horizontally */
+    margin: 50px auto; /* Centers the button horizontally */
     color: #fff;
     border: none;
     font-family: "PBold";
@@ -729,7 +729,7 @@ h2 {
             <div class="icon-container">
                 <span class="fas fa-clock"></span>
             </div>
-            <h2>Processing Time</h2>
+            <h2>Duration and Fees</h2>
         </div>
         <div class="answer">
             <h1>To process a Certificate of Indigency, the following details apply:</h1>
@@ -737,6 +737,7 @@ h2 {
             <h2>• The processing time for the Certificate of Indigency is typically <b>a few minutes </b>once the application is submitted.</h2>
             <h2>• Processing time <b>may vary depending on the volume of requests</b>, but it usually takes a few minutes to complete.</h2>
             <h2>• It is recommended to submit applications during <b>service hours</b> for faster processing.</h2>
+            <h2>• <b>No processing fees</b> are required for obtaining this document, making it completely free of charge.</h2>
         </div>
     </div>
 
@@ -759,11 +760,6 @@ h2 {
 
 
           
-        <div id="down1"></div>
-
-        <br>
-        <br>
-        <br>
 
 
                 <button class="btn-open-popup" onclick="togglePopup()">
