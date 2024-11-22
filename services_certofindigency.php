@@ -31,10 +31,10 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
     <title> Barangay Management System </title>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
-      <!-- responsive tags for screen compatibility -->
-      <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-      <!-- fontawesome icons --> 
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
   
 
@@ -98,8 +98,8 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
         
         .popup-qr {
             background-color: #fff;
-            width: 25%;
-            height: 85%;
+            width: 26%;
+            height: 95%;
             position: relative;
             border-top: 25px solid;
             border-bottom: 25px solid;
@@ -115,7 +115,7 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
 
         .popup-qr img {
             display:block; 
-            margin-bottom:10px;
+            margin-bottom:20px;
             width: 80%;
         }
 
@@ -132,11 +132,29 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
             
         }
 
+        .popup-qr .qrid {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            font-family: "PSemiBold";
+            font-style: normal;
+            padding: 5px 20px;
+            text-align: center;
+            background-color: #014bae;
+            color: white;
+            border-radius: 15px 15px 0 0;
+
+        }
+        
+
         .popup-qr h3 {
             font-family: "PBold";
             text-align: center;
             color: #2c91c9;
             line-height: 20px;
+        }
+        .tncpnp label {
+            font-family: "PRegular";
+            font-size: 0.9rem;
         }
 
         .btn-close-qr, .btn-dl-qr {
@@ -283,7 +301,7 @@ h2 {
             
             }
 
-            .header h1 {
+            .header .docuname {
             color: white;
             font-family: 'PExBold' !important;
             font-size: 2.2rem;
@@ -298,19 +316,7 @@ h2 {
             paint-order: stroke fill;
             }
 
-            .pnp-content h2 {
-                font-family: "PBold";
-                color: rgba(0, 0, 0, 0.8);
-            }
 
-            .pnp-content p, .pnp-content h4 {
-               color: black;
-               font-size: 0.9rem;
-               margin: 10px 0;
-               font-family: "PMedium";
-               font-weight: normal;
-                
-            }
 
             .header h5 {
             font-family: "PMedium";
@@ -425,7 +431,7 @@ h2 {
             background-color: #2c91c9;
         }
 
-        .overlay-pnp,.overlay-container {
+        .overlay-container {
             display: none;
             position: fixed;
             top: 0;
@@ -440,10 +446,7 @@ h2 {
             z-index: 10;
         }
 
-        .overlay-pnp.show {
-            display: flex;
-            opacity: 1;
-        }
+      
 
         .form-control  {
             font-family: "PRegular";
@@ -490,41 +493,7 @@ h2 {
             padding: 30px;
         }
 
-        .popup-pnp {
-            background-color: #fff;
-             
-            position: relative; 
-            z-index: 1000;
-            overflow-y: hidden;
-            margin-left: 30px;
-            margin-right: 30px;
-            display: flex;
-            flex-direction: column;
-         
-            box-sizing: border-box;
-        }
-
-
-        .pnp-content {
-            overflow-y: auto;
-    max-height: calc(100vh - 250px); /* Adjust this value based on header/footer height */
-    padding: 20px;
-    box-sizing: content-box;
-    
-
-}
-
-        .popup-pnp {
-            padding: 0 20px;
-            width: 65%;
-            height: 80vh;
-          
-            border-left: 15px solid white;
-            border-right: 15px solid white;
-            border-radius: 10px;
-         
-        }
-
+ 
         .form-container {
             display: flex;
             flex-direction: column;
@@ -629,7 +598,18 @@ h2 {
 
 }
 
-.pnp-head h1, .popup-hd h2 {
+.popup-hd p {
+    text-align: center;
+    font-size: 0.8rem;
+    font-family : "PSemiBold";
+    padding: 5px 70px;
+    border-radius: 15px;
+    color: white;
+    font-style: italic;
+    background-color: #014BAE;
+}
+
+.popup-hd h2 {
     margin: 0; /* Remove default margin */
     font-size: 1.7rem;
     color: #014bae;
@@ -637,11 +617,7 @@ h2 {
     text-align: center; /* Center text horizontally */
 }
 
-.pnp-head h1{
-    padding: 20px;
-    color:rgba(0, 0, 0, 0.8);
-  
-}
+
 
 .popup-box h3 {
     font-size: 0.9rem;
@@ -651,30 +627,6 @@ h2 {
     margin-top: 10px;
     color:black;
     opacity: 0.8;
-}
-
-.btn-close-pnp {
-    background-color: rgba(0, 0, 0, 0.3);
-    font-family: "PExBold";
-    letter-spacing: 1px;
-    color: #fff;
-    width: 100%;
-    border: none;
-    padding: 20px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 0 0 10px 10px;
-}
-
-.btn-close-pnp:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.pnp-footer {
-
-    padding: 20px;
-    text-align: center;
-    
 }
 
 .btn-close-header {
@@ -703,7 +655,7 @@ h2 {
 }
 
 .tncpnp {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 
@@ -717,6 +669,7 @@ h2 {
     <?php 
         include('user-sidebar.php');
         include('user-header.php');
+       
     ?>
         <!-- Back-to-Top and Back Button -->
 <div class = "content">
@@ -732,7 +685,7 @@ h2 {
             <div class="row"> 
                 <div class="col"> 
                     <div class="header">
-                        <h1 class="text1">Certificate of Indigency</h1>
+                        <h1 class = "docuname"> Certificate of Indigency</h1>
                         
                         <h5> A Certificate of Indigency or a Certificate of Low Income is a document 
                          that are sometimes required by the Philippine government or a private 
@@ -846,6 +799,7 @@ h2 {
         <div class="popup-box">
         <div class = "popup-hd">
             <h2>Registration Form</h2>
+            <p> for Certificate of Indigency </p>
             
             <h3>Fill in all required fields and double-check your information before submitting to ensure accuracy.</h3>
             
@@ -945,6 +899,8 @@ h2 {
             <label  class = "form-label"> City: </label>
             <input type="text" class="form-input" name="city"  
             placeholder="Enter City" value="City of Santa Rosa" readonly>
+</div>
+</div>
 
             <div class="col">
                                         <div class="form-group">
@@ -957,9 +913,9 @@ h2 {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class = "form-label" for="purposes">Purposes:</label>
+                                            <label class = "form-label" for="purpose">Purpose:</label>
                                             <select class="form-control" name="purpose" id="purpose" onchange="toggleCustomPurpose()" required>
-                                                <option value="">Choose your Purposes</option>
+                                                <option value="">Choose your Purpose</option>
                                                 <option value="Job/Employment">Job/Employment</option>
                                                 <option value="Business Establishment">Business Requirement</option>
                                                 <option value="Financial Transaction">Financial Transaction</option>
@@ -974,14 +930,14 @@ h2 {
                                     </div>  
                                 </div>
 
-                        </div>
+                   
                         <input type="hidden" name="created_by" value="<?= $userdetails['id'] ?>">
 
 <div class="tncpnp">
         <input type="checkbox" id="terms" name="terms" required>
         <label for="terms">
             I accept the 
-            <a href="javascript:void(0);" onclick="openModal()"><b>Terms and Conditions</b></a> 
+            <a id = opentnc href="javascript:void(0);" onclick="openTnCModal()"><b>Terms and Conditions</b></a> 
             and 
             <a id = openpriv href="javascript:void(0);" onclick="openPrivacyModal()"><b>Privacy Policy</b></a>.
         </label>
@@ -991,67 +947,9 @@ h2 {
                         type="submit" name="create_certofindigency">
                   SUBMIT
                   </button>
-
-    <div id="pnp" 
-         class="overlay-pnp">
-
-        <div class="popup-pnp">
-          <div class = "pnp-head">
-            <h1>Privacy Policy</h1>
-            <hr style = "margin-bottom: 10px;">
-          </div>
-        <div class = "pnp-content">
-            <h2> 1. Introduction </h2>
-            <p>This Privacy Policy outlines our policies regarding the collection, use, storage, disclosure, and disposal of personal data collected through the Document Issuance System ("the System") and other related interactions. These interactions include contacting our support number, sending inquiries to our email, and providing information when using our services. By using the System, you agree to the terms of this Privacy Policy and the collection and use of your personal data in compliance with applicable laws and regulations.</h3>
-            <h2> 2. Collection and Use of Personal Data</h2>
-            <p> We collect personal data to facilitate your document requests, improve our services, and ensure the proper functioning of the System. Personal data refers to any information from which your identity can be reasonably and directly ascertained. This may include, but is not limited to:</h3>
-            <h4> • Full Name </h4>
-            <h4> • Date of Birth </h4>
-            <h4> • Home Address </h4>
-            <h4> •  Address </h4>
-            <h4> • Contact Number(s) </h4>
-            <h4> • Government Identification Number(s) </h4>
-            <h4> • Other relevant information necessary for your transaction with our System </h4>
-            <p> We collect this information when you register or update your details, fill out request forms, or engage in other transactions through the System. The information collected is used to process your document requests, generate necessary forms, and produce a QR code for use at the Barangay Hall.</p>
-            <h2> 3. Security of Your Personal Data </h2>
-            <p> We take reasonable measures to ensure the security of your personal data during its collection and processing. Although we strive to maintain the integrity and confidentiality of your information, we cannot guarantee absolute security, as no system is fully immune to potential threats.</p>
-            <h2> 4. Data Retention and Disposal </h2>
-            <p> We retain your personal data only for as long as necessary to fulfill the purposes outlined in this Privacy Policy or as required by law. Once your data is no longer needed, it will be securely disposed of to prevent unauthorized access, following guidelines set by the National Archives of the Philippines in accordance with R.A. 9470.</p>
-            <p> Data may be classified for: </p>
-            <h4> • Temporary Retention: Data needed for short-term operational purposes is securely stored and deleted after a defined period.</h4>
-            <h4> • Permanent Deletion: Data that has reached the end of its retention period is permanently and securely removed from our System. </h4>
-            <h2> 5. Use of QR Code </h2>
-            <p> Upon successfully submitting a document request, the System generates a unique QR code. This QR code is used to retrieve your requested document at the Barangay Hall. It is your responsibility to keep the QR code secure. Sharing this code with unauthorized persons may result in data breaches, for which we are not liable.</p>
-            <h2> 6. Changes to this Privacy Policy </h2>
-            <p> This Privacy Policy will remain effective except with respect to any changes in its provision in the future, which will take effect immediately after being posted on this site.
-            We may occasionally update our Privacy Policy which you should check periodically. Your continued use of our services after we post amendments or revisions to this Privacy Policy will constitute your acknowledgment, acceptance, and adherence to the modifications, and your consent to abide and be bound by the modified Privacy Policy.</p>
-            <h2> 7. Contact Us </h2>
-            <p> If you have questions or concerns about this Privacy Policy or your data, please reach out to us through the following contact details:</p>
-            <h4> • Email Address: barangaysinalhan1123@gmail.com</h4>
-            <h4> • Contact Number: +639215516456</h4>
-            <p> By using the Document Issuance System, you acknowledge that you have read, understood, and agreed to this Privacy Policy. We are committed to protecting your personal information and ensuring your privacy. </p>
-
-        
-        </div>
-        <hr style = "margin-top: 10px;">
-        <div class = "pnp-footer">
-       
-        <button id = "privpop" class="btn-close-pnp" 
-                    onclick="openPrivacyModal()">
-              CLOSE
-              </button>
-        </div>
-      
-</div>
-
-</div>
-
-<!-- Modal Footer -->
-
-
-
-
-                
+                  <?php include('user_priv_and_pop.php'); 
+                  include ('user_tnc.php' );?>
+             
 </div>
 </div>
         </div>
@@ -1077,21 +975,7 @@ h2 {
 
         <?php include('user-footer.php'); ?>
 
-        <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // After the page content is fully loaded, make the body visible
-      document.body.style.visibility = "visible";
-    });
-    
-    // Initially hide the body until the content is fully loaded
-    document.body.style.visibility = "hidden";
-  </script>
-        <script>
-    // Function to close the modal
-    function closeModal() {
-        document.querySelector('.overlay-qr').style.display = 'none';
-    }
-</script>
+        
         <script src="./js-components/component-js-custompurpose.js"></script>
         <script>
             // Set a variable for our button element.
@@ -1144,6 +1028,22 @@ h2 {
 
             
         </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // After the page content is fully loaded, make the body visible
+      document.body.style.visibility = "visible";
+    });
+    
+    // Initially hide the body until the content is fully loaded
+    document.body.style.visibility = "hidden";
+  </script>
+        <script>
+    // Function to close the modal
+    function closeModal() {
+        document.querySelector('.overlay-qr').style.display = 'none';
+    }
+</script>
 <script>
     // Prevent page reload when the page is loaded or refreshed
     if (window.history.replaceState) {
@@ -1151,27 +1051,12 @@ h2 {
     }
 
     // Get the close button for privacy policy modal
-    document.getElementById('privpop').addEventListener('click', function(event) {
-        event.preventDefault();  // Prevent any default action like page reload
-        // Hide the privacy policy modal when the button is clicked
-        document.getElementById('pnp').style.display = 'none';  
-    })
-    
-    document.getElementById('openpriv').addEventListener('click', function(event) {
-        event.preventDefault();  // Prevent any default action like page reload
-        // Hide the privacy policy modal when the button is clicked
-        document.getElementById('pnp').style.display = 'flex';  
-    });
+
 </script>
 
     <script>
         function togglePopup() {
             const overlay = document.getElementById('popupOverlay');
-            overlay.classList.toggle('show');
-        }
-
-        function openPrivacyModal() {
-            const overlay = document.getElementById('pnp');
             overlay.classList.toggle('show');
         }
     </script>

@@ -73,8 +73,8 @@
             
             $base_image =ImageCreate($imgW, $imgH);
             
-            $col[0] = ImageColorAllocate($base_image,255,255,255);
-            $col[1] = ImageColorAllocate($base_image,0,0,0);
+            $col[0] = ImageColorAllocate($base_image, 255, 255, 255); // White (background color)
+            $col[1] = ImageColorAllocate($base_image, 1, 75, 174); // Black (QR code color)
 
             imagefill($base_image, 0, 0, $col[0]);
 

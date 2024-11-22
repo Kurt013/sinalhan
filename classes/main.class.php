@@ -385,17 +385,31 @@ class BMISClass {
                 $municipality,
                 $purpose,
                 $created_by
+                
             ]);
 
             $residentId = $this->get_latest_certofres($created_by);
             $qrCode = $this->generateQRCode($residentId['id_rescert'], 'rescert');
 
-            echo '<script>alert("QR Code Successfully Generated!")</script>
-                <h1>Your QR code has been generated. Please download it and bring it to the barangay hall to get your document!</h1>
-                <img src="' . $qrCode . '" alt="QR Code" style="display:block; margin-bottom:10px;"/>
-                <a href="' . $qrCode . '" download="qr_code_certofres.png">
-                    <button type="button" style="padding:10px 20px; font-size:16px; cursor:pointer;">Download QR Code</button>
-                </a>';
+            echo '
+
+                                  <div id="qr" class="overlay-qr">
+        <div class="popup-qr">
+          <h3>Your QR Code has been generated!</h3>
+<p>Download or take a screenshot of it, and bring it to the barangay hall along with the required documents to claim your certificate.</p>
+
+<p class = "qrid">BGRES - ' .strtoupper($lname). ' - ' .$residentId['id_rescert']. '</p>
+
+<img src="' . $qrCode . '" alt="QR Code" />
+
+                <a href="' . $qrCode . '" download="qr_code_certofindigency.png">
+                    <button type="button" class ="btn-dl-qr">Download QR Code</button>
+                </a>
+
+            <button class="btn-close-qr" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+            ';
         }
     }    
 
@@ -739,7 +753,7 @@ class BMISClass {
         <div class="popup-qr">
           <h3>Your QR Code has been generated!</h3>
 <p>Download or take a screenshot of it, and bring it to the barangay hall along with the required documents to claim your certificate.</p>
-            
+<p class = "qrid">BGIND - ' .strtoupper($lname). ' - ' .$residentId['id_indigency']. '</p>            
 <img src="' . $qrCode . '" alt="QR Code" />
                 <a href="' . $qrCode . '" download="qr_code_certofindigency.png">
                     <button type="button" class ="btn-dl-qr">Download QR Code</button>

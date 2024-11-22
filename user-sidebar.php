@@ -1,20 +1,4 @@
 
-<!DOCTYPE html> 
-<html>
-
-    <head> 
-    <title> Homepage </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <!-- responsive tags for screen compatibility -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- custom css --> 
-        <link href="../BarangaySystem/customcss/pagestyle.css" rel="stylesheet" type="text/css">
-        <!-- bootstrap css --> 
-        <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <!-- fontawesome icons --> 
-        <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
         
 
@@ -752,4 +736,3 @@ a {
 
 
     </div>
-    </html>

@@ -19,7 +19,12 @@
 
     
 ?>
+  </head>
+        <?php 
+    include('user-sidebar.php');
+?>   
 
+        <?php include('user-header.php'); ?>
 
 <!DOCTYPE html> 
 <html>
@@ -28,22 +33,22 @@
     <title> Homepage </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 
         <!-- responsive tags for screen compatibility -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- custom css --> 
+        
         <link href="../BarangaySystem/customcss/pagestyle.css" rel="stylesheet" type="text/css">
-        <!-- bootstrap css --> 
+        
         <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <!-- fontawesome icons --> 
+        
         <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+        
+  </head>
 
 
-        <?php 
-    include('user-sidebar.php');
-?>   
-
-        <?php include('user-header.php'); ?>
         
 
 
@@ -332,7 +337,8 @@
                         <div class="header"> 
                             <h2> We make document request faster and easier for you! </h2><bR>
                             <button  onclick="window.location.href='index.php#docsec'">
-                    <i class="fa-solid fa-arrow-circle-right"></i> Request Now
+                            <i class="fa-solid fa-arrow-circle-right icon"></i>
+Request Now
                 </button>
                             
                             <h3> Our system makes it simple to get official documents. Just pick the document you need, fill out a quick form, and get a unique QR code. Use this code at the Barangay Office for fast and easy processing—no more long waits or extra paperwork. Get the documents you need, faster and easier! </h3>
