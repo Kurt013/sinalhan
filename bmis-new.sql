@@ -472,3 +472,9 @@ VALUES
 ('Disaster Preparedness', 1),
 ('Clean-Up Drive', 1);
 
+CREATE TABLE forget_password (
+  id int(11) NOT NULL,
+  email varchar(200) NOT NULL,
+  temp_key varchar(200) NOT NULL,
+  created timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
