@@ -114,6 +114,7 @@
 
 .nav-link:hover i {
     animation: swing ease-in-out 0.5s 1 alternate; /* Apply animation to the icon */
+    color: white !important;
 }
         .nav-item {
     position: relative;

@@ -181,7 +181,8 @@ form label {
             <tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                    <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>"><i class="fas fa-cogs"></i></a> 
+
                                     <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                                     <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                                     <?php 
@@ -257,13 +258,13 @@ form label {
                         <tr>
                             <td>    
                                 <form action="" method="post">
-                                    <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                                    <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>"><i class="fas fa-cogs"></i></a> 
                                     <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                                     <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                             <?php 
                                 echo $list === 'active' ? 
-                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_brgyclearance"> Archive </button>' :
-                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="unarchive_brgyclearance"> Retrieve </button>'
+                                    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_brgyclearance"> <i class="fas fa-archive"></i> </button>' :
+                                    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_brgyclearance"> <i class="fas fa-undo"></i> </button>'
                                     ;
                             ?>    
                             

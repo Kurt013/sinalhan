@@ -79,7 +79,7 @@ td {
 }
 
 .btn-success {
-    background-color: #1cc88a;
+    background-color: #28a745;
     font-size: 0.9rem !important;
     border: none;
     vertical-align: middle;

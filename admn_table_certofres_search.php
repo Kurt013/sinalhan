@@ -180,7 +180,7 @@
             <tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                        <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>"><i class="fas fa-cogs"></i></a> 
                                     <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                                     <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                                     <?php 
@@ -255,13 +255,13 @@
                         <tr>
                             <td>    
                                 <form action="" method="post">
-                                    <a class="btn btn-success" target="_blank" style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>">Generate</a> 
+                                    <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>"><i class="fas fa-cogs"></i></a> 
                                     <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                                     <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                             <?php 
                                 echo $list === 'active' ? 
-                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="archive_certofres"> Archive </button>' :
-                                    '<button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="unarchive_certofres"> Retrieve </button>'
+                                    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_certofres">  <i class="fas fa-archive"></i> </button>' :
+                                    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_certofres">  <i class="fas fa-undo"></i> </button>'
                                     ;
                             ?>    
                             
