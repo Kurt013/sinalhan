@@ -23,7 +23,7 @@
             visibility: hidden;
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35), opacity 0.5s ease-out;
             width: auto; /* Adjust width based on content */
-    max-width: 450px; /* Optional: limit the maximum width */
+    max-width: 550px; /* Optional: limit the maximum width */
     white-space: nowrap; /* Prevent the text from wrapping to the next line */
         }
 
@@ -118,6 +118,15 @@
 
 
     </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // After the page content is fully loaded, make the body visible
+      document.body.style.visibility = "visible";
+    });
+    
+    // Initially hide the body until the content is fully loaded
+    document.body.style.visibility = "hidden";
+  </script>
 
 <script>    if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
@@ -158,4 +167,5 @@
                 clearTimeout(timer2);
             }
         </script>
+        
 

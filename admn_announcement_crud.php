@@ -88,6 +88,7 @@ td {
 
 </style>
 
+
 <?php
     require './classes/main.class.php';
 
@@ -196,7 +197,7 @@ td {
     <br><br>
 
  
-
+    <?php include('popup.php'); ?>
     <!-- /.container-fluid -->
 
 </div>

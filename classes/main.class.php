@@ -217,9 +217,22 @@ class BMISClass {
                 VALUES (?, ?)");
             $stmt->execute([$event, $created_by]);
 
-            $message2 = "Announcement Added";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-            header('refresh:0');
+
+            echo '
+            <body>
+                <div class="toast">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+                        <div class="message">
+                            <span class="text text-1">Announcement Posted</span>
+                            <span class="text text-2">Your announcement has been published </span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                    <div class="progress"></div>
+                </div>
+            </body>';
+  
         }
     }
 
@@ -267,7 +280,20 @@ class BMISClass {
             $stmt = $connection->prepare("DELETE FROM tbl_announcement where id_announcement = ?");
             $stmt->execute([$id_announcement]);
 
-            header("Refresh:0");
+            echo '
+            <body>
+                <div class="toast">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+                        <div class="message">
+                            <span class="text text-1">Announcement Deleted</span>
+                            <span class="text text-2">The announcement has been removed </span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                    <div class="progress"></div>
+                </div>
+            </body>';
         }
     }
 
