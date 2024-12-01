@@ -13,7 +13,9 @@
     $staffbmis->archive_certofres();
 
 ?>
+  <?php include('popup.php'); ?>
 <style>
+
 
 table {
     width: auto; /* Let the table size itself based on content */
@@ -229,4 +231,3 @@ tr:hover {
 <?php 
     include('dashboard_sidebar_end.php');
 ?>
-</body>

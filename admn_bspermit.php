@@ -11,7 +11,7 @@
     $staffbmis->archive_bspermit();
     $staffbmis->unarchive_bspermit();
 ?>
-
+<?php include('popup.php'); ?>
 <style>
 
 table {

@@ -188,6 +188,12 @@ body{
 
 }
 
+.bg-c-blue4 {
+    background: linear-gradient(to right, #014bae, #00aff0);  /* fallback for old browsers */
+
+
+}
+
 
 
 
@@ -223,7 +229,7 @@ body{
 
 .card-block .btn1:hover {
     background-color: white;
-    color: #ff5275;
+    color: #6fd974;
 }
 .card-block .btn2:hover {
     background-color: white;
@@ -231,7 +237,7 @@ body{
 }
 .card-block .btn3:hover {
     background-color: white;
-    color: #6fd974;
+    color: #ff5275;
 }
 
 .order-card i {
@@ -392,10 +398,20 @@ body{
 
 
 <div class="row w-100" style="flex-grow: 1;"> 
-<div class="col-md-4">
+<div class="col-md-3">
+            <div class="card bg-c-blue4 order-card" style = "border-radius: 20px 20px 20px 0;">
+            <div class="card-block">
+                    <h6 class="m-b-20 text-left">Total Active Request</h6>
+                    <h2 class="text-right"><i class="fa fa-file-alt f-left"></i></i><span></span></h2>
+                   
+                
+                </div>
+            </div>
+        </div>
+<div class="col-md-3">
             <div class="card bg-c-blue1 order-card">
             <div class="card-block">
-                    <h6 class="m-b-20">Total Barangay Staffs</h6>
+                    <h6 class="m-b-20">Total Staff</h6>
                     <h2 class="text-right"><i class="fas fa-user-friends f-left"></i></i><span><?= $staffcount ?></span></h2>
                     <button class="btn btn1" onclick="window.location.href='admn_table_totalstaff.php'">View Records</button>
                 
@@ -404,10 +420,10 @@ body{
         </div>
                
    
-    <div class="col-md-4">
+    <div class="col-md-3">
             <div class="card bg-c-blue2 order-card">
             <div class="card-block">
-                    <h6 class="m-b-20">Total Male Staffs</h6>
+                    <h6 class="m-b-20">Total Male Staff</h6>
                     <h2 class="text-right"><i class="fas fa-male f-left"></i></i><span><?= $staffcountm ?></span></h2>
                     <button class="btn btn2" onclick="window.location.href='admn_table_malestaff.php'">View Records</button>
                 
@@ -415,15 +431,18 @@ body{
             </div>
         </div>
            
-    <div class="col-md-4">
+    <div class="col-md-3">
             <div class="card bg-c-blue3 order-card">
             <div class="card-block">
-                    <h6 class="m-b-20">Total Female Staffs</h6>
+                    <h6 class="m-b-20">Total Female Staff</h6>
                     <h2 class="text-right"><i class="fas fa-female f-left"></i></i><span><?= $staffcountf ?></span></h2>
                     <button class="btn btn3" onclick="window.location.href='admn_table_femalestaff.php'">View Records</button>
                 
                 </div>
             </div>
+                </div>
+
+
             <div class="form-buttons">
     <button class="btnexpdf">
         <i class="fas fa-file-pdf"></i> Export to PDF

@@ -11,7 +11,7 @@
     $staffbmis->unarchive_brgyclearance();
     $staffbmis->archive_brgyclearance();
 ?>
-
+<?php include('popup.php'); ?>
 <style>
 
 table {

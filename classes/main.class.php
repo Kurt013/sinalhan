@@ -479,6 +479,10 @@ class BMISClass {
                     $id_rescert
                 ]);
 
+                $stmt = $connection->prepare("UPDATE tbl_rescert SET doc_status = 'accepted' WHERE id_rescert = ?");
+
+                $stmt->execute([$doc_status]);
+
                 echo '
                     <dialog class="message-popup success" >
                         <div class="pop-up">
@@ -560,23 +564,22 @@ class BMISClass {
         
                 $connection->commit();
 
+                
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Archived Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been archived successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
+                
         
             } catch (Exception $e) {
                 $connection->rollBack();
@@ -637,22 +640,19 @@ class BMISClass {
     
                 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Retrieved Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been retrieved successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
                 
     
             } catch (Exception $e) {
@@ -907,22 +907,19 @@ class BMISClass {
                 $connection->commit();
 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Archived Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
+                <body>
+                    <div class="toast">
+                        <div class="toast-content">
+                            <i class="fas fa-solid fa-check check"></i>
+                            <div class="message">
+                                <span class="text text-1">Success</span>
+                                <span class="text text-2">The request has been archived successfully</span>
                             </div>
                         </div>
-                    </dialog>
-                    ';
+                        <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                        <div class="progress"></div>
+                    </div>
+                </body>';
 
 
             } catch (PDOException $e) {
@@ -984,22 +981,19 @@ class BMISClass {
 
                 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Retrieved Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
+                <body>
+                    <div class="toast">
+                        <div class="toast-content">
+                            <i class="fas fa-solid fa-check check"></i>
+                            <div class="message">
+                                <span class="text text-1">Success</span>
+                                <span class="text text-2">The request has been retrieved successfully</span>
                             </div>
                         </div>
-                    </dialog>
-                    ';
+                        <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                        <div class="progress"></div>
+                    </div>
+                </body>';
                 
     
             } catch (Exception $e) {
@@ -1367,23 +1361,20 @@ class BMISClass {
             $connection->commit();
 
             echo '
-                <dialog class="message-popup success" >
-                    <div class="pop-up">
-                        <div class="left-side">
-                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                        </div>
-                        <div class="right-side">
-                            <div class="right-group">
-                            <div class="content">
-                                <h1>Archived Successfully!</h1>
-                            </div>
-                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                            </div>
+            <body>
+                <div class="toast">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+                        <div class="message">
+                            <span class="text text-1">Success</span>
+                            <span class="text text-2">The request has been archived successfully</span>
                         </div>
                     </div>
-                </dialog>
-                ';
-    
+                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                    <div class="progress"></div>
+                </div>
+            </body>';
+            
         } catch (Exception $e) {
             $connection->rollBack();
             echo '
@@ -1443,22 +1434,19 @@ public function unarchive_brgyclearance() {
 
             
             echo '
-                <dialog class="message-popup success" >
-                    <div class="pop-up">
-                        <div class="left-side">
-                            <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                        </div>
-                        <div class="right-side">
-                            <div class="right-group">
-                            <div class="content">
-                                <h1>Retrieved Successfully!</h1>
-                            </div>
-                            <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                            </div>
+            <body>
+                <div class="toast">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+                        <div class="message">
+                            <span class="text text-1">Success</span>
+                            <span class="text text-2">The request has been retrieved successfully</span>
                         </div>
                     </div>
-                </dialog>
-                ';
+                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                    <div class="progress"></div>
+                </div>
+            </body>';
             
 
         } catch (Exception $e) {
@@ -1780,22 +1768,19 @@ public function unarchive_brgyclearance() {
                 $connection->commit();
 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Archived Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been archived successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
         
             } catch (Exception $e) {
                 $connection->rollBack();
@@ -1865,22 +1850,19 @@ public function unarchive_brgyclearance() {
     
                 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Retrieved Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been retrieved successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
                 
     
             } catch (Exception $e) {
@@ -2120,24 +2102,20 @@ public function unarchive_brgyclearance() {
                 $deleteStmt->execute();
         
                 $connection->commit();
-
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Archived Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been archived successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
         
             } catch (Exception $e) {
                 $connection->rollBack();
@@ -2209,22 +2187,19 @@ public function unarchive_brgyclearance() {
     
                 
                 echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Retrieved Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    ';
+    <body>
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span class="text text-2">The request has been retrieved successfully</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    </body>';
                 
     
             } catch (Exception $e) {

@@ -44,7 +44,7 @@
     <?php include './form_header.php' 
     ?>
 
-<h1 style="text-transform: uppercase;">Certificate of Residency</h1>
+<h1 style="text-transform: uppercase; text-align: center;">Certificate of Residency</h1>
 
     <p>ISSUANCE NO.: <u id="id_rescert"><?= $resident['id_rescert'] ?></u></p>
     <p>TO WHOM IT MAY CONCERN:</p>
@@ -66,7 +66,7 @@
 
     <p>
         This certification is being issued upon the request of the above mentioned person for
-        <span contenteditable=" true" id="purpose"><?= $resident['purpose'] ?></span>.
+        <span contenteditable="true" id="purpose"><?= $resident['purpose'] ?></span>.
     </p>
 
     <br><br>

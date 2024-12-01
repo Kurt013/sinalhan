@@ -11,7 +11,7 @@
     $staffbmis->unarchive_certofindigency();
     $staffbmis->archive_certofindigency();
 ?>
-
+<?php include('popup.php'); ?>
 <style>
     /* General Table Styles */
 

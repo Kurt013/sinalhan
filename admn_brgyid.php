@@ -12,6 +12,7 @@
     $staffbmis->archive_brgyid();
 
 ?>
+<?php include('popup.php'); ?>
 
 
 <style>
