@@ -5,8 +5,11 @@
         body, html {
     overflow-x: hidden;  /* Prevents horizontal scrolling */
 }
+
+
+
         .toast {
-            position: absolute;
+            position: fixed;
             font-family: "Poppins";
             z-index: 1000;
             top: 25px;
@@ -133,25 +136,31 @@
 
 
     </style>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const toast = document.querySelector(".toast");
-        
-        toast.classList.add("active"); // Show toast after styles are applied
+      // After the page content is fully loaded, make the body visible
+      document.body.style.visibility = "visible";
     });
-</script>
-
+    
+    // Initially hide the body until the content is fully loaded
+    document.body.style.visibility = "hidden";
+  </script>
 
 <script>    if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
-    }</script>
+    }
+    </script>
     <script>
             let timer1, timer2;
 
             window.onload = function() {
                 showToast();
             };
-
+            document.addEventListener("DOMContentLoaded", () => {
+    // Add 'loaded' class once the page is fully loaded to prevent FOUC
+    document.body.classList.add("loaded");
+});
             function showToast() {
                 const toast = document.querySelector(".toast");
                 const progress = document.querySelector(".progress");
@@ -160,13 +169,12 @@
 
                 
                 timer1 = setTimeout(() => {
-                    window.location.reload(true);
                     toast.classList.remove("active");
                 }, 5000);
 
                 timer2 = setTimeout(() => {
                     progress.classList.remove("active");
-                    
+                    window.location.reload(true);
                 }, 5500);
 
                
@@ -178,6 +186,7 @@
             function closeToast() {
     const toast = document.querySelector(".toast");
     const progress = document.querySelector(".progress");
+    
 
     // Hide the toast and progress bar
     toast.classList.remove("active");
@@ -189,6 +198,8 @@
     // Clear any active timeouts
     clearTimeout(timer1);
     clearTimeout(timer2);
+
+    
 
 }
 
