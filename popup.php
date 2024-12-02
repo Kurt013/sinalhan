@@ -136,6 +136,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const toast = document.querySelector(".toast");
+        
         toast.classList.add("active"); // Show toast after styles are applied
     });
 </script>
@@ -154,35 +155,46 @@
             function showToast() {
                 const toast = document.querySelector(".toast");
                 const progress = document.querySelector(".progress");
-                
                 toast.classList.add("active");
                 progress.classList.add("active");
 
                 
                 timer1 = setTimeout(() => {
+                    window.location.reload(true);
                     toast.classList.remove("active");
                 }, 5000);
 
                 timer2 = setTimeout(() => {
                     progress.classList.remove("active");
+                    
                 }, 5500);
+
+               
 
 
 
             }
 
             function closeToast() {
-                const toast = document.querySelector(".toast");
-                const progress = document.querySelector(".progress");
+    const toast = document.querySelector(".toast");
+    const progress = document.querySelector(".progress");
 
-                toast.classList.remove("active");
-                setTimeout(() => {
-                    progress.classList.remove("active");
-                }, 300);
+    // Hide the toast and progress bar
+    toast.classList.remove("active");
 
-                clearTimeout(timer1);
-                clearTimeout(timer2);
-            }
+    setTimeout(() => {
+        progress.classList.remove("active");
+    }, 300);
+
+    // Clear any active timeouts
+    clearTimeout(timer1);
+    clearTimeout(timer2);
+
+}
+
+
+
+
         </script>
         
 
