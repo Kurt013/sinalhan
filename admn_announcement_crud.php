@@ -106,6 +106,21 @@ td {
    $ctime = $tm->format('H');
 
 ?>
+<?php
+$toastdelete = '';
+if (isset($_SESSION['toast'])) {
+    $toastdelete = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+
+// Check for the toast message in the session
+$toast = '';
+if (isset($_SESSION['toast'])) {
+    $toast = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
+
 
 <?php 
     include('dashboard_sidebar_start.php');
@@ -157,6 +172,13 @@ td {
                 </div>
             </div>
         </div>
+        <?php if (!empty($toast)): ?>
+        <?= $toast; ?>
+    <?php endif; ?>
+
+    <?php if (!empty($toastdelete)): ?>
+        <?= $toastdelete; ?>
+    <?php endif; ?>
         <div class="col-sm-6"> 
             <div class="card">
                 <div class="card-header"> Current Announcement Posted </div>

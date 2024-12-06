@@ -71,8 +71,8 @@ class BMISClass {
                     }
                 } else {
                    
-                    echo '
-                    <body>
+                    $errormsg = '
+                
                         <div class="toast" style = "border-left: 6px solid #D32F2F;">
                             <div class="toast-content">
                                 <i class="fas fa-exclamation-triangle check" style = "background-color: #D32F2F;"></i>
@@ -84,7 +84,13 @@ class BMISClass {
                             <i class="fa-solid fa-xmark close close-error"  onclick="closeToast()"></i>
                             <div class="progress progress-error"></div>
                         </div>
-                    </body>';
+                   ';
+
+                    $_SESSION['toast'] = $errormsg;
+
+                    // Redirect to prevent form re-submission
+                    header("Location: login.php");
+                    exit();
                 }
             }
         }
@@ -220,34 +226,38 @@ class BMISClass {
  //  ----------------------------------------------- ANNOUNCEMENT CRUD ---------------------------------------------------------
 
 
-    public function create_announcement() {
-        if(isset($_POST['create_announce'])) {
-            $event = $_POST['event'];
-            $created_by = $_POST['created_by'];
+ public function create_announcement() {
+    if (isset($_POST['create_announce'])) {
+        $event = $_POST['event'];
+        $created_by = $_POST['created_by'];
 
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_announcement (`event`, `created_by`)
-                VALUES (?, ?)");
-            $stmt->execute([$event, $created_by]);
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("INSERT INTO tbl_announcement (`event`, `created_by`) VALUES (?, ?)");
+        $stmt->execute([$event, $created_by]);
 
-
-            echo '
-            <body>
-                <div class="toast">
-                    <div class="toast-content">
-                        <i class="fas fa-solid fa-check check"></i>
-                        <div class="message">
-                            <span class="text text-1">Announcement Posted</span>
-                            <span class="text text-2">Your announcement has been published </span>
-                        </div>
+        // Store the notification HTML in a variable
+        $toast = '
+            <div class="toast">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Announcement Posted</span>
+                        <span class="text text-2">Your announcement has been published </span>
                     </div>
-                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
-                    <div class="progress"></div>
                 </div>
-            </body>';
-  
-        }
+                <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                <div class="progress"></div>
+            </div>';
+        
+        // Pass the toast message to the session for rendering in the UI
+        $_SESSION['toast'] = $toast;
+
+        // Redirect to prevent form re-submission
+        header("Location: admn_announcement_crud.php");
+        exit();
     }
+}
+
 
     public function view_announcement(){
         $connection = $this->openConn();
@@ -285,30 +295,37 @@ class BMISClass {
     //     }
     // }
 
-    public function delete_announcement(){
-        if(isset($_POST['delete_announcement'])) {
+    public function delete_announcement() {
+        if (isset($_POST['delete_announcement'])) {
             $id_announcement = $_POST['id_announcement'];
-
+    
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_announcement where id_announcement = ?");
+            $stmt = $connection->prepare("DELETE FROM tbl_announcement WHERE id_announcement = ?");
             $stmt->execute([$id_announcement]);
-
-            echo '
-            <body>
+    
+            // Store the notification HTML in a variable
+            $toastdelete = '
                 <div class="toast">
                     <div class="toast-content">
                         <i class="fas fa-solid fa-check check"></i>
                         <div class="message">
                             <span class="text text-1">Announcement Deleted</span>
-                            <span class="text text-2">The announcement has been removed </span>
+                            <span class="text text-2">The announcement has been removed</span>
                         </div>
                     </div>
                     <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
                     <div class="progress"></div>
-                </div>
-            </body>';
+                </div>';
+    
+            // Pass the toast message to the session for rendering in the UI
+            $_SESSION['toast'] = $toastdelete;
+    
+            // Redirect to prevent form re-submission
+            header("Location: admn_announcement_crud.php");
+            exit();
         }
     }
+    
 
     public function count_announcement() {
         $connection = $this->openConn();
@@ -472,7 +489,7 @@ class BMISClass {
 
     public function update_certofres() {
         if (isset($_POST['update_rescert'])) {
-            $id_rescert = $_GET['id_rescert'];
+            $id_rescert = $_POST['id_rescert'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -483,7 +500,7 @@ class BMISClass {
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
-            $doc_status = 'accepted';
+            $doc_status = 'pending';
     
             try {                
                 $connection = $this->openConn();
@@ -518,9 +535,9 @@ class BMISClass {
                     $id_rescert
                 ]);
 
-                $stmt = $connection->prepare("UPDATE tbl_rescert SET doc_status = ? WHERE id_rescert = ?");
+                $stmt = $connection->prepare("UPDATE tbl_rescert SET doc_status = 'accepted' WHERE id_rescert = ?");
 
-                $stmt->execute([$doc_status, $id_rescert]);
+                $stmt->execute([$doc_status]);
 
                 echo '
                     <dialog class="message-popup success" >
@@ -668,12 +685,12 @@ class BMISClass {
                 $insertStmt->bindParam(':doc_status', $doc_status);
                 $insertStmt->execute();
     
-                // $deleteStmt = $connection->prepare("
-                //     DELETE FROM tbl_rescert_archive
-                //     WHERE id_rescert = :id_rescert
-                // ");
-                // $deleteStmt->bindParam(':id_rescert', $id_rescert);
-                // $deleteStmt->execute();
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_rescert_archive
+                    WHERE id_rescert = :id_rescert
+                ");
+                $deleteStmt->bindParam(':id_rescert', $id_rescert);
+                $deleteStmt->execute();
     
                 $connection->commit();
     
@@ -831,7 +848,7 @@ class BMISClass {
 
     public function update_certofindigency() {
         if (isset($_POST['update_indigency'])) {  // Checks if update was triggered
-            $id_indigency = $_GET['id_indigency'];
+            $id_indigency = $_POST['id_indigency'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -843,7 +860,7 @@ class BMISClass {
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
-            $doc_status = 'accepted';
+            $doc_status = 'pending';
     
             try {                
                 $connection = $this->openConn();
@@ -1009,12 +1026,12 @@ class BMISClass {
                 $insertStmt->bindParam(':doc_status', $doc_status);
                 $insertStmt->execute();
     
-                // $deleteStmt = $connection->prepare("
-                //     DELETE FROM tbl_indigency_archive
-                //     WHERE id_indigency = :id_indigency
-                // ");
-                // $deleteStmt->bindParam(':id_indigency', $id_indigency);
-                // $deleteStmt->execute();
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_indigency_archive
+                    WHERE id_indigency = :id_indigency
+                ");
+                $deleteStmt->bindParam(':id_indigency', $id_indigency);
+                $deleteStmt->execute();
     
                 $connection->commit();
 
@@ -1272,64 +1289,9 @@ class BMISClass {
         }
     }
 
-    public function accept_clearance() {
-            $id_clearance = $_GET['id_clearance'];
-            $doc_status = 'accepted';
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_clearance SET doc_status = ? WHERE id_clearance = ?");
-            $stmt->execute([$doc_status, $id_clearance]);
-
-            echo "<script>window.opener.location.href = window.opener.location.href;</script>";
-    }
-
-    public function accept_indigency() {
-            $id_indigency = $_GET['id_indigency'];
-            $doc_status = 'accepted';
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_indigency SET doc_status = ? WHERE id_indigency = ?");
-            $stmt->execute([$doc_status, $id_indigency]);
-
-            echo "<script>window.opener.location.href = window.opener.location.href;</script>";
-    }
-
-    public function accept_brgyid() {
-            $id_brgyid = $_GET['id_brgyid'];
-            $doc_status = 'accepted';
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_brgyid SET doc_status = ? WHERE id_brgyid = ?");
-            $stmt->execute([$doc_status, $id_brgyid]);
-
-            echo "<script>window.opener.location.href = window.opener.location.href;</script>";
-    }
-
-    public function accept_rescert() {
-            $id_rescert = $_GET['id_rescert'];
-            $doc_status = 'accepted';
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_rescert SET doc_status = ? WHERE id_rescert = ?");
-            $stmt->execute([$doc_status, $id_rescert]);
-
-            echo "<script>window.opener.location.href = window.opener.location.href;</script>";
-    }
-
-    public function accept_bspermit() {
-            $id_bspermit = $_GET['id_bspermit'];
-            $doc_status = 'accepted';
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_bspermit SET doc_status = ? WHERE id_bspermit = ?");
-            $stmt->execute([$doc_status, $id_bspermit]);
-
-            echo "<script>window.opener.location.href = window.opener.location.href;</script>";
-    }
-
     public function update_clearance() {
         if (isset($_POST['update_clearance'])) {  // Checks if update was triggered
-            $id_clearance = $_GET['id_clearance'];
+            $id_clearance = $_POST['id_clearance'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -1340,7 +1302,7 @@ class BMISClass {
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
             $purpose = $_POST['purpose'];
-            $doc_status = 'accepted';
+            $doc_status = 'pending';
     
             try {                
                 $connection = $this->openConn();
@@ -1517,12 +1479,12 @@ public function unarchive_brgyclearance() {
             $insertStmt->bindParam(':doc_status', $doc_status);
             $insertStmt->execute();
 
-            // $deleteStmt = $connection->prepare("
-            //     DELETE FROM tbl_clearance_archive
-            //     WHERE id_clearance = :id_clearance
-            // ");
-            // $deleteStmt->bindParam(':id_clearance', $id_clearance);
-            // $deleteStmt->execute();
+            $deleteStmt = $connection->prepare("
+                DELETE FROM tbl_clearance_archive
+                WHERE id_clearance = :id_clearance
+            ");
+            $deleteStmt->bindParam(':id_clearance', $id_clearance);
+            $deleteStmt->execute();
 
             $connection->commit();
 
@@ -1729,7 +1691,7 @@ public function unarchive_brgyclearance() {
 
     public function update_bspermit() {
         if (isset($_POST['update_bspermit'])) {
-            $id_bspermit = $_GET['id_bspermit'];
+            $id_bspermit = $_POST['id_bspermit'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -1933,12 +1895,12 @@ public function unarchive_brgyclearance() {
                 $insertStmt->bindParam(':doc_status', $doc_status);
                 $insertStmt->execute();
     
-                // $deleteStmt = $connection->prepare("
-                //     DELETE FROM tbl_bspermit_archive
-                //     WHERE id_bspermit = :id_bspermit
-                // ");
-                // $deleteStmt->bindParam(':id_bspermit', $id_bspermit);
-                // $deleteStmt->execute();
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_bspermit_archive
+                    WHERE id_bspermit = :id_bspermit
+                ");
+                $deleteStmt->bindParam(':id_bspermit', $id_bspermit);
+                $deleteStmt->execute();
     
                 $connection->commit();
     
@@ -2270,12 +2232,12 @@ public function unarchive_brgyclearance() {
                 $insertStmt->bindParam(':doc_status', $doc_status);
                 $insertStmt->execute();
     
-                // $deleteStmt = $connection->prepare("
-                //     DELETE FROM tbl_brgyid_archive
-                //     WHERE id_brgyid = :id_brgyid
-                // ");
-                // $deleteStmt->bindParam(':id_brgyid', $id_brgyid);
-                // $deleteStmt->execute();
+                $deleteStmt = $connection->prepare("
+                    DELETE FROM tbl_brgyid_archive
+                    WHERE id_brgyid = :id_brgyid
+                ");
+                $deleteStmt->bindParam(':id_brgyid', $id_brgyid);
+                $deleteStmt->execute();
     
                 $connection->commit();
     
@@ -2346,7 +2308,7 @@ public function unarchive_brgyclearance() {
     public function update_brgyid() {
         if (isset($_POST['update_brgyid'])) {
             $res_photo = $_POST['res_photo'];
-            $id_brgyid = $_GET['id_brgyid'];
+            $id_brgyid = $_POST['id_brgyid'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi']; 
             $lname = $_POST['lname'];

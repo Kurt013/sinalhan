@@ -12,8 +12,6 @@
 
     body {
         visibility: hidden;
-        transition: visibility 0.5s ease-in-out;
-        /* Smooth transition */
         opacity: 0;
     }
 
@@ -85,6 +83,7 @@
 
 
     .message .text {
+        text-align: left;
         font-size: 1rem;
         font-weight: 400;
         color: #666666;

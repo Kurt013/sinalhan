@@ -14,6 +14,16 @@
     $bmis->login();
 ?>
 
+<?php
+$errormsg = '';
+if (isset($_SESSION['toast'])) {
+    $errormsg = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,19 +95,6 @@
 
 /* Logo container */
 /* Right-side styles */
-.right-side {
-    width: 55%;
-    background-color: #012049;
-    background-image: url('assets/bgimage.png');
-    background-size: cover;
-    background-position: right;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    position: relative;
-    padding: 20px;
-}
 
 /* Parent container styles */
 .parent-container {
@@ -181,6 +178,7 @@
 
 .right-side {
     width: 55%;
+    background-color: #012049;
     background-image: url('assets/bgimage4.png'); /* Path to your image */
     background-size: cover; /* Ensures the image scales to cover the entire area */
     background-position: right center; /* Focuses on the right side of the image */
@@ -349,7 +347,9 @@
 
 <body>
  
-
+<?php if (!empty($errormsg)): ?>
+        <?= $errormsg; ?>
+    <?php endif; ?>
 
 <div class="container-custom">
     <div class="left-side">
@@ -377,6 +377,7 @@
 
             <button class="btn btn-primary login-button" type="submit" name="login">Login</button>
             <hr style = "background-color: white; height: 3px; border: none;  opacity: 1;  margin-left: auto;margin-right: auto; margin-top: 35px;margin-bottom: 15px">
+
         </form>
 
      
@@ -427,7 +428,7 @@
 
 
     function trying() {
-        window.location.href = "forget_password.php";
+        window.location.href = "forgot_pw.php";
     }
 </script>
 
