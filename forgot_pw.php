@@ -343,7 +343,7 @@ body {
     width: 40%;
 }
 
-.right-side h3 {
+.right-side h3, .right-side h1 {
     font-family: 'PBold';
             color: white;
             text-align:left;
@@ -368,13 +368,13 @@ body {
     text-align: center;
 }
 
-.input-field {
+.input-field, .form-control-verify {
             margin-top: 5px;
             width: 100%;
             padding: 10px 15px;               
             border: none;                
             border-bottom: 2px solid white; 
-            color: #012049;
+            color: #012049 !important;
             font-size: 1rem;        
            border-radius: 10px;            
             box-sizing: border-box;     
@@ -382,6 +382,13 @@ body {
             background-color: white;
                 
             font-family: 'PMedium', sans-serif;           
+        }
+
+        .form-control-verify {
+          text-align: center;
+          font-family: "PExBold";
+          font-size: 1.2rem;
+          letter-spacing: 5px;
         }
 
         .input-label {
@@ -429,8 +436,12 @@ body {
     background-color: #2c91c9;
     border: 2px solid #2c91c9;
     border-radius: 20px
+  
+}
 
-
+.btn-4 {
+  text-align: center !important;
+  font-style: italic;
 }
 
 .error-message, .message-success {
@@ -452,7 +463,17 @@ body {
 
     </style>
 </head>
+<?php
+$invalidotp = '';
+if (isset($_SESSION['toast'])) {
+    $invalidotp = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
 <body>
+<?php if (!empty($invalidotp)): ?>
+        <?= $invalidotp; ?>
+    <?php endif; ?>
 <?php include('popup.php'); ?>
     <div class="container-custom">
         <!-- Left Side with Background and Title -->
@@ -499,19 +520,22 @@ body {
             <?php else : ?>
                 <form class="form-field-2" role="form" method="POST" action="forgot_password_reset.php">
                     <h1>OTP Verification</h1>
+                    <hr style = "background-color: white; height: 3px; border: none;  opacity: 1;  margin-left: auto;margin-right: auto; margin-top: 15px;margin-bottom: 10px">
                     <div class="submit-group">
                         <p>A One-Time Passcode has been sent to your email. Please enter the OTP below to reset your password.</p>
                         <label class="input-label" for="verification_code">Enter OTP</label>
-                        <input class="form-control-verify" id="verification_code" name="verification_code" placeholder="Enter the OTP" required maxlength="6" minlength="6" pattern="[0-9]+">
+                        <input class="form-control-verify" id="verification_code" name="verification_code"  required maxlength="6" minlength="6" pattern="[0-9]+">
                         
                         <?php if (!empty($message)) : ?>
                             <div class="error-message"><?= htmlspecialchars($message) ?></div>
                         <?php endif; ?>
 
-                        <div class="bottom-part-2">
-                            <button type="submit" class="btn-3" name="submit_verification_code">Verify OTP</button>
+                        <div class="btn-container">
+                            <button type="submit" class="btn-2" name="submit_verification_code">Verify OTP</button>
                             <p class="btn-4">Didn't receive a code? Please check your spam folder</p>
+                            
                         </div>
+                        <hr style = "background-color: white; height: 3px; border: none;  opacity: 1;  margin-left: auto;margin-right: auto; margin-top: 15px;margin-bottom: 10px">
                     </div>
                 </form>
             <?php endif; ?>

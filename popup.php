@@ -1,7 +1,48 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
 <style>
+    
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+    @font-face {
+            font-family: 'PMedium'; 
+            src: url('fonts/Poppins-Medium.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PBold'; 
+            src: url('fonts/Poppins-Bold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PBlack'; 
+            src: url('fonts/Poppins-Black.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PExBold'; 
+            src: url('fonts/Poppins-ExtraBold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+          font-family: 'PExBoldIt'; 
+          src: url('fonts/Poppins-ExtraBoldItalic.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PBlackIt'; 
+            src: url('fonts/Poppins-BlackItalic.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PSemiBold'; 
+            src: url('fonts/Poppins-SemiBold.ttf') format('truetype'); 
+        }
+
+        @font-face {
+            font-family: 'PRegular'; 
+            src: url('fonts/Poppins-Regular.ttf') format('truetype'); 
+        }
+
 
     body,
     html {
@@ -39,7 +80,7 @@
         transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35), opacity 0.5s ease-out;
         width: auto;
         /* Adjust width based on content */
-        max-width: 550px;
+        max-width: 650px;
         /* Optional: limit the maximum width */
         white-space: nowrap;
         /* Prevent the text from wrapping to the next line */

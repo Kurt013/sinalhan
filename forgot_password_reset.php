@@ -21,12 +21,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_verification_co
     if (!$check) {
         $message = "Database query failed: ";
     } else if ($check->rowCount() != 1) {
-        $_SESSION['message'] = 'Invalid verification code';
-        header('Location: forget_password.php');
+        $invalidotp = '
+                
+        <div class="toast" style = "border-left: 6px solid #D32F2F;">
+            <div class="toast-content">
+                <i class="fas fa-exclamation-triangle check" style = "background-color: #D32F2F;"></i>
+                <div class="message">
+                    <span class="text text-1">Invalid OTP</span>
+                    <span class="text text-2">Please re-enter your email or username to restart the process </span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close close-error"  onclick="closeToast()"></i>
+            <div class="progress progress-error"></div>
+        </div>
+   ';
+
+    $_SESSION['toast'] = $invalidotp;
+        header('Location: forgot_pw.php');
         exit;
       } else { 
         $_SESSION['verification_code'] = $key;
-        $message_success = "Verification code accepted. Please enter your new password.";
+        $validotp = '
+    
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-check check"></i>
+                <div class="message">
+                    <span class="text text-1">OTP Accepted</span>
+                    <span class="text text-2">You can now reset your password</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+            <div class="progress"></div>
+        </div>
+    ';
+    $_SESSION['toast'] = $validotp;
+    header('Location: forgot_password_reset.php');
+    exit;
     }
 }
 
@@ -128,8 +159,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
+<?php
+$validotp = '';
+if (isset($_SESSION['toast'])) {
+    $validotp = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
 <body>
-
+<?php if (!empty($validotp)): ?>
+        <?= $validotp; ?>
+    <?php endif; ?>
+<?php include('popup.php'); ?>
 <div class="container">
     <form class="password-form" role="form" method="POST">
         <h1>Reset Password</h1>
