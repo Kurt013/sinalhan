@@ -45,13 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.mailersend.net';  // Set your SMTP server
                 $mail->SMTPAuth = true;
-                $mail->Username = 'MS_aEACuu@trial-0p7kx4xjwevl9yjr.mlsender.net'; // Your SMTP username
-                $mail->Password = 'ZsOeSK3qqlPGnXj7'; // Your SMTP password or app password
+                $mail->Username = 'MS_7mbW1m@trial-7dnvo4djj3x45r86.mlsender.net'; // Your SMTP username
+                $mail->Password = '8XhCkcoNPuzNMq0i'; // Your SMTP password or app password
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
                 // Sender and recipient settings
-                $mail->setFrom('MS_aEACuu@trial-0p7kx4xjwevl9yjr.mlsender.net', 'Brgy. Sinalhan');
+                $mail->setFrom('MS_7mbW1m@trial-7dnvo4djj3x45r86.mlsender.net', 'Brgy. Sinalhan');
                 $mail->addAddress($detailFetch['email'], $detailFetch['fname']);
 
                 $mail->isHTML(true);
