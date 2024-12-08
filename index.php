@@ -19,7 +19,7 @@
 
     
 ?>
-  </head>
+
  
 
 <!DOCTYPE html> 
@@ -43,15 +43,7 @@
         <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
         
         <?php include('loading.php'); ?>
-
-
-        
- 
-
     <style>
-
-
-
 
         @font-face {
             font-family: 'PMedium'; 

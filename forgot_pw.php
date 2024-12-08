@@ -58,7 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $mail->Subject = 'Verification Code -- DO NOT SHARE';
                 
                 $mail->Body = '<html>
-              <head>
+            
+              
                   <style>
                       * {
                         margin: 0;
@@ -85,9 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                         background-image: url("https://scontent.fmnl33-6.fna.fbcdn.net/v/t1.15752-9/449048471_452239437525588_272269953370891782_n.png?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHTy-oQj3Uj41iB2J4xK9LgOvJNqU_Wwy068k2pT9bDLXXgweOat34wwr2glrhynQZyblrvet-tbppoUf5Yy2Jm&_nc_ohc=gtjpG9gbncsQ7kNvgGUC6IX&_nc_ht=scontent.fmnl33-6.fna&oh=03_Q7cD1QF7hSpPEgBw3S-qbjlXY6Sk4qwW0X60UhFM6b327mzD8g&oe=66A6D4CE");
                       }
 
-                      .logo {
-                        width: 150px;
-                      }
+
 
                       .body-card {
                         padding: 30px 0 15px;
@@ -159,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                       }
 
                     </style>
-                  </head>
+            \
                   <body>
                     <div class="card-container">
                       <div class="header-card">
@@ -230,30 +229,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       }
   }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barangay Management System</title>
-
-  <!-- Favicon -->
   <link rel="icon" href="images/villa-gilda-logo3.png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <!-- Stylesheets -->
-  
-
-
-  <!-- Boxicon Link -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
-  <!-- Remixicon Link -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
-
-  <!-- Google Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -462,6 +448,7 @@ body {
         }
 
     </style>
+    <?php include('loading.php'); ?>
 </head>
 <?php
 $invalidotp = '';
@@ -470,11 +457,13 @@ if (isset($_SESSION['toast'])) {
     unset($_SESSION['toast']); // Clear the session after displaying
 }
 ?>
+
 <body>
 <?php if (!empty($invalidotp)): ?>
         <?= $invalidotp; ?>
     <?php endif; ?>
-<?php include('popup.php'); ?>
+
+<?php include('popups.php'); ?>
     <div class="container-custom">
         <!-- Left Side with Background and Title -->
         <div class="left-side">

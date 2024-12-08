@@ -13,6 +13,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         justify-content: center;
         align-items: center;
         z-index: 100;
+        box-sizing: border-box !important;
         opacity: 1;
         transition: opacity 1s ease-out; /* Smooth fade-out transition */
     }
@@ -25,6 +26,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         border: 15px solid transparent; /* Outer border */
         border-top: 15px solid white; /* Highlighted spinning section */
         border-radius: 50%;
+        box-sizing: border-box !important;
         animation: spin 1s linear infinite;
     }
 
@@ -35,6 +37,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         left: 50%;
         transform: translate(-50%, -50%);
         width: 190px; /* Adjust logo size */
+        box-sizing: border-box !important;
         height: 190px;
     }
 
