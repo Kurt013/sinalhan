@@ -335,13 +335,16 @@ form label {
                 <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="bspermit_form.php?id_bspermit=<?= $view['id_bspermit'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
-                <button type="submit" id="hiddenSubmitBtn" style="display:none;" name="archive_bspermit">Submit</button>
 
                 <?php 
-                    echo $list === 'active' ? 
-                        '<button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_bspermit">  <i class="fas fa-archive"></i> </button>' :
-                        '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>'
-                        ;
+                    if ($list === 'active') {
+                       echo '<button type="submit" id="hiddenSubmitBtn" style="display:none;" name="archive_bspermit">Submit</button>';
+                       echo '<button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_bspermit">  <i class="fas fa-archive"></i> </button>';
+                    }
+                    else {
+                       echo '<button type="submit" id="hiddenSubmitBtn" style="display:none;" name="unarchive_bspermit">Submit</button>';
+                       echo '<button class="btn btn-danger unarchive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>';
+                    }
                 ?>    
             </form>
             <?php include('popup-confirm.php'); ?>
@@ -407,14 +410,15 @@ form label {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     // Get all archive buttons
-    const openPopupBtns = document.querySelectorAll('.archive-btn');
+    const openPopupBtns = document.querySelectorAll('.archive-btn, .unarchive-btn');
     
     // Get popup and other necessary elements
     const popup = document.getElementById('popup');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const archiveForm = document.getElementById('archiveForm');
-    const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn');  // Hidden submit button
+    const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn');
+    // Hidden submit button
 
     // Loop through all archive buttons and add event listeners
     openPopupBtns.forEach((openPopupBtn) => {
