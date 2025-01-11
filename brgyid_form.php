@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <style>
-    @page { size: auto;  margin: 4mm; }
+    @page { size: auto;  margin: 25.4mm; }
 
     [contenteditable] {
       border: 2px solid black;
@@ -41,42 +41,46 @@
     }
 
     body {
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       display: flex;
-      height: 100vh;
+      min-height: 100vh;
       justify-content: center;
       align-items: center;
+      font-family: Arial, sans-serif;
     }
 
     .card {
+      position: relative;
       background-color: #89cff0;
       overflow: hidden;
+      height: 240px;
+      width: 460px;
     }
 
     .front {
       position: relative;
       margin-bottom: 10px;
-    }
-
- 
-    .retakeBtn {
-      position: absolute;
-    }
+    } 
 
     .header {
-      margin-top: 10px;
-      background-color: blue;
+      padding: 10px;
+      background-color: #012049;
       font-family: Impact, sans-serif;
       color: white;
       position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
     }
 
     .header img {
       width: 50px;
       height: 50px;
-      position: absolute;
     }
 
     .header p {
@@ -84,18 +88,38 @@
       text-align: center;
     }
     
-    .header .left {
-      top: -10px;
-      left: 30px;
-    }
-
-    .header .right {
-      top: -10px;
-      right: 30px;
-    }
-
     .sub-header {
-      font-size: 10px;
+      font-size: 12px;
+    }
+
+    .content {
+      display: flex;
+      padding: 10px;
+      column-gap: 10px;
+      align-items: center;
+    }
+
+    .content * {
+      text-transform: capitalize;
+      font-size: 12px;
+      margin: 0;
+      margin-bottom: 2px;
+    }
+
+    .retakeBtn {
+      display: block;
+    }   
+
+
+    .right-side h1 {
+      font-size: 14px;
+      font-family: "PSemiBold";
+    }
+
+
+    .back {
+      font-size: 14px;
+      text-align: center;
     }
 
 
@@ -105,33 +129,40 @@
     <div class="brgyid">
       <div class="front card">
         <div class="header">
-          <img class="left" src="./assets/sinlogo.png" alt="">
-          <p class="sub-header">Republic of Philippines Province of Laguna City of Santa Rosa</p>
-          <p>Barangay Sinalhan Identification Card</p>
-          <img class="right" src="./assets/sntrlogo.png" alt="">
+          <div><img class="left" src="./assets/sinlogo.png" alt=""></div>
+          <div class="middle">
+            <p class="sub-header">Republic of Philippines Province of Laguna City of Santa Rosa</p>
+            <p>Barangay Sinalhan Identification Card</p>
+          </div>
+          <div><img class="right" src="./assets/sntrlogo.png" alt=""></div>
         </div>
 
-        <?php $staffbmis->convertToImg($resident['res_photo']) ?>
-        <button class="noprint retakeBtn" onclick="changePic('camera.php?id_brgyid=<?= $resident['id_brgyid'] ?>');" > Retake Photo </button>
-      
-          <p>
-          <span contenteditable="true" id="fname"><?= $resident['fname'] ?></span>
-          <span contenteditable="true" id="mi"><?= $resident['mi'] ?></span>
-          <span contenteditable="true" id="lname"><?= $resident['lname'] ?></span>
-        </p>
-        <h1>ADDRESS</h1>
-        <p>
-          <span contenteditable="true" id="houseno"><?= $resident['houseno'] ?></span>
-          <span contenteditable="true" id="street"><?= $resident['street'] ?></span>,
-          <span id="brgy"><?= $resident['brgy'] ?></span>,
-          <span id="city"><?= $resident['city'] ?></span>,
-          <span id="municipality"><?= $resident['municipality'] ?></span>
-        </p>
-        <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p>
-        <p contenteditable="true" id="valid_date"><?= $resident['valid_date']?><p>
-        <p contenteditable="true" id="status"><?= $resident['status']?><p>
-        <p contenteditable="true" id="precint_no"><?= $resident['precint_no'] ?></p>
+        <div class="content">
+          <div class="left-side">
+            <?php $staffbmis->convertToImg($resident['res_photo']) ?>
+            <button class="noprint retakeBtn" onclick="changePic('camera.php?id_brgyid=<?= $resident['id_brgyid'] ?>');" > Retake Photo </button>
+          </div>
+          <div class="right-side">
+            <p>
+              <span contenteditable="true" id="fname"><?= $resident['fname'] ?></span>
+              <span contenteditable="true" id="mi"><?= $resident['mi'] ?></span>
+              <span contenteditable="true" id="lname"><?= $resident['lname'] ?></span>
+            </p>
+            <p>
+              <span contenteditable="true" id="houseno"><?= $resident['houseno'] ?></span>
+              <span contenteditable="true" id="street"><?= $resident['street'] ?></span>,
+              <span id="brgy"><?= $resident['brgy'] ?></span>,
+              <span id="city"><?= $resident['city'] ?></span>,
+              <span id="municipality"><?= $resident['municipality'] ?></span>
+            </p>
+            <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p>
+            <p contenteditable="true" id="valid_date"><?= $resident['valid_date']?><p>
+            <p contenteditable="true" id="status"><?= $resident['status']?><p>
+            <p contenteditable="true" id="precint_no"><?= $resident['precint_no'] ?></p>
+          </div>
+        </div>
       </div>
+
       <div class="back card">
         <h1>In case of emergency please notify</h1>
       
@@ -152,12 +183,11 @@
       </div>
       
       <button class="btn btn-primary noprint" id="printpagebutton" onclick="PrintElem('#clearance')">Print</button>
-      </body><button class="noprint btn-update">Update</button>
+      <button class="noprint btn-update">Update</button>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="./js-components/component-js-openwindow.js"></script>
-      <?php
-      
-      ?>
+
     </div>
 
 
@@ -236,4 +266,5 @@
     });
     </script>
     <script src="./js-components/component-js-popup.js"></script>
+    </body>
 </html>
