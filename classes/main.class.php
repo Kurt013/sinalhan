@@ -2717,20 +2717,27 @@ public function unarchive_brgyclearance() {
     }
 
 
-    public function count_total_month() {
+    public function count_total_day() {
         $connection = $this->openConn();
 
         $stmt = $connection->prepare("
-            SELECT * 
-            FROM tbl_rescert
-            WHERE 
-                MONTH(booking_date) = ? AND YEAR(booking_date) = YEAR(CURDATE()) 
-            ORDER BY booking_date DESC;
-            ");
+            SELECT COUNT(*) 
+            FROM (
+                SELECT id_rescert AS id FROM tbl_rescert WHERE doc_status = 'accepted' AND MONTH(created_on) = MONTH(CURDATE()) AND YEAR(created_on) = YEAR(CURDATE())
+                UNION ALL
+                SELECT id_bspermit AS id FROM tbl_bspermit WHERE doc_status = 'accepted' AND MONTH(created_on) = MONTH(CURDATE()) AND YEAR(created_on) = YEAR(CURDATE())
+                UNION ALL
+                SELECT id_clearance AS id FROM tbl_clearance WHERE doc_status = 'accepted' AND MONTH(created_on) = MONTH(CURDATE()) AND YEAR(created_on) = YEAR(CURDATE())
+                UNION ALL
+                SELECT id_indigency AS id FROM tbl_indigency WHERE doc_status = 'accepted' AND MONTH(created_on) = MONTH(CURDATE()) AND YEAR(created_on) = YEAR(CURDATE())
+                UNION ALL
+                SELECT id_brgyid AS id FROM tbl_brgyid WHERE doc_status = 'accepted' AND MONTH(created_on) = MONTH(CURDATE()) AND YEAR(created_on) = YEAR(CURDATE())
+            ) AS combined_counts
+        ");
         $stmt->execute();
-        $brgyidcount = $stmt->fetchColumn();
+        $totalCount = $stmt->fetchColumn();
 
-        return $brgyidcount;
+        return $totalCount;
     }
 
     public function count_documents_issued_in_month($startDate, $endDate) {
