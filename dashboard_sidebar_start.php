@@ -136,6 +136,11 @@ $role = $user['role'];
     transform: rotate(-5deg);
   }
 }
+
+.hidden {
+    display: none;
+}
+
 .sidebar-brand-icon {
     display: flex;
     align-items: center;

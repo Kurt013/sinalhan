@@ -107,6 +107,9 @@ form label {
 
     include('popup-toast.php');
 
+    $from = isset($_POST['from']) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
+    $to = isset($_POST['to']) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d');
+
 	if(isset($_POST['search_bspermit'])){
 		$keyword = $_POST['keyword'];
 
@@ -168,13 +171,15 @@ form label {
                         aoe LIKE ? OR
                         created_by LIKE ? OR
                         created_on LIKE ?) 
-                    AND `doc_status` = ?") : 
+                    AND `doc_status` = ?
+                    AND (date(created_on) BETWEEN ? AND ?)
+                    ") : 
             $stmt = $conn->prepare("
                 SELECT *
                 FROM
                     tbl_bspermit_archive
                 WHERE
-                    id_bspermit LIKE ? OR
+                    (id_bspermit LIKE ? OR
                     `lname` LIKE ? OR  
                     `mi` LIKE ? OR  
                     `fname` LIKE ? OR 
@@ -187,7 +192,8 @@ form label {
                     bsindustry LIKE ? OR
                     aoe LIKE ? OR
                     archived_on LIKE ? OR
-                    archived_by LIKE ?
+                    archived_by LIKE ?)
+                        AND (date(archived_on) BETWEEN ? AND ?)
                 ");
 
         $keywordLike = "%$keyword%";
@@ -198,13 +204,13 @@ form label {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $pendingStatus
+                $keywordLike, $keywordLike, $pendingStatus, $from, $to
             ]):
             $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike
+                $keywordLike, $keywordLike, $from, $to
             ]);
         
         $views = $stmt->fetchAll();
@@ -291,11 +297,11 @@ echo $list === 'active' ?
         $pendingStatus = 'accepted';
 
         if ($list === 'active') {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ?");
-            $stmt->execute([$pendingStatus]);
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ? AND date(created_on) BETWEEN ? AND ?");
+            $stmt->execute([$pendingStatus, $from, $to]);
         } else {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive");
-            $stmt->execute();
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive WHERE date(archived_on) BETWEEN ? AND ?");
+            $stmt->execute([$from, $to]);
         }
         $views = $stmt->fetchAll();
         if ($stmt->rowCount() > 0) {

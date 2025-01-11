@@ -319,10 +319,25 @@ box-shadow:
         <div class="col">
 
 <form class="searchbox" method="POST">
-        <input class = "searchinp" placeholder="Search" name ="keyword" />
-        <button class="searchbtn" type="submit" value="search" name="search_bspermit">
-  <i class="fas fa-search"></i>
-</button>
+                <input class = "searchinp" placeholder="Search" name ="keyword" />
+                <button class="searchbtn" type="submit" value="search" name="search_bspermit">
+                  <i class="fas fa-search"></i>
+                </button>
+
+<?php if ($_GET['list'] == 'archived') {?>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="from_date" class="form-label">From:</label>
+            <input type="date" class="form-control" id="from_date" name="from" value="<?= isset($_POST['from']) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d'); ?>">
+        </div>
+        <div class="col-md-6">
+            <label for="to_date" class="form-label">To:</label>
+            <input type="date" class="form-control" id="to_date" name="to" value="<?= isset($_POST['to']) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d'); ?>">
+        </div>
+    </div>
+
+<?php } ?>
+
     </form>                     
             
             <br>
