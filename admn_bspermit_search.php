@@ -104,6 +104,9 @@ form label {
 
 </style>
 <?php
+
+    include('popup-toast.php');
+
 	if(isset($_POST['search_bspermit'])){
 		$keyword = $_POST['keyword'];
 
