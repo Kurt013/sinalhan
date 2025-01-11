@@ -63,10 +63,29 @@ class BMISClass {
 
     public function update_account_password() {
         if (isset($_POST['update_account_password'])) {
-            $password = isset($_POST['password']) ? $_POST['password'] : null;
-            $lname = $_POST['lname'];
-            $fname = $_POST['fname'];
-            $mi = $_POST['mi'];
+            $id_user = $_GET['id'];
+            $oldpassword = $_POST['oldpassword'];
+            $newpassword = $_POST['newpassword'];
+            $checkpassword = $_POST['checkpassword'];
+
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("SELECT `password` FROM tbl_user WHERE id_user = ?");
+            $stmt->execute([$id_user]);
+            $result = $stmt->fetch();
+
+            if (!$result || !password_verify($oldpassword, $result['password'])) {
+                echo "<script type='text/javascript'>alert('Old Password is Incorrect');</script>";
+            } elseif ($newpassword !== $checkpassword) {
+                echo "<script type='text/javascript'>alert('New Password and Confirm Password do not Match');</script>";
+            } else {
+                $hashedPassword = password_hash($newpassword, PASSWORD_DEFAULT);
+                $stmt = $connection->prepare("UPDATE tbl_user SET password = ? WHERE id_user = ?");
+                $stmt->execute([$hashedPassword, $id_user]);
+
+                $message2 = "Password Updated";
+                echo "<script type='text/javascript'>alert('$message2');</script>";
+                header("refresh: 0");
+            }
         }
     }
 
