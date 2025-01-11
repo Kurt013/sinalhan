@@ -9,6 +9,7 @@ if (isset($_SESSION['toast'])) {
 <?php
 
     include('dashboard_sidebar_start.php');
+    include('popup.php');
 
     $list = $_GET['list'];
 
@@ -21,7 +22,6 @@ if (isset($_SESSION['toast'])) {
     $staffbmis->archive_bspermit();
     $staffbmis->unarchive_bspermit();
 ?>
-<?php include('popup.php'); ?>
 <style>
 
 .dataTable {

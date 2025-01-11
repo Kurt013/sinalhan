@@ -1,9 +1,7 @@
 <?php
     include('dashboard_sidebar_start.php');
     include('popup-confirm.php');
-
-    
-   
+    include('popup.php');
 
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
@@ -14,6 +12,48 @@
     $staffbmis->archive_bspermit();
 
 ?>
+
+<style> 
+    .form-group label {
+        font-family: "PBold";
+        color: #012049;
+    }
+    .form-control {
+        font-family: "PMedium";
+        color: #012049;
+        background-color: transparent !important;
+        border: 2px solid #012049;
+        
+      
+    }
+    h5 {
+        font-family : "PBold";
+        text-align: center;
+        color: white;
+        background-color: #012049;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+
+    .container {
+        padding: 20px 20px;
+        border: 3px solid #012049;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .biglabel {
+        font-size: 1.7rem;
+    }
+
+    .issueno {
+        font-size: 1.3rem;
+        background-color: #012049 !important;
+        font-family: "PBold";
+        color: white;
+    }
+</style>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                     <?php
@@ -34,90 +74,108 @@ if (isset($_GET['id_bspermit'])) {
     if ($row) { // Check if the row exists
 ?>
     
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['lname']); ?>" readonly>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Middle Initial</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['mi']); ?>" 
-               readonly>
+    <div class="container">
+    <!-- Issuance Information -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class = "biglabel">Issuance No.</label>
+                <input class="form-control issueno" type="text" value="<?php echo htmlspecialchars($row['id_bspermit']); ?>" readonly>
             </div>
-       </div>
+        </div>
 
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
             </div>
-
-            <div class="row">
-
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>House Number</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bshouseno']); ?>" readonly>
-                    </div>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Last Name</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['lname']); ?>" readonly>
             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Middle Initial</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['mi']); ?>" readonly>
+            </div>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Street</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsstreet']); ?>" readonly>
-                    </div>
-                </div>
+    
+    <h5>Address</h5>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>House Number</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bshouseno']); ?>" readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Street</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsstreet']); ?>" readonly>
+            </div>
+        </div>
+    </div>
 
-                <div class="col-md-6">
-    <div class="form-group">
-        <label>Barangay</label>
-        <input type="text" class="form-control" name="status" value="<?php echo $row['bsbrgy']; ?>" readonly>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Barangay</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsbrgy']); ?>" readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>City</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bscity']); ?>" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Municipality</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsmunicipality']); ?>" readonly>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Information -->
+    <h5>Business Information</h5>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Business Name</label>
+            <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsname']); ?>" readonly>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Business Industry</label>
+            <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bsindustry']); ?>" readonly>
+        </div>
     </div>
 </div>
 
-            </div>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Area of Establishment</label>
+            <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['aoe']); ?>" readonly>
+        </div>
+    </div>
+</div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label> City</label>
-                        <p><?php echo htmlspecialchars($row['bscity']); ?></p>
-                    </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Municipality</label>
-                        <p><?php echo htmlspecialchars($row['bsmunicipality']); ?></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Business Industry</label>
-                        <p><?php echo htmlspecialchars($row['bsindustry']); ?></p>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Area of Establishment</label>
-                        <p><?php echo htmlspecialchars($row['aoe']); ?></p>
-                    </div>
-                </div>
-            </div>
 
 
 
