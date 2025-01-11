@@ -372,7 +372,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             </li>
             <!-- Barangay Staff CRUD -->
              <?php 
-                if ($userdetails['role'] == 'Administrator') {
+                if ($userdetails['role'] == 'administrator') {
              ?>
                 <li class="nav-item">
                     <a class="nav-link" href="admn_staff_crud.php">
