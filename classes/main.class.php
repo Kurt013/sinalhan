@@ -1857,7 +1857,7 @@ public function unarchive_brgyclearance() {
         
                 $connection->commit();
 
-                echo '
+                $toast = '
     <body>
         <div class="toast">
             <div class="toast-content">
@@ -1871,6 +1871,12 @@ public function unarchive_brgyclearance() {
             <div class="progress"></div>
         </div>
     </body>';
+
+    $_SESSION['toast'] = $toast;
+
+    // Redirect to prevent form re-submission
+    header("Location: admn_bspermit.php?list=active");
+    exit();
         
 } catch (Throwable $e) {
     $connection->rollBack();

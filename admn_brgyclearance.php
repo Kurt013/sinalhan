@@ -153,13 +153,11 @@ tr:hover {
 
 
     .btns {
-        background-color: #2c91c9;
+    background-color: #2c91c9;
     font-size: 0.95rem !important;
     border: none;
     border-radius: 20px;
-    width: 10%;
     padding: 8px 20px;
-
     font-family: "PSemiBold";
     }
 

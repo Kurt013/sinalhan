@@ -1,33 +1,53 @@
+
 <style>
 form label {
          
          font-size: 1rem;
-         color: #012049;
+         color: #012049 !important;
          font-family: "PSemiBold";
          text-align: left;
      }
 
-     form select  {
-            font-family: "PMedium" !important;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 2px solid #012049;
-            padding: 0 5px;
-            cursor: pointer;
-            width: 15%;
-            margin-left: 5px;
-            text-align: center;
-            margin-bottom: 10px;
-            color: #012049;
-          
-            
-        }
+     .btn-primary {
+        font-size: 0.9rem !important;
+        margin-left: 4px;
+     }
+  
+
+         
+        form select  {
+                font-family: "PMedium" !important;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 2px solid #012049;
+                padding: 0 5px;
+                cursor: pointer;
+                margin-left: 5px;
+                text-align: center;
+                margin-bottom: 10px;
+                color: #012049;
+                            
+            }
+
+            th:nth-child(5),  /* Issuance No. */
+            td:nth-child(5),  /* Issuance No. */
+            th:nth-child(7),  /* Business Name */
+            td:nth-child(7),            
+            th:nth-child(8),  /* Issuance No. */
+            td:nth-child(8),  /* Issuance No. */
+            th:nth-child(9),  /* Business Name */
+            td:nth-child(9),            
+            th:nth-child(10),  /* Issuance No. */
+            td:nth-child(10),  /* Issuance No. */
+            th:nth-child(11),  /* Business Name */
+            td:nth-child(11) { /* Business Name */
+             display: none; /* Hide the columns */
+    }
 
 
-
-        .form-control option:hover {
-    background-color: #2c91c9; /* Light gray background on hover */
-    color: #000; /* Darker text on hover */
+            .form-control option:hover {
+        background-color: #2c91c9; /* Light gray background on hover */
+        color: #000; /* Darker text on hover */
 }
 
 
@@ -86,17 +106,23 @@ form label {
 <?php
 	if(isset($_POST['search_bspermit'])){
 		$keyword = $_POST['keyword'];
+
 ?>
-<form method="GET" action="">
-        <label  for="list">Select List: </label>
-        <select  name="list" id="list" onchange="this.form.submit()">
+        <?php if (!empty($toast)): ?>
+        <?= $toast; ?>
+    <?php endif; ?>
+    <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
+        <label for="list">Select List: </label>
+        <select name="list" id="list" onchange="this.form.submit()">
             <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
             <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
         </select>
-</form>
- 
-<table class="table table-hover text-center table-bordered table-responsive">
+    </form>
+</div>
 
+ 
+<table class="table table-border table-striped custom-table datatable mb-0" id="myTable">
 <thead class="alert-info">
     <tr>
         <th> </th>
@@ -111,9 +137,10 @@ form label {
         <th> City </th>
         <th> Municipality </th>
         <th> Business Industry </th>
-        <th> Area of Establishment </th>
+        <th> AoE </th>
     </tr>
 </thead>
+
 
 <tbody>     
     <?php
@@ -183,16 +210,20 @@ form label {
     ?>
         <tr>
             <td>    
+                    
             <form action="" method="post">
                 <a class="btn btn-success" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="bspermit_form.php?id_bspermit=<?= $view['id_bspermit'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                             <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                             <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
                             <?php 
-                        echo $list === 'active' ? 
-                            '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_bspermit">  <i class="fas fa-archive"></i> </button>' :
-                            '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>'
-                            ;
-                    ?>    
+echo $list === 'active' ? 
+// Display both buttons if the status is active
+'<button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_brgyid">  <i class="fas fa-archive"></i> </button>' .
+'<a class="btn btn-primary" href="view_bspermit.php?id_bspermit=' . urlencode($view['id_bspermit']) . '" style="width: 70px; font-size: 17px; border-radius:30px;"><i class="fa fa-eye"></i></a>' :
+
+// Display only the unarchive button if the status is not active
+'<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>';
+?>  
             </form>
             </td>
             <td> <?= $view['id_bspermit'];?> </td> 
@@ -211,24 +242,28 @@ form label {
     <?php
     }
 }
-else {
-    echo "<tr><td colspan='13'>No existing list</td></tr>";
-}
+
     ?>
 </tbody>
 
+
 </table>
+
 <?php		
 	}else{
+
 ?>
-  <form method="GET" action="">
+ <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
         <label for="list">Select List: </label>
         <select name="list" id="list" onchange="this.form.submit()">
             <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
             <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
         </select>
     </form>
-<table class="table table-hover text-center table-bordered table-responsive">
+</div>
+<table class="table table-border table-striped custom-table datatable mb-0" id="myTable">
+
 
 <thead class="alert-info">
     <tr>
@@ -236,15 +271,15 @@ else {
         <th> Issuance No.</th>
         <th> Surname </th>
         <th> First Name </th>
-        <th> Middle Name </th>
-        <th> Business Name </th>
-        <th> House No. </th>
-        <th> Street </th>
-        <th> Barangay </th>
-        <th> City </th>
-        <th> Municipality </th>
+        <th> Middle Initial </th> <!-- hide -->
+        <th> Business Name </th> 
+        <th> House No. </th> <!-- hide -->
+        <th> Street </th> <!-- hide -->
+        <th> Barangay </th> <!-- hide -->
+        <th> City </th> <!-- hide -->
+        <th> Municipality </th> <!-- hide -->
         <th> Business Industry </th>
-        <th> Area of Establishment </th>
+        <th> AoE</th>
     </tr>
 </thead>
 
@@ -262,6 +297,7 @@ else {
         $views = $stmt->fetchAll();
         if ($stmt->rowCount() > 0) {
             foreach ($views as $view){
+                
     ?>
         <tr>
             <td>    
@@ -270,13 +306,17 @@ else {
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
                 <button type="submit" id="hiddenSubmitBtn" style="display:none;" name="archive_bspermit">Submit</button>
-
-                <?php 
-                    echo $list === 'active' ? 
-                        '<button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_bspermit">  <i class="fas fa-archive"></i> </button>' :
-                        '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>'
-                        ;
-                ?>    
+                <?php
+echo $list === 'active' ? 
+    // Display both buttons if the status is active
+    '<button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px; border-radius:30px;" name="archive_brgyid">  <i class="fas fa-archive"></i> </button>' .
+    '<a class="btn btn-primary" href="view_bspermit.php?id_bspermit=' . urlencode($view['id_bspermit']) . '" style="width: 70px; font-size: 17px; border-radius:30px;"><i class="fa fa-eye"></i></a>' :
+    
+    // Display only the unarchive button if the status is not active
+    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>';
+?>
+   
+         
             </form>
             <?php include('popup-confirm.php'); ?>
             </td>
@@ -296,16 +336,12 @@ else {
     <?php
         }
     }
-    else {
-        echo "<tr><td colspan='13'>No existing list</td></tr>";
-    }
+
     ?>
 </tbody>
 
 </table>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
 
 <?php
 	}
@@ -315,7 +351,16 @@ else {
         $tableName = 'tbl_bspermit_archive' :
         $tableName = 'tbl_bspermit';
 ?>
-
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assets/js/app.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     // Get all archive buttons

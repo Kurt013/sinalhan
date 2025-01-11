@@ -1,4 +1,4 @@
-<head>
+
 <style>
 
     #loading {
@@ -52,7 +52,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     }
 </style>
 
-</head>
+
     <!-- Loading spinner -->
     <div id="loading">
         <div class="spinner"></div>

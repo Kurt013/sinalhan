@@ -1,17 +1,21 @@
 <?php 
+// Enable Output Buffering to prevent unexpected output
+ob_start(); 
+
+// Include necessary classes
 include 'classes/staff.class.php';
 
+// Fetch user details
 $userdetails = $staffbmis->get_userdata();
-
 $brgyidcount = $staffbmis->count_brgyid();
 $indigencycount = $staffbmis->count_indigency();
 $clearancecount = $staffbmis->count_clearance();
 $rescertcount = $staffbmis->count_rescert();
 $bspermitcount = $staffbmis->count_bspermit();
 
-// Check if this is an AJAX request
+// Handle AJAX request
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    // Return the counts as a JSON response
+    // Return JSON response and exit
     echo json_encode([
         'rescertcount' => $rescertcount,
         'brgyidcount' => $brgyidcount,
@@ -19,15 +23,10 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         'clearancecount' => $clearancecount,
         'indigencycount' => $indigencycount
     ]);
-    exit; // Stop further script execution
+    exit; // Stop further execution for AJAX request
 }
 
-?>
-
-
-<?php
-// Include BMISClass and initialize the class
-
+// Fetch user data for non-AJAX requests
 $bmis = new BMISClass();
 $user = $bmis->get_userdata();
 
@@ -36,11 +35,11 @@ $lastName = $user['surname'];
 $role = $user['role'];
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php include('loading.php'); ?>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -481,4 +480,9 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             </li>
         </ul>
     </div>
+<<<<<<< Updated upstream
 </nav>
+=======
+</nav>
+
+>>>>>>> Stashed changes

@@ -33,6 +33,7 @@ button {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.4);
     box-sizing: content-box;
+    z-index: 1000000;
 }
 
 .popup-content {

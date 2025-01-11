@@ -18,53 +18,51 @@
 
 
 table {
-    width: auto; /* Let the table size itself based on content */
-    table-layout: auto; /* Cells adjust to their content */
-    border-collapse: collapse; /* Neat borders */
-   
-}
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      border-bottom: 5px solid #014bae !important;
+    }
 
-/* Table cell styles */
-th, td {
-    padding: 10px; /* Add some space around content */
-    text-align: center; /* Center text horizontally */
-    vertical-align: middle; /* Center text vertically */
-    border: 1px solid #ddd; /* Add borders for clarity */
-    white-space: nowrap; /* Prevent text from wrapping */
-}
+    th {
+      background-color: #014bae;
+      color: white;
+      text-align: middle;
+      font-family: "PMedium";
+      vertical-align: middle; /* Align text vertically in the center */
+      font-weight: normal;
+    }
 
-td {
-    border: 2px solid white !important; /* Thicker border with custom color */
-}
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;  
+      border: none !important; /* Remove cell borders */
+    }
 
-/* General container adjustments */
-.container-fluid {
+    td {
+        color: #012049;
+    }
+
+    td {
+        font-family: "PRegular";
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #e5fdff;
+    }
+
+    tbody tr:hover {
+      background-color: #f0f0f0;
+    }
+
+    .container-fluid {
     width: 100%; /* Ensure it spans the full width */
     overflow: visible !important; /* Prevent it from scrolling on its own */
-}
+    }
 
 /* Table Header */
-th {
-    background-color: #014bae;
-    color: white;
-    text-align: center; /* Horizontal alignment */
-    vertical-align: middle !important; /* Vertical alignment */
-    border: 2px solid white !important; /* Thicker border with custom color */
-    padding: 15px;
-    font-size: 1rem;
-    font-family: "PSemiBold" !important;
-    height: 60px; /* Adjust as needed to make the header row taller */
-}
 
-/* Table Rows */
-td {
-    text-align: center;
-    padding: 20px;
-    font-family: "PRegular" !important;
-    font-size: 0.9rem;
-    color: #333;
-    border-bottom: 1px solid #ddd;
-}
 
 .row h1 {
     color: white;
@@ -96,26 +94,6 @@ td {
 
 }
 
-/* Alternate Row Colors */
-tr:nth-child(even) {
-    background-color: #e7f3ff;
-}
-
-/* Hover Effect */
-tr:hover {
-    background-color: #e6f7ff;
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Responsive Table */
-@media (max-width: 768px) {
-    table {
-        font-size: 0.8rem;
-    }
-    th, td {
-        padding: 10px;
-    }
-}
 </style>
 
 <style>
@@ -157,13 +135,11 @@ tr:hover {
 
 
     .btns {
-        background-color: #2c91c9;
+    background-color: #2c91c9;
     font-size: 0.95rem !important;
     border: none;
     border-radius: 20px;
-    width: 10%;
     padding: 8px 20px;
-
     font-family: "PSemiBold";
     }
 

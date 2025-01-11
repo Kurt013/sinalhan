@@ -1,7 +1,17 @@
+<?php 
+session_start();
+$toast = '';
+if (isset($_SESSION['toast'])) {
+    $toast = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
 <?php
+
     include('dashboard_sidebar_start.php');
 
     $list = $_GET['list'];
+
 
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
@@ -14,24 +24,102 @@
 <?php include('popup.php'); ?>
 <style>
 
-table {
-    width: auto; /* Let the table size itself based on content */
-    table-layout: auto; /* Cells adjust to their content */
+.dataTable {
+    width: 100% !important;
     border-collapse: collapse; /* Neat borders */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-top: 7px solid #014bae !important;
+    border-radius: 7px !important;
+    border-bottom: 7px solid #014bae !important;
+   
    
 }
 
+.dataTables_info, label  {
+    font-family: "PMedium";
+    font-size: 1rem;
+    color: #012049 !important; 
+}
+
+.dataTables_paginate {
+    font-family: "PMedium";
+    font-size: 1rem;
+    color: #014bae !important; 
+    padding: .3em 0.8em !important;
+}
+.paginate_button.current {
+
+    border: 2px solid #014bae !important;
+    color: white !important;
+  
+}
+
+
+
+.paginate_button:hover {
+background: #014bae !important;
+border: none !important;
+transform: none !important;
+transition: none !important;
+
+  
+}
+
+.paginate_button {
+background: #014bae;
+
+  
+}
+
+.paginate_button.previous.disabled:hover {
+background: transparent !important;
+border: 0 !important;
+}
+
+.paginate_button.previous.disabled{
+background: transparent !important;
+border: 0 !important;
+}
+
+.paginate_button.next.disabled:hover {
+background: transparent !important;
+border: 0 !important;
+
+}
+
+.paginate_button.next.disabled {
+background: transparent !important;
+border: 0 !important;
+
+}
+
+.paginate_button.current:hover {
+    
+    border: 2px solid #014bae !important;
+    background: transparent !important;
+
+ 
+  
+}
+
+select {
+    padding: 2px !important;
+    z-index: 2 !important;
+    border-radius: 5px;
+    border: 2px solid #012049 !important;
+    padding: 0 5px !important;
+    cursor: pointer !important;
+}
 /* Table cell styles */
 th, td {
-    padding: 10px; /* Add some space around content */
+
     text-align: center; /* Center text horizontally */
     vertical-align: middle; /* Center text vertically */
-    border: 1px solid #ddd; /* Add borders for clarity */
-    white-space: nowrap; /* Prevent text from wrapping */
+
 }
 
 td {
-    border: 2px solid white !important; /* Thicker border with custom color */
+    border: none !important; /* Thicker border with custom color */
 }
 
 /* General container adjustments */
@@ -40,23 +128,29 @@ td {
     overflow: visible !important; /* Prevent it from scrolling on its own */
 }
 
+.dataTables_wrapper {
+    z-index: 1 !important;
+    
+}
+
 /* Table Header */
 th {
     background-color: #014bae;
     color: white;
-    text-align: center; /* Horizontal alignment */
+    text-align: center !important; /* Horizontal alignment */
     vertical-align: middle !important; /* Vertical alignment */
-    border: 2px solid white !important; /* Thicker border with custom color */
-    padding: 15px;
+    border: none !important; /* Thicker border with custom color */
     font-size: 1rem;
     font-family: "PSemiBold" !important;
-    height: 60px; /* Adjust as needed to make the header row taller */
+    height: 30px; /* Adjust as needed to make the header row taller */
+    
 }
 
 /* Table Rows */
 td {
     text-align: center;
-    padding: 20px;
+    padding: 5px !important;
+    vertical-align: middle !important;
     font-family: "PRegular" !important;
     font-size: 0.9rem;
     color: #333;
@@ -115,70 +209,98 @@ tr:hover {
 </style>
 
 <style>
-.input-icons {
-    width: 100%; /* Ensures the container spans full width */
-    max-width: 600px; /* Adjust to control container width */
-    margin: 0 auto; /* Centers the container horizontally */
-    position: relative; /* Needed to position the icon */
-}
 
-.icon {
-    position: absolute; /* Positions the icon relative to the container */
-    left: 15px; /* Aligns the icon within the input */
-    top: 50%; /* Centers the icon vertically */
-    transform: translateY(-50%); /* Adjusts vertical alignment */
-    color: #012049;
-    font-size: 18px; /* Adjust icon size */
-}
 
-.form-control {
-    width: 100%; /* Ensures input spans full width of its container */
-    padding-left: 50px; /* Adds space for the icon */
-    height: 50px; /* Adjust height as needed */
-    border: 3px solid #012049;
-    border-radius: 30px; /* Rounds the corners */
+    .searchbox{
+        display: flex; /* Aligns input and button in a row */
+    align-items: center; /* Vertical alignment */
+    justify-content: space-between; /* Space between input and button */
+    background: #014bae;
+    padding:13px;
+    width:450px;
+    margin:20px auto;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    border-radius:6px;
+    -webkit-box-shadow: 
+    0 2px 4px 0 rgba(1, 75, 174, 0.83),
+    0 10px 15px 0 rgba(1, 75, 174, 0.12),
+    0 -2px 6px 1px rgba(1, 75, 174, 0.55) inset, 
+    0 2px 4px 2px rgba(1, 75, 174, 0.83) inset;
+-moz-box-shadow: 
+    0 2px 4px 0 rgba(1, 75, 174, 0.83),
+    0 10px 15px 0 rgba(1, 75, 174, 0.12),
+    0 -2px 6px 1px rgba(1, 75, 174, 0.55) inset, 
+    0 2px 4px 2px rgba(1, 75, 174, 0.83) inset;
+box-shadow: 
+    0 2px 4px 0 rgba(1, 75, 174, 0.83),
+    0 10px 15px 0 rgba(1, 75, 174, 0.12),
+    0 -2px 6px 1px rgba(1, 75, 174, 0.55) inset, 
+    0 2px 4px 2px rgba(1, 75, 174, 0.83) inset;
+
+
+}
+.searchinp{
+    width: calc(100% - 45px);
+    height:40px;
+    padding-left:15px;
+    border-radius:6px;
+    box-sizing: border-box;
+    border:none;
+    color:#939393;
+    font-weight:500;
+    background-color:#fffbf8;
+    -webkit-box-shadow:
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+    -moz-box-shadow: 
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+    box-shadow:
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+}
+.searchbtn {
+    width:35px;
+    height:30px;
+    border:none;
+    cursor:pointer;
+    padding: 0 5px !important;
+    background-color: transparent;
+}
+.searchinp:focus{
+    outline:0;
     color: black;
-    font-size: 1rem;
-    font-family: "PMedium";
-    box-sizing: border-box; /* Includes padding in width */
+    font-family: "PRegular";
 }
-
-
-    .button-container {
-    display: flex;
-    justify-content: center; /* Aligns buttons horizontally at the center */
-    gap: 10px; /* Adds space between the buttons */
-    margin-top: 20px; /* Optional: Adds spacing above the buttons */
+.searchinp::placeholder {
+    font-family: "PRegular";
 }
-
-
-    .btns {
-        background-color: #2c91c9;
-    font-size: 0.95rem !important;
-    border: none;
-    border-radius: 20px;
-    width: 10%;
-    padding: 8px 20px;
-
-    font-family: "PSemiBold";
-    }
-
-    .btns:hover {
-        background-color: #014bae;
-    }
-
-    .form-control:focus {
-        color: black;
-        font-family: "PMedium";
-
-    }
-
+.fa-search {
+    color: white;
+    font-size: 1.1rem;
+}
 
 </style>
 
 
 <!-- Begin Page Content -->
-
+<?php if (!empty($toast)): ?>
+        <?= $toast; ?>
+    <?php endif; ?>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -195,21 +317,14 @@ tr:hover {
 
     <div class="row"> 
         <div class="col">
-            <form method="POST">
-                <div class="input-icons" >
-                    <i class="fa fa-search icon"></i>
-                    <input type="search" class="form-control" name="keyword" value="" style="border-radius: 30px;" required=""/>
-                </div>
-                <div class="button-container">
-    <button class="btns btn-success" name="search_bspermit">
-        Search
-    </button>
-    <button class="btns btn-info" onclick="window.location.href='admn_bspermit.php?list=<?= $list ?>'">
-        Reload
-    </button>
-</div>
-             
-            </form>
+
+<form class="searchbox" method="POST">
+        <input class = "searchinp" placeholder="Search" name ="keyword" />
+        <button class="searchbtn" type="submit" value="search" name="search_bspermit">
+  <i class="fas fa-search"></i>
+</button>
+    </form>                     
+            
             <br>
         </div>
     </div>
@@ -228,6 +343,9 @@ tr:hover {
     
 </div>
 <!-- End of Main Content -->
+
+
+
 <?php 
     include('dashboard_sidebar_end.php');
 ?>
