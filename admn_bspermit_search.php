@@ -171,8 +171,7 @@ form label {
                         aoe LIKE ? OR
                         created_by LIKE ? OR
                         created_on LIKE ?) 
-                    AND `doc_status` = ?
-                    AND (date(created_on) BETWEEN ? AND ?)
+                    AND `doc_status` = ? ORDER BY created_on DESC
                     ") : 
             $stmt = $conn->prepare("
                 SELECT *
@@ -193,7 +192,7 @@ form label {
                     aoe LIKE ? OR
                     archived_on LIKE ? OR
                     archived_by LIKE ?)
-                        AND (date(archived_on) BETWEEN ? AND ?)
+                        AND (date(archived_on) BETWEEN ? AND ?) ORDER BY archived_on DESC
                 ");
 
         $keywordLike = "%$keyword%";
@@ -297,10 +296,10 @@ echo $list === 'active' ?
         $pendingStatus = 'accepted';
 
         if ($list === 'active') {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ? AND date(created_on) BETWEEN ? AND ?");
-            $stmt->execute([$pendingStatus, $from, $to]);
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ? ORDER BY created_on DESC");
+            $stmt->execute([$pendingStatus]);
         } else {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive WHERE date(archived_on) BETWEEN ? AND ?");
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive WHERE date(archived_on) BETWEEN ? AND ? ORDER BY archived_on DESC");
             $stmt->execute([$from, $to]);
         }
         $views = $stmt->fetchAll();
