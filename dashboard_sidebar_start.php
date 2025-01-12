@@ -408,7 +408,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             <!-- Scan QR Code -->
                <li class="nav-item">
                 <a class="nav-link" href="admn_scanqrcode.php">
-                    <i class="fa-solid fa-qrcode"></i>
+                    <i class="fas fa-qrcode"></i>
                     <span>QR Code Scanner</span></a>
             </li>
 

@@ -327,7 +327,7 @@ td {
     <div class="row">
         <!-- Table Column -->
         <div class="col-md-12">
-            <table class="table table-hover text-center table-bordered table-responsive" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover text-center table-bordered responsive" id="dataTable" width="100%" cellspacing="0">
                 <form action="" method="post">
                     <thead class="alert-info">
                         <tr>

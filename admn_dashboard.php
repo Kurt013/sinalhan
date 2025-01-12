@@ -391,7 +391,7 @@ body{
 <div class="col-md-3">
             <div class="card bg-c-blue4 order-card" style = "border-radius: 20px 20px 20px 0;">
             <div class="card-block">
-                    <h6 class="m-b-20 text-left">Total Active Request</h6>
+                    <h6 class="m-b-20 text-left">Total Daily Requests</h6>
                     <h2 class="text-right"><i class="fa fa-file-alt f-left"></i></i><span><?= $total_pending ?></span></h2>
                    
                 
