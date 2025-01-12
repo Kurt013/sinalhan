@@ -9,7 +9,7 @@ if (isset($_SESSION['toast'])) {
 <?php
 
     include('dashboard_sidebar_start.php');
-    include('popup.php');
+    include('popup-toast.php');
 
     $list = $_GET['list'];
 
@@ -21,7 +21,11 @@ if (isset($_SESSION['toast'])) {
     
     $staffbmis->archive_bspermit();
     $staffbmis->unarchive_bspermit();
+    $staffbmis->processArchive();
+
+    
 ?>
+
 <style>
 
 .dataTable {
@@ -217,7 +221,7 @@ tr:hover {
     justify-content: space-between; /* Space between input and button */
     background: #014bae;
     padding:13px;
-    width:450px;
+    width:500px;
     margin:20px auto;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
@@ -273,13 +277,14 @@ box-shadow:
         0 -1px 1px 0 #f2f2f2 inset,
         0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
 }
-.searchbtn {
-    width:35px;
-    height:30px;
+.searchbtn, .reloadbtn {
+    width:40px;
+    height:40px;
     border:none;
     cursor:pointer;
     padding: 0 5px !important;
     background-color: transparent;
+    color: white !important;
 }
 .searchinp:focus{
     outline:0;
@@ -293,6 +298,8 @@ box-shadow:
     color: white;
     font-size: 1.1rem;
 }
+
+
 
 </style>
 
@@ -319,25 +326,13 @@ box-shadow:
         <div class="col">
 
 <form class="searchbox" method="POST">
-                <input class = "searchinp" placeholder="Search" name ="keyword" />
-                <button class="searchbtn" type="submit" value="search" name="search_bspermit">
-                  <i class="fas fa-search"></i>
-                </button>
-
-<?php if ($_GET['list'] == 'archived') {?>
-    <div class="row">
-        <div class="col-md-6">
-            <label for="from_date" class="form-label">From:</label>
-            <input type="date" class="form-control" id="from_date" name="from" value="<?= isset($_POST['from']) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d'); ?>">
-        </div>
-        <div class="col-md-6">
-            <label for="to_date" class="form-label">To:</label>
-            <input type="date" class="form-control" id="to_date" name="to" value="<?= isset($_POST['to']) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d'); ?>">
-        </div>
-    </div>
-
-<?php } ?>
-
+        <input class = "searchinp" placeholder="Search" name ="keyword" />
+        <button class="searchbtn" type="submit" value="search" name="search_bspermit" style = "margin-left: 5px">
+  <i class="fas fa-search"></i>
+</button>
+<button class="reloadbtn" type="button"  onclick="window.location.href='admn_bspermit.php?list=<?= $list ?>'">
+  <i class="fa fa-sync"></i>
+</button>
     </form>                     
             
             <br>
