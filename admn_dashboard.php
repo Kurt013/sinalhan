@@ -521,18 +521,24 @@ const documentIssuanceTrendChart = new Chart(ctx1, {
                 }
             },
             y: {
+                beginAtZero: true, // Start from 0
                 ticks: {
                     color: '#012049',
                     font: {
                         family: 'PMedium',
                         size: 12
-                    }
+                    },
+                     // Ensure only whole numbers are displayed
+                     callback: function(value) {
+                        return Number.isInteger(value) ? value : null;
+                    },
+                    stepSize: 1
                 },
                 grid: {
                     color: 'rgba(1, 32, 73, 0.5)', // Light gray for y-axis grid lines
                     lineWidth: 1.5, // Y-axis grid line thickness
                     drawBorder: false // Remove the border on the y-axis
-                }
+                },
             }
         }
     }
