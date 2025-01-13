@@ -7,13 +7,10 @@ if (isset($_SESSION['toast'])) {
 }
 ?>
 <?php
-
     include('dashboard_sidebar_start.php');
     include('popup-toast.php');
 
     $list = $_GET['list'];
-
-
     require 'phpqrcode/qrlib.php';
     require 'vendor/autoload.php';
 
@@ -22,8 +19,7 @@ if (isset($_SESSION['toast'])) {
     $staffbmis->archive_bspermit();
     $staffbmis->unarchive_bspermit();
     $staffbmis->processArchive();
-
-    
+    $staffbmis->processRetrieve();
 ?>
 
 <style>

@@ -235,7 +235,7 @@ form label {
         }
     }
 
-.comfirm-slt, .cancel-btn-slt {
+    .comfirm-slt, .cancel-btn-slt {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -252,8 +252,6 @@ form label {
     height: 100%;
     display: flex;
     justify-content: center;
-    opacity: 0;
-    visibility: hidden;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.4);
     box-sizing: content-box;
@@ -299,10 +297,10 @@ form label {
 
 
 
-.popup-slt.active {
+.hidden {
   
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .comfirm-slt, .cancel-btn-slt {
@@ -312,36 +310,24 @@ form label {
     cursor: pointer;
 }
 
-    </style>
+
+
+
+</style>
 <?php include('popup-toast.php'); ?>
 
 <!-- Alert Component -->
-<div class="toasterr" style = "border-left: 6px solid #D32F2F;" >
+<div class="toasterr" id = "toasterr" style = "border-left: 6px solid #D32F2F;" >
                 <div class="toasterr-content">
                     <i class="fas fa-exclamation-triangle check" style = "background-color: #D32F2F;"></i>
                     <div class="message">
                         <span class="text text-1">Error</span>
-                        <span class="text text-2">Please select at least one row</span>
+                        <span class="text text-2">Please select at leat one row</span>
                     </div>
                 </div>
-                <i class="fa-solid fa-xmark close close-error"  onclick="closeToast()"></i>
+                <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
                 <div class="progresserr progresserr-error"></div>
             </div>
-
-
-            <div id="popup-slt" class="popup-slt">
-    <div class="popup-content-slt">
-        <h2>Are you sure to proceed?</h2>
-        <p>This will modify your current view and may impact navigation within the system.</p>
-
-        <div class="popup-buttons-slt">
-            <button id="confirm-btn-slt" class="confirm-slt">Confirm</button>
-            <button id="cancel-btn-slt" class="cancel-btn-slt">Cancel</button>
-        </div>
-    </div>
-</div>
-
-
 
 
 <?php
@@ -445,7 +431,7 @@ form label {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $pendingStatus, $from, $to
+                $keywordLike, $keywordLike, $pendingStatus,
             ]):
             $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
@@ -480,15 +466,18 @@ form label {
                 <button type="submit" id="hiddenSubmitBtn" style="display:none;" name="archive_bspermit">Submit</button>
                 <?php
 echo $list === 'active' ? 
-    // Display both buttons if the status is active
-    
+// Display both buttons if the status is active
+
 '<a href="javascript:void(0);" class="btn btn-primary" onclick="openPopup(\'view_bspermit.php?id_bspermit=' . urlencode($view['id_bspermit']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
-    <i class="fa fa-eye"></i>
+<i class="fa fa-eye"></i>
 </a>' :
-    
-    // Display only the unarchive button if the status is not active
-    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>';
+
+// Display only the unarchive button if the status is not active
+'<a href="javascript:void(0);" class="btn btn-primary" onclick="openPopup(\'view_bspermit_archive.php?id_bspermit=' . urlencode($view['id_bspermit']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
+<i class="fa fa-eye"></i>
+</a>';
 ?>
+
    
          
             </form>
@@ -503,6 +492,7 @@ echo $list === 'active' ?
 
 
 </table>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     // Get all archive buttons
@@ -625,7 +615,9 @@ echo $list === 'active' ?
 </a>' :
     
     // Display only the unarchive button if the status is not active
-    '<button class="btn btn-danger" type="submit" style="width: 70px; font-size: 17px; border-radius:30px;" name="unarchive_bspermit">  <i class="fas fa-undo"></i> </button>';
+    '<a href="javascript:void(0);" class="btn btn-primary" onclick="openPopup(\'view_bspermit_archive.php?id_bspermit=' . urlencode($view['id_bspermit']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
+    <i class="fa fa-eye"></i>
+</a>';
 ?>
    
          
@@ -635,47 +627,56 @@ echo $list === 'active' ?
             <?php
         }
     }
+        
+    ?>           
+    </tbody>
+ </table>
 
-    ?>            </table>
-    <?php if ($list === 'active') { ?>
-
-            <form id="archiveSelect" action="" method="post">
-
-                <input type="hidden" name="ids_to_archive" id="idsToArchive">
-                <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
-                <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit'];?>">
-                <button type="submit" class="btn btn-danger" id="archiveSelected" style="margin-bottom: 10px;" name="archive_selected_bspermit">
-        Archive Selected
-    </button>
-            </form>
-            <?php } ?>
-
-
-
-
-<?php
+ <?php
 	}
-
     $viewsJson = json_encode($views);
     $list === 'archived' ?
         $tableName = 'tbl_bspermit_archive' :
         $tableName = 'tbl_bspermit';
 ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Updated jQuery -->
-<script src="assets/js/popper.min.js"></script>  <!-- Keep if using Bootstrap tooltips/popovers -->
-<script src="assets/js/bootstrap.min.js"></script>  <!-- Keep for Bootstrap components -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>  <!-- DataTables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">  <!-- DataTables CSS -->
-<script src="assets/js/app.js"></script>  <!-- Your custom logic -->
 
-    <script>
-        $(document).ready(function() {
-    $('#myTable').DataTable({
-        stateSave: true
-    });
-});
+ <?php if ($list === 'active') { ?>
+    <form id="archiveSelect" action="" method="post">
+        <input type="hidden" name="ids_to_archive" id="idsToArchive">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($userdetails['id'], ENT_QUOTES); ?>">
+        <input type="hidden" name="id_bspermit" value="<?= htmlspecialchars($view['id_bspermit'], ENT_QUOTES); ?>">
 
-    </script>
+        <!-- Actual Submit Button -->
+        <button type="submit" class="btn btn-danger" id="hiddensubmitslt" style="display: none;" name="archive_selected_bspermit">
+            Archive Selected
+        </button>
+
+        <!-- Visible Button -->
+        <button type="button" class="btn btn-danger" id="archiveSelected">
+            Archive Selected
+        </button>
+    </form>
+<?php } ?>
+
+<?php if ($list === 'archived') { ?>
+    <form id="retrieveSelect" action="" method="post">
+        <input type="hidden" name="ids_to_retrieve" id="idsToRetrieve">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($userdetails['id'], ENT_QUOTES); ?>">
+        <input type="hidden" name="id_bspermit" value="<?= htmlspecialchars($view['id_bspermit'], ENT_QUOTES); ?>">
+
+        <!-- Actual Submit Button -->
+        <button type="submit" class="btn btn-danger" id="hiddensubmitret" style="display: none;" name="retrieve_selected_bspermit">
+            Retrieve Selected
+        </button>
+
+        <!-- Visible Button -->
+        <button type="button" class="btn btn-danger" id="retrieveSelected">
+            Retrieve Selected
+        </button>
+    </form>
+<?php } ?>
+
+
     <script>
 function openPopup(url) {
     // Open the URL in a new popup window
@@ -687,14 +688,15 @@ document.getElementById('archiveSelected').addEventListener('click', function (e
     const ids = Array.from(selectedCheckboxes).map(checkbox => checkbox.value); // Collect IDs
     const toast = document.querySelector(".toasterr");
     const progress = document.querySelector(".progresserr");
-    const popup_slt = document.getElementById('popup-slt');
-    const confirmBtn_slt = document.getElementById('confirm-slt');
-    const cancelBtn_slt = document.getElementById('cancel-btn-slt');
+    const popup = document.getElementById('popup');
+    const confirmBtn = document.getElementById('confirm-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
 
     if (ids.length === 0) {
         event.preventDefault(); // Prevent the form or default action
         toast.classList.add("active");
         progress.classList.add("active");
+
 
         // Set timers to hide the toast and progress after 5 seconds
         setTimeout(() => {
@@ -702,28 +704,102 @@ document.getElementById('archiveSelected').addEventListener('click', function (e
         }, 5000);
 
         setTimeout(() => {
-            progress.classList.remove("active");;
+            progress.classList.remove("active");
         }, 5000);
 
-        return; // Stop further execution
     }
-   else {
-    popup_slt.classList.add("active");
 
-   }
-    // Set the collected IDs to the hidden input field
-    document.getElementById('idsToArchive').value = ids.join(',');
+    else {
+        popup.classList.remove('hidden'); 
+    }
 
-    // Allow form submission
+    cancelBtn.addEventListener('click', () => {
+        popup.classList.add('hidden'); // Hide the popup when cancel is clicked
+    });
+
+    // Confirm action and submit form when Confirm is clicked
+    confirmBtn.addEventListener('click', () => {
+        // Programmatically trigger the hidden submit button
+        document.getElementById('idsToArchive').value = ids.join(',');
+        document.getElementById('hiddensubmitslt').click();
+        
+        // Hide the popup after submission
+        popup.classList.add('hidden');
+        
+
+    });
+
 });
-
 // Function to manually close the alert
-function closeAlert() {
-    document.getElementById('customAlert').style.display = 'none';
+function closeToasterr() {
+    const toast = document.querySelector(".toasterr");
+    const progress = document.querySelector(".progresserr");
+
+    toast.classList.remove("active");
+    progress.classList.remove("active");
 }
+</script>
+<script>
+
+document.getElementById('retrieveSelected').addEventListener('click', function (event) {
+    const selectedCheckboxes = document.querySelectorAll('.rowCheckbox:checked');
+    const ids = Array.from(selectedCheckboxes).map(checkbox => checkbox.value); // Collect IDs
+    const toast = document.querySelector(".toasterr");
+    const progress = document.querySelector(".progresserr");
+    const popup = document.getElementById('popup');
+    const confirmBtn = document.getElementById('confirm-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+
+
+    if (ids.length === 0) {
+        event.preventDefault(); // Prevent the form or default action
+        toast.classList.add("active");
+        progress.classList.add("active");
+
+
+        // Set timers to hide the toast and progress after 5 seconds
+        setTimeout(() => {
+            toast.classList.remove("active");
+        }, 5000);
+
+        setTimeout(() => {
+            progress.classList.remove("active");
+        }, 5000);
+
+    }
+
+    else {
+        popup.classList.remove('hidden'); 
+    }
+
+    cancelBtn.addEventListener('click', () => {
+        popup.classList.add('hidden'); // Hide the popup when cancel is clicked
+    });
+
+    // Confirm action and submit form when Confirm is clicked
+    confirmBtn.addEventListener('click', () => {
+        // Programmatically trigger the hidden submit button
+        document.getElementById('idsToRetrieve').value = ids.join(',');
+        document.getElementById('hiddensubmitret').click();
+        
+        // Hide the popup after submission
+        popup.classList.add('hidden');
+        
+
+    });
+
+});
 
 
 </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Updated jQuery -->
+<script src="assets/js/popper.min.js"></script>  <!-- Keep if using Bootstrap tooltips/popovers -->
+<script src="assets/js/bootstrap.min.js"></script>  <!-- Keep for Bootstrap components -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>  <!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">  <!-- DataTables CSS -->
+<script src="assets/js/app.js"></script>  <!-- Your custom logic -->
 
 
 <?php if ($list === 'archived') { ?>

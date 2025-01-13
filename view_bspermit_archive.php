@@ -155,7 +155,7 @@ if (isset($_GET['id_bspermit'])) {
     $id_bspermit = $_GET['id_bspermit']; // Get the 'report_id' parameter from the URL
 
     // Prepare SQL query to fetch data based on the 'report_id'
-    $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE id_bspermit = :id_bspermit");
+    $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive WHERE id_bspermit = :id_bspermit");
     $stmt->bindParam(':id_bspermit', $id_bspermit, PDO::PARAM_STR); // Bind the 'report_id' as a string
     $stmt->execute();
 
@@ -287,13 +287,14 @@ if (isset($_GET['id_bspermit'])) {
 </a>
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_bspermit" value="<?= $row['id_bspermit'];?>">
-                <button type="submit" id="hiddenSubmitBtn" style="display:none;" name="archive_bspermit">Submit</button>
+                <button type="submit" id="hiddenSubmitBtn" style="display:none;" name="unarchive_bspermit">Submit</button>
                 
          
    
 
     <a>
-    <button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px;" name="archive_bspermit">  <i class="fas fa-archive"></i> </button>
+    <button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px;" name="unarchive_bspermit">  <i class="fas fa-sync"></i>
+    </button>
     
             </div>
         </form>
