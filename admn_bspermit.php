@@ -18,8 +18,6 @@ if (isset($_SESSION['toast'])) {
     
     $staffbmis->archive_bspermit();
     $staffbmis->unarchive_bspermit();
-    $staffbmis->processArchive();
-    $staffbmis->processRetrieve();
 ?>
 
 <style>

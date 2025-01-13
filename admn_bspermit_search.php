@@ -404,7 +404,7 @@ form label {
             $stmt = $conn->prepare("
                 SELECT *
                 FROM
-                    tbl_bspermit_archive
+                    tbl_bspermit
                 WHERE
                     (id_bspermit LIKE ? OR
                     `lname` LIKE ? OR  
@@ -418,9 +418,10 @@ form label {
                     `bsname` LIKE ? OR
                     bsindustry LIKE ? OR
                     aoe LIKE ? OR
-                    archived_on LIKE ? OR
-                    archived_by LIKE ?)
-                        AND (date(archived_on) BETWEEN ? AND ?) ORDER BY archived_on DESC
+                    created_on LIKE ? OR
+                    created_by LIKE ?)
+                        AND doc_status = ?
+                        AND (date(created_on) BETWEEN ? AND ?) ORDER BY created_on DESC
                 ");
 
         $keywordLike = "%$keyword%";
@@ -437,7 +438,7 @@ form label {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $from, $to
+                $keywordLike, $keywordLike, $list, $from, $to
             ]);
         
         $views = $stmt->fetchAll();
@@ -574,11 +575,11 @@ document.addEventListener("DOMContentLoaded", () => {
         $pendingStatus = 'accepted';
 
         if ($list === 'active') {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ?");
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ? ORDER BY created_on DESC");
             $stmt->execute([$pendingStatus]);
         } else {
-            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit_archive");
-            $stmt->execute();
+            $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = ? ORDER BY created_on DESC");
+            $stmt->execute([$list]);
         }
         $views = $stmt->fetchAll();
         if ($stmt->rowCount() > 0) {
