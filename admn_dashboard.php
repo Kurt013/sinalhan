@@ -445,14 +445,17 @@ body{
                 </div>
     <?php } ?>
 
-    <div class="form-buttons">
-    <button class="btnexpdf">
+    <form method="" class="form-buttons">
+    <button class="btnexpdf" name="exportToPDF">
         <i class="fas fa-file-pdf"></i> Export to PDF
     </button>
-    <button class="btnexpex">
+    </form>
+
+    <form method="POST" action="./export_dashboard_excel.php" class="form-buttons">
+    <button class="btnexpex" name="exportToExcel">
         <i class="fas fa-file-excel"></i> Export to Excel
     </button>
-        </div>
+    </form>
 
         
 

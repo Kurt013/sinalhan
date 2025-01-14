@@ -3041,6 +3041,72 @@ public function priceUpdate_clearance() {
         // Return the total document count (or 0 if no rows found)
         return $result['total_documents'] ?? 0;
     }
+
+    // -------------------------- DASHBOARD GENERATION REPORT ----------------------
+    public function getDailyEarnings() {
+       $conn = $this->openConn();       
+       
+       $stmt = $conn->prepare("
+    SELECT SUM(price) as total 
+         FROM (
+          SELECT price FROM tbl_rescert WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()
+          UNION ALL
+          SELECT price FROM tbl_indigency WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()
+          UNION ALL
+          SELECT price FROM tbl_clearance WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()
+          UNION ALL
+          SELECT price FROM tbl_bspermit WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()
+          UNION ALL
+          SELECT price FROM tbl_brgyid WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()
+         ) AS combined_prices
+    ");
+
+    $stmt->execute();
+    $totalEarnings = $stmt->fetchColumn();
+    return $totalEarnings;
+
+    }    
+
+
+    public function daily_rescert_list() {
+        $conn = $this->openConn();
+        $stmt = $conn->prepare("SELECT * FROM tbl_rescert WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()");
+        $stmt->execute();
+        $rescertList = $stmt->fetchAll();
+        return $rescertList;
+    }
+
+    public function daily_indigency_list() {
+        $conn = $this->openConn();
+        $stmt = $conn->prepare("SELECT * FROM tbl_indigency WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()");
+        $stmt->execute();
+        $indigencyList = $stmt->fetchAll();
+        return $indigencyList;
+    }
+
+    public function daily_clearance_list() {
+        $conn = $this->openConn();
+        $stmt = $conn->prepare("SELECT * FROM tbl_clearance WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()");
+        $stmt->execute();
+        $clearanceList = $stmt->fetchAll();
+        return $clearanceList;
+    }
+
+    public function daily_bspermit_list() {
+        $conn = $this->openConn();
+        $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()");
+        $stmt->execute();
+        $bspermitList = $stmt->fetchAll();
+        return $bspermitList;
+    }
+
+    public function daily_brgyid_list() {
+        $conn = $this->openConn();
+        $stmt = $conn->prepare("SELECT * FROM tbl_brgyid WHERE doc_status = 'archived' AND DATE(created_on) = CURDATE()");
+        $stmt->execute();
+        $brgyidList = $stmt->fetchAll();
+        return $brgyidList;
+    }
 }
     
 
