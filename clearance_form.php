@@ -9,6 +9,7 @@
 
     $staffbmis->update_clearance();
     $staffbmis->accept_clearance();
+    $staffbmis->priceUpdate_clearance();
 
   ?>
 
