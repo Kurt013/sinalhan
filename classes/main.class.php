@@ -1018,6 +1018,46 @@ class BMISClass {
         }
     }
 
+    public function view_archive_certofindigency(){
+        if (isset($_POST['archive_certofindigency'])) {
+            $id_indigency = $_POST['id_indigency'];
+            $id = $_POST['id'];
+            $doc_status = 'archived';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_indigency SET doc_status = ? WHERE id_indigency = ?');
+            $stmt->execute([$doc_status, $id_indigency]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;                
+                    window.close();
+                </script>
+            ';
+        }
+    }
+    
+    public function view_unarchive_certofindigency(){
+        if (isset($_POST['unarchive_certofindigency'])) {
+            $id_indigency = $_POST['id_indigency'];
+            $id = $_POST['id'];
+            $doc_status = 'accepted';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_indigency SET doc_status = ? WHERE id_indigency = ?');
+            $stmt->execute([$doc_status, $id_indigency]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;
+                    window.close();
+                </script>
+            ';
+        }
+    }
+
     public function archive_certofindigency() {
         if (isset($_POST['archive_certofindigency'])) {
             $id_indigency = $_POST['id_indigency'];
@@ -1533,6 +1573,46 @@ class BMISClass {
             }
         }
   }
+
+  public function view_archive_brgyclearance(){
+    if (isset($_POST['archive_brgyclearance'])) {
+        $id_clearance = $_POST['id_clearance'];
+        $id = $_POST['id'];
+        $doc_status = 'archived';
+
+        $connection = $this->openConn();
+
+        $stmt = $connection->prepare('UPDATE tbl_clearance SET doc_status = ? WHERE id_clearance = ?');
+        $stmt->execute([$doc_status, $id_clearance]);
+
+        echo '
+            <script>
+                window.opener.location.href = window.opener.location.href;                
+                window.close();
+            </script>
+        ';
+    }
+}
+
+public function view_unarchive_brgyclearance(){
+    if (isset($_POST['unarchive_brgyclearance'])) {
+        $id_clearance = $_POST['id_clearance'];
+        $id = $_POST['id'];
+        $doc_status = 'accepted';
+
+        $connection = $this->openConn();
+
+        $stmt = $connection->prepare('UPDATE tbl_clearance SET doc_status = ? WHERE id_clearance = ?');
+        $stmt->execute([$doc_status, $id_clearance]);
+
+        echo '
+            <script>
+                window.opener.location.href = window.opener.location.href;
+                window.close();
+            </script>
+        ';
+    }
+}
 
   public function archive_brgyclearance() {
     if (isset($_POST['archive_brgyclearance'])) {
