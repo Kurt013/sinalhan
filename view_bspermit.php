@@ -44,8 +44,8 @@ $role = $user['role'];
 
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
-    $staffbmis->unarchive_bspermit();
-    $staffbmis->archive_bspermit();
+    // $staffbmis->unarchive_bspermit();
+    $staffbmis->view_archive_bspermit();
 
 ?>
 

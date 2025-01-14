@@ -44,8 +44,8 @@ $role = $user['role'];
 
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
-    $staffbmis->unarchive_certofres();
-    $staffbmis->archive_certofres();
+    // $staffbmis->unarchive_certofres();
+    $staffbmis->view_archive_certofres();
 
 ?>
 

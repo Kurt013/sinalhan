@@ -634,6 +634,47 @@ class BMISClass {
         }
     }
 
+    public function view_archive_certofres(){
+        if (isset($_POST['archive_rescert'])) {
+            $id_rescert = $_POST['id_rescert'];
+            $id = $_POST['id'];
+            $doc_status = 'archived';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_rescert SET doc_status = ? WHERE id_rescert = ?');
+            $stmt->execute([$doc_status, $id_rescert]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;                
+                    window.close();
+                </script>
+            ';
+        }
+    }
+    
+    public function view_unarchive_certofres(){
+        if (isset($_POST['unarchive_rescert'])) {
+            $id_rescert = $_POST['id_rescert'];
+            $id = $_POST['id'];
+            $doc_status = 'accepted';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_rescert SET doc_status = ? WHERE id_rescert = ?');
+            $stmt->execute([$doc_status, $id_rescert]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;
+                    window.close();
+                </script>
+            ';
+        }
+    }
+
+
 
     public function archive_certofres() {
         if (isset($_POST['archive_selected_rescert']) && isset($_POST['ids_to_archive'])) {
@@ -1909,6 +1950,47 @@ public function priceUpdate_clearance() {
         }
     }
 
+    public function view_archive_bspermit(){
+        if (isset($_POST['archive_bspermit'])) {
+            $id_bspermit = $_POST['id_bspermit'];
+            $id = $_POST['id'];
+            $doc_status = 'archived';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_bspermit SET doc_status = ? WHERE id_bspermit = ?');
+            $stmt->execute([$doc_status, $id_bspermit]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;                
+                    window.close();
+                </script>
+            ';
+        }
+    }
+    
+    public function view_unarchive_bspermit(){
+        if (isset($_POST['unarchive_bspermit'])) {
+            $id_bspermit = $_POST['id_bspermit'];
+            $id = $_POST['id'];
+            $doc_status = 'accepted';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_bspermit SET doc_status = ? WHERE id_bspermit = ?');
+            $stmt->execute([$doc_status, $id_bspermit]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;
+                    window.close();
+                </script>
+            ';
+        }
+    }
+
+
 
     public function archive_bspermit() {
         if (isset($_POST['archive_selected_bspermit']) && isset($_POST['ids_to_archive'])) {
@@ -2251,6 +2333,48 @@ public function priceUpdate_clearance() {
             return false;
         }
     }
+
+
+    public function view_archive_brgyid(){
+        if (isset($_POST['archive_brgyid'])) {
+            $id_brgyid = $_POST['id_brgyid'];
+            $id = $_POST['id'];
+            $doc_status = 'archived';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_brgyid SET doc_status = ? WHERE id_brgyid = ?');
+            $stmt->execute([$doc_status, $id_brgyid]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;                
+                    window.close();
+                </script>
+            ';
+        }
+    }
+    
+    public function view_unarchive_brgyid(){
+        if (isset($_POST['unarchive_brgyid'])) {
+            $id_brgyid = $_POST['id_brgyid'];
+            $id = $_POST['id'];
+            $doc_status = 'accepted';
+    
+            $connection = $this->openConn();
+    
+            $stmt = $connection->prepare('UPDATE tbl_brgyid SET doc_status = ? WHERE id_brgyid = ?');
+            $stmt->execute([$doc_status, $id_brgyid]);
+    
+            echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;
+                    window.close();
+                </script>
+            ';
+        }
+    }
+
 
     public function archive_brgyid() {
         if (isset($_POST['archive_selected_brgyid']) && isset($_POST['ids_to_archive'])) {

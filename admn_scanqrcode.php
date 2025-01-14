@@ -95,7 +95,7 @@ let isScanning = false; // Track if the scanner is already active
 // Listener to handle the QR code scan
 scanner.addListener('scan', function (content) {
   // scan qr code then prompt the user a popup that lets the user choose whether their payment is FREE or PAID
-  let regex = /.*\/([a-zA-Z]+)_form\.php\?id_\1=([\d]{4}-[\d]{2}-[\d]{2}-[\d]+)/;
+  let regex = /.*\/([a-zA-Z]+)_form\.php\?id_\1=(\d{4}-\d{2}-\d{2}-\d{3}|\d{4}-\d{3})/;
 
   if (regex.test(content)) {
     document.getElementById('payment-popup').style.display = 'block';
