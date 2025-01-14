@@ -2236,7 +2236,7 @@ public function processArchive() {
                             <i class="fas fa-solid fa-check check"></i>
                             <div class="message">
                                 <span class="text text-1">Success</span>
-                                <span class="text text-2">The request has been archived successfully</span>
+                                <span class="text text-2">The request has been retrieved successfully</span>
                             </div>
                         </div>
                         <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
