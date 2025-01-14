@@ -303,9 +303,7 @@
 <?php
 	}
     $viewsJson = json_encode($views);
-    $list === 'archived' ?
-        $tableName = 'tbl_indigency_archive' :
-        $tableName = 'tbl_indigency';
+    $tableName = 'tbl_indigency';
 ?>
    <script>
 document.addEventListener("DOMContentLoaded", () => {

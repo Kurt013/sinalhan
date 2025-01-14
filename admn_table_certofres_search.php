@@ -322,7 +322,7 @@ form label {
                     <i class="fas fa-exclamation-triangle check" style = "background-color: #D32F2F;"></i>
                     <div class="message">
                         <span class="text text-1">Error</span>
-                        <span class="text text-2">Please select at leat one row</span>
+                        <span class="text text-2">Please select at least one row</span>
                     </div>
                 </div>
                 <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
