@@ -9,6 +9,7 @@
 
     $staffbmis->update_certofindigency();
     $staffbmis->accept_indigency();
+    $staffbmis->priceUpdate_indigency();
 
   ?>
 <!DOCTYPE html>

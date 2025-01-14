@@ -9,6 +9,7 @@
 
     $staffbmis->update_brgyid();
     $staffbmis->accept_brgyid();
+    $staffbmis->priceUpdate_brgyid();
 
   ?>
 <!DOCTYPE html>

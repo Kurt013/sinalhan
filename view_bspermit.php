@@ -44,8 +44,8 @@ $role = $user['role'];
 
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
-    $staffbmis->unarchive_bspermit();
-    $staffbmis->archive_bspermit();
+    // $staffbmis->unarchive_bspermit();
+    $staffbmis->view_archive_bspermit();
 
 ?>
 
@@ -153,10 +153,12 @@ $role = $user['role'];
 
 if (isset($_GET['id_bspermit'])) {
     $id_bspermit = $_GET['id_bspermit']; // Get the 'report_id' parameter from the URL
+    $doc_status = 'accepted';
 
     // Prepare SQL query to fetch data based on the 'report_id'
-    $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE id_bspermit = :id_bspermit");
-    $stmt->bindParam(':id_bspermit', $id_bspermit, PDO::PARAM_STR); // Bind the 'report_id' as a string
+    $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE id_bspermit = :id_bspermit AND doc_status = :doc_status");
+    $stmt->bindParam(':doc_status', $doc_status); // Bind the 'doc_status' as a string
+    $stmt->bindParam(':id_bspermit', $id_bspermit); // Bind the 'report_id' as a string
     $stmt->execute();
 
     // Fetch the specific row (no loop)
