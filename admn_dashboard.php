@@ -1,5 +1,6 @@
 <?php
     include('dashboard_sidebar_start.php');
+    include('popup-confirm.php');
 
     $current_month = isset($_POST['month']) ? $_POST['month'] : date('n');
     $total_pending = 0;
@@ -666,5 +667,6 @@ const documentTypesDistributionChart = new Chart(ctx2, {
            
 <?php 
     include('dashboard_sidebar_end.php');
+    include('logout_script.php');
 ?>
      

@@ -1,13 +1,24 @@
 <style>
 
-    .card-header, .card-header2 {
-        background-color: #014bae !important;
-        font-family: "PBold";
-        font-size : 1.2rem;
-        color: white;
-    }
+.container {
+    padding: 0 70px !important;
+}
 
+.card-header, .card-header2 {
+    background: linear-gradient(to top, #014bae, #2c91c9);
+    font-family: "PBold";
+    text-align: center;
+    font-size: 1.3rem;
+    color: white;
+    padding: 20px !important;
+    border-top-left-radius: 10px !important; /* Adjust the radius as needed */
+    border-top-right-radius: 10px !important; /* Adjust the radius as needed */
 
+}
+
+.btn-primary {
+    margin: 0 !important;
+}
     
     th, td {
     padding: 10px; /* Add some space around content */
@@ -15,6 +26,10 @@
     vertical-align: middle; /* Center text vertically */
     border: 1px solid #ddd; /* Add borders for clarity */
 
+}
+
+.h6 {
+    font-size: 1rem;
 }
 
 td {
@@ -48,6 +63,8 @@ td {
     border-bottom: 1px solid #ddd;
 }
 
+
+
 .col-md-12 h1 {
     color: white;
             font-family: 'PExBold' !important;
@@ -68,9 +85,27 @@ td {
 }
 
 .card {
-    border: 2px solid #014bae !important;
+    margin-bottom: 50px;
+    border-top-left-radius: 10px !important; /* Adjust the radius as needed */
+    border-top-right-radius: 10px !important; /* Adjust the radius as needed */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */   
+    background: linear-gradient(to top, #E0F7FF, #FFFFFF) !important;
+    border-bottom: 10px solid #014bae !important;
+    border-bottom-left-radius: 10px !important; /* Adjust the radius as needed */
+    border-bottom-right-radius: 10px !important; /* Adjust the radius as needed */
+ 
    
 }
+
+.post-ann {
+    padding: 10px !important;
+}
+
+.card-body {
+    padding : 20px 50px !important;
+}
+
+
 
 .row h6 {
     font-family: "PSemiBold";
@@ -78,9 +113,36 @@ td {
 }
 
 .form-control {
-    border: 2px solid #014bae !important;
     font-family: "PMedium";
     color: #014bae !important;
+
+    border:none;
+    color:#939393;
+
+    background-color:#fffbf8;
+    -webkit-box-shadow:
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+    -moz-box-shadow: 
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+    box-shadow:
+        0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+        0 1px 1px 0 #fff,
+        0 2px 2px 1px #fafafa,
+        0 2px 4px 0 #b2b2b2 inset,
+        0 -1px 1px 0 #f2f2f2 inset,
+        0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+    padding: 20px !important;
+
 }
 
 
@@ -90,6 +152,7 @@ td {
 
 <?php
     include('dashboard_sidebar_start.php');
+    include('table_design.php');
 
    $staffbmis->create_announcement();
    $staffbmis->delete_announcement();
@@ -138,7 +201,7 @@ if (isset($_SESSION['toast'])) {
     <br>
       
     <div class="row"> 
-        <div class="col-sm-6"> 
+        <div class="col-sm-12"> 
             <div class="card">
                 <div class="card-header"> Event Announcement Form </div>
                 <div class="card-body">
@@ -157,10 +220,14 @@ if (isset($_SESSION['toast'])) {
                         <br>
                         <hr>
 
-                        <div class="row"> 
-                            <div class="col"> 
+                        <div class="rows" style = "justify-content: center; display: flex;"> 
+                            <div class="col-button" style = "justify-content: center;"> 
                                 <input name="created_by" type="hidden" value="<?= $userdetails['id'] ?>">
-                                <button type="submit" name="create_announce" class="btn btn-primary" style="margin-left: 34%; border-radius: 15px; width: 150px; font-size: 18px;"> Submit Entry </button>
+                                <button type="submit" name="create_announce" class="btn btn-primary post-ann" 
+        style=" border-radius: 15px; width: 250px; font-size: 1rem; justify-content: center !important;">
+    <i class="fas fa-paper-plane"></i> Post Announcement
+</button>
+
                             </div>
                         </div>       
                     </form>
@@ -174,11 +241,9 @@ if (isset($_SESSION['toast'])) {
     <?php if (!empty($toastdelete)): ?>
         <?= $toastdelete; ?>
     <?php endif; ?>
-        <div class="col-sm-6"> 
-            <div class="card">
-                <div class="card-header"> Current Announcement Posted </div>
-                <div class="card-body">
-                    <table class="table table-hover table-bordered table-responsive text-center">
+        <div class="col-sm-12"> 
+
+                    <table class="table table-border table-striped custom-table datatable mb-0" id="myTable">
                         <form action="" method="post">
                             <thead class="alert-info"> 
                                 <tr>
@@ -208,9 +273,7 @@ if (isset($_SESSION['toast'])) {
                         </form>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
+
     <br><br>
 
  
@@ -220,18 +283,12 @@ if (isset($_SESSION['toast'])) {
 </div>
 <!-- End of Main Content -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
-<!-- responsive tags for screen compatibility -->
-<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-<!-- custom css --> 
-<link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
-<!-- bootstrap css --> 
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
-<!-- fontawesome icons -->
-<script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-<script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 <?php 
     include('dashboard_sidebar_end.php');
+    include('table_script.php');
 ?>
+
+
+
+

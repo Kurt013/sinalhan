@@ -70,6 +70,24 @@
     </div>
 </div>
 
+<div id="popup-logout" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/popuplgt.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+        <h2 style = "color: #d32f2f;">Are you sure you want to log out?</h2>
+        <p>Once you log out, you will be signed out of your account.</p>
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-logout" class="confirm-arc">Confirm</button>
+            <button id="cancel-btn-logout" class="cancel-btn-arc">Cancel</button>
+        </div>
+    </div>
+</div>
+
 
 
 <style> 

@@ -38,7 +38,6 @@ $lastName = $user['surname'];
 $role = $user['role'];
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -500,7 +499,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         <ul class="navbar-nav">
             <li class="nav-item">
                 <div class="wrapperbtn">
-                    <button class="btn-logout" onclick="window.location.href='logout.php';">
+                    <button class="btn-logout logout-btn" >
                         <i class="fas fa-sign-out-alt fa-sm fa-fw "></i>
                         <span>Logout</span>
                     </button>
@@ -509,3 +508,4 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         </ul>
     </div>
 </nav>
+
