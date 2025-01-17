@@ -422,7 +422,6 @@ form select  {
 .btnexpex, .btnexpdf {
     padding: 5px 20px; /* Adjusts button size */
     font-size: 16px; /* Adjusts font size */
-    border: 2px solid #012049; /* Adds a border */
     border-radius: 5px; /* Rounds button corners */
     background-color: white; /* Light background color */
     font-family: "PSemiBold";
@@ -430,14 +429,25 @@ form select  {
     margin-bottom: 30px;
 }
 .btnexpex {
-    color: #388E3C;
-    border: 2px solid #388E3C; 
+    background-color: #388E3C; /* Darker background on hover */
+    color: white; /* White text on hover */
+}
+
+.btnexpex:hover {
+    background-color: #2C6B2F !important; 
+    color: white; /* White text */
 }
 
 .btnexpdf {
-    color: #D32F2F;
-    border: 2px solid #D32F2F; 
+    background-color: #D32F2F; /* Darker background on hover */
+    color: white; /* White text on hover */
 }
+
+.btnexpdf:hover {
+    background-color: #9A1C1C !important; 
+    color: white; /* White text */
+}
+
 .btnexpex i,.btnexpdf i {
     margin-right: 5px; /* Adds spacing between icon and text */
 
@@ -669,6 +679,10 @@ form select  {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Horizontal, Vertical, Blur, Spread */
     margin-left: 5px;
 
+}
+
+#retrieveSelected {
+    background-color: #1e79ac !important;
 }
 
 #selectAllBtn {

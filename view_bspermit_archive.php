@@ -213,7 +213,7 @@ if (isset($_GET['id_bspermit'])) {
    
 
     <a>
-    <button class="btn btn-danger archive-btn" type="button" style="width: 70px; font-size: 17px;" title = "Retrieve" name="unarchive_bspermit">  <i class="fas fa-sync"></i>
+    <button class="btn btn-danger retrieve-btn archive-btn" type="button" style="width: 70px; font-size: 17px;" title = "Retrieve" name="unarchive_bspermit">  <i class="fas fa-undo"></i>
     </button>
     
             </div>
@@ -231,9 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const archiveBtn = document.querySelector('.archive-btn');
     
     // Get popup and other necessary elements
-    const popup = document.getElementById('popup');
-    const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
+    const popup = document.getElementById('popup-retrieve');
+    const confirmBtn = document.getElementById('confirm-btn-ret');
+    const cancelBtn = document.getElementById('cancel-btn-ret');
     const archiveForm = document.getElementById('archiveForm');
     const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn'); // Hidden submit button
 

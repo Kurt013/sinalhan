@@ -72,7 +72,7 @@ if (isset($_SESSION['toast'])) {
     <i class="fas fa-check-square"></i> Select All
 </button>
         <button type="button" class="btn btn-danger" id="archiveSelected" title="Archive Selected">
-        <i class="fas fa-trash"></i>
+        <i class="fas fa-archive"></i>
         </button>
 
 

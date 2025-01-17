@@ -220,9 +220,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const archiveBtn = document.querySelector('.archive-btn');
     
     // Get popup and other necessary elements
-    const popup = document.getElementById('popup');
-    const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
+    const popup = document.getElementById('popup-archive');
+    const confirmBtn = document.getElementById('confirm-btn-arc');
+    const cancelBtn = document.getElementById('cancel-btn-arc');
     const archiveForm = document.getElementById('archiveForm');
     const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn'); // Hidden submit button
 

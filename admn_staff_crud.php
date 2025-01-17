@@ -350,7 +350,7 @@ td {
                                         <form action="" method="post">
                                             <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" class="btn btn-success">  <i class="fas fa-edit"></i> </a>
                                             <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
-                                            <button class="btn btn-danger" type="submit" name="delete_staff" style="width: 70px; font-size: 17px; border-radius:30px;">  <i class="fas fa-trash"></i> </button>
+                                            <button class="btn btn-danger" type="submit" name="delete_staff" style="width: 70px; font-size: 17px; border-radius:30px;">  <i class="fas fa-archive"></i> </button>
                                         </form>
                                     </td>
                                     <td> <?= $view['username']; ?> </td>

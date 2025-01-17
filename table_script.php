@@ -15,9 +15,9 @@ document.getElementById('archiveSelected').addEventListener('click', function (e
     const ids = Array.from(selectedCheckboxes).map(checkbox => checkbox.value); // Collect IDs
     const toast = document.querySelector(".toasterr");
     const progress = document.querySelector(".progresserr");
-    const popup = document.getElementById('popup');
-    const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
+    const popup = document.getElementById('popup-archive-slt');
+    const confirmBtn = document.getElementById('confirm-btn-arc-slt');
+    const cancelBtn = document.getElementById('cancel-btn-arc-slt');
 
     if (ids.length === 0) {
         event.preventDefault(); // Prevent the form or default action
@@ -73,9 +73,9 @@ document.getElementById('retrieveSelected').addEventListener('click', function (
     const ids = Array.from(selectedCheckboxes).map(checkbox => checkbox.value); // Collect IDs
     const toast = document.querySelector(".toasterr");
     const progress = document.querySelector(".progresserr");
-    const popup = document.getElementById('popup');
-    const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
+    const popup = document.getElementById('popup-retrieve-slt');
+    const confirmBtn = document.getElementById('confirm-btn-ret-slt');
+    const cancelBtn = document.getElementById('cancel-btn-ret-slt');
 
 
     if (ids.length === 0) {

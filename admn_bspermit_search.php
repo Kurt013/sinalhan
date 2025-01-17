@@ -301,7 +301,7 @@ echo $list === 'active' ?
         
 <!-- Hidden Submit Button -->
 <button type="submit" class="btn btn-danger" id="hiddensubmitslt" style="display: none;" name="archive_selected_bspermit">
-    <i class="fas fa-trash"></i>
+    <i class="fas fa-archive"></i>
 </button>
 
     </form>
