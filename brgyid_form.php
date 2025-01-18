@@ -5,11 +5,13 @@
 
     $staffbmis->validate_staff();
 
-    $resident = $staffbmis->get_single_brgyid();
 
     $staffbmis->update_brgyid();
     $staffbmis->accept_brgyid();
     $staffbmis->priceUpdate_brgyid();
+
+    $resident = $staffbmis->get_single_brgyid();
+
 
   ?>
 <!DOCTYPE html>

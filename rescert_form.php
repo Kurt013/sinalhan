@@ -5,11 +5,12 @@
 
     $staffbmis->validate_staff();
 
-    $resident = $staffbmis->get_single_certofres();
-
     $staffbmis->update_certofres();
     $staffbmis->accept_rescert();
     $staffbmis->priceUpdate_rescert();
+
+    $resident = $staffbmis->get_single_certofres();
+
   ?>
 
 <!DOCTYPE html>

@@ -5,11 +5,13 @@
 
     $staffbmis->validate_staff();
 
-    $resident = $staffbmis->get_single_bspermit();
 
     $staffbmis->update_bspermit();
     $staffbmis->accept_bspermit();
     $staffbmis->priceUpdate_bspermit();
+
+
+    $resident = $staffbmis->get_single_bspermit();
 
   // try {
   //   foreach ($resident as $key => $value) {
