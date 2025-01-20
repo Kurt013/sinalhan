@@ -68,6 +68,44 @@
 }
 
 </style>
+
+<?php
+
+$sql = "SELECT * FROM tbl_user WHERE role = :role AND sex = :sex";
+$stmt = $conn->prepare($sql);
+
+// Bind the parameters
+$role = 'staff';
+$sex = 'Male';
+$stmt->bindParam(':role', $role, PDO::PARAM_STR);
+$stmt->bindParam(':sex', $sex, PDO::PARAM_STR);
+
+// Execute the statement
+$stmt->execute();
+
+// Fetch all rows
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($result) == 0) {
+    echo '
+    <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
+        <img src="assets/emptystaff.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">No male staff have been registered in the system yet.</p>
+        <p class="norec2">It looks like there are no male staff members registered in the system yet. Get started by adding new staff to organize your barangay team effectively.</p>
+        <!-- Button added below the text -->
+        <button class="btnqr" onclick="window.location.href=\'admn_staff_crud.php\'">
+            <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Manage Staff
+        </button>
+    </div>';
+    return;
+}
+?>
+
+<div class = "add-staff-cnt">
+<button class="add-staff-btn" onclick="window.location.href='admn_staff_crud.php'">
+    <i class="fas fa-users-cog" style="margin-right: 8px;"></i> Manage Staff
+</button>
+</div>
 <?php
 	// require the database connection
 	if(isset($_POST['search_totalstaff'])){
@@ -81,17 +119,18 @@
 $keywordLike = "%$keyword%";
 
 $stmt = $conn->prepare("
-SELECT * 
-FROM `tbl_user` 
-WHERE (`lname` LIKE ? OR  
-	   `mi` LIKE ? OR  
-	   `fname` LIKE ? OR 
-	   `sex` LIKE ? OR 
-	   `contact` LIKE ? OR 
-	   `email` LIKE ? OR 
-	   `position` LIKE ?)
-  AND `role` = 'staff'
-ORDER BY lname ASC
+    SELECT * 
+    FROM `tbl_user` 
+    WHERE (`lname` LIKE ? OR  
+           `mi` LIKE ? OR  
+           `fname` LIKE ? OR 
+           `sex` LIKE ? OR 
+           `contact` LIKE ? OR 
+           `email` LIKE ? OR 
+           `position` LIKE ?)
+    AND `role` = 'staff'
+    AND `sex` = 'Male' 
+    ORDER BY lname ASC
 ");
 
 // Bind the parameters
@@ -123,12 +162,20 @@ $results = $stmt->fetchAll();
 			</div>
 		</div>
 	<?php } ?>
-<?php } ?>
-	
+    <?php } else { ?>
+    </div>
+    <div style="text-align: center; padding: 20px !important; background-color: transparent !important; margin-bottom: 20px;">
+                    <img src="assets/notfound.png" alt="No Data Available" style="max-width: 500px; display: block;  padding: 0 !important; margin: 0 auto;">
+                        
+                    <p class="norec">No staff found matching your search criteria.<p>
+                        <p class="norec2">It seems no staff match your search. Try adjusting your search criteria or check back later.</p>
+                        <button class="btnqr"  onclick="window.location.href = window.location.href;">
+            <i class="fas fa-sync" style="margin-right: 8px;"></i> Reload
+        </button>
+                </div>
 
-</div>
 <?php		
-	}else{
+	}}else{
 ?>
 
 

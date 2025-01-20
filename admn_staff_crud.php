@@ -12,6 +12,111 @@
 
     
 ?>
+
+<div id="popupOverlay" class="overlay-container">
+    <div class="popup-box">
+        <div class="popup-hd">
+            <h2>Add Staff Form</h2>
+            <h3>Please fill in all the required fields with accurate information for the new staff member and review the details before submitting.</h3>
+            <button class="btn-close-header" onclick="togglePopup()">
+                <i class="fas fa-times"></i> <!-- Font Awesome "X" icon -->
+            </button>
+        </div>
+        <hr style="margin: 25px;">
+        <div class="form-body">
+            <form method="post" class="form-container">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" class="form-input" name="lname" placeholder="Enter Last Name" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" class="form-input" name="fname" placeholder="Enter First Name" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Middle Initial:</label>
+                        <input type="text" class="form-input" name="mi" placeholder="Enter Middle Initial" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Contact Number:</label>
+                        <input type="tel" class="form-input" name="contact" maxlength="11" pattern="[0-9]{11}" placeholder="Enter Contact Number" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Username:</label>
+                        <input type="text" class="form-input" name="username" placeholder="Enter Username" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <input type="email" class="form-input" name="email" placeholder="Enter Email" required>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Password:</label>
+                        <input class="form-input" id="password-field" name="password" value="staff123" placeholder="Enter Password" readonly>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Position:</label>
+                        <select class="form-control" name="position" id="position" required>
+                            <option value="">Choose Staff Position</option>
+                            <option value="Kagawad">Kagawad</option>
+                            <option value="Chairman">Chairman</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-label">Age:</label>
+                        <input type="number" class="form-input" name="age" placeholder="Enter Age" required>
+                    </div>
+                </div>
+
+                <div class="col rb">
+                    <div class="form-group">
+                        <label class="form-label">Sex:</label>
+                        <select class="form-control" name="sex" id="sex" required>
+                            <option value="">Choose Staff Sex</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br>
+                <hr>
+                <button class="btn-submit" type="submit" name="add_staff">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function togglePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.toggle('show');
+        }
+    </script>
 <style>
 
     .btn-open-popup {
@@ -61,6 +166,7 @@
             width: 100%;
             box-sizing: border-box;
             height: 100%;
+            color: black !important;
             font-family: "PRegular";
         }
 
@@ -261,48 +367,11 @@
 }
 </style>
 
-
-
-
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-
-    <div class="row"> 
-        <div class="col text-center"> 
-            <h1> Barangay Staff Directory</h1>
-        </div>
-    </div>
-
-    <hr>
-    <br><br>
-
-    <div class="search-row"> 
-    <div class="cols">
-<form class="searchbox" method="POST">
-                <div class="left-search">
-                    <input class = "searchinp" placeholder="Search" name ="keyword" />
-                    <div class = "btn-container">
-                    <button class="searchbtn" type="submit" value="search" name="search_totalstaff">
-                      <i class="fas fa-search"></i>
-                    </button>
-                    <button class="btns button-info" onclick="location.reload();">
-    <i class="fa fa-sync" aria-hidden="true"></i>
-</button>
-</div>
-</div>
-    </form>       
-        </div>
-</div>
-
-    <br>
-    <br>
-
 <style>
-/* Container for the cards */
+
 .col {
 
-    margin-bottom: 20px; /* Spacing between cards */
+    margin-bottom: 20px; 
 }
 
 /* Card styling */
@@ -380,6 +449,86 @@
 }
 
 </style>
+
+
+
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+
+    <div class="row"> 
+        <div class="col text-center"> 
+            <h1> Barangay Staff Management </h1>
+        </div>
+    </div>
+
+    <hr>
+    <br><br>
+
+    <div class="search-row"> 
+    <div class="cols">
+<form class="searchbox" method="POST">
+                <div class="left-search">
+                    <input class = "searchinp" placeholder="Search" name ="keyword" />
+                    <div class = "btn-container">
+                    <button class="searchbtn" type="submit" value="search" name="search_totalstaff">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button class="btns button-info" onclick="location.reload();">
+    <i class="fa fa-sync" aria-hidden="true"></i>
+</button>
+</div>
+</div>
+    </form>       
+        </div>
+</div>
+
+    <br>
+
+    <?php
+
+$sql = "SELECT * FROM tbl_user WHERE role = :role";
+$stmt = $conn->prepare($sql);
+
+// Bind the parameter
+$role = 'staff';
+$stmt->bindParam(':role', $role, PDO::PARAM_STR);
+
+// Execute the statement
+$stmt->execute();
+
+// Fetch all rows
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+ 
+
+if (count($result) == 0) {
+    echo '
+    <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
+        <img src="assets/emptystaff.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">Oops! There are no staff members available at the moment.</p>
+        <p class="norec2">This list is currently empty. You can add new staff members or check back later.</p>
+        <!-- Button added below the text -->
+<button class="btnqr" onclick="togglePopup()">
+    <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Add Staff
+</button>
+    </div>';
+
+
+      
+
+    return;
+} 
+?>
+
+<div class = "add-staff-cnt">
+<button class="add-staff-btn" onclick="togglePopup()">
+    <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Add Staff
+</button>
+</div>
+
+
 <?php
 	// require the database connection
 	if(isset($_POST['search_totalstaff'])){
@@ -431,15 +580,37 @@ $results = $stmt->fetchAll();
 						<strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
 						<strong>Position:</strong> <?= htmlspecialchars($view['position']); ?><br>
 					</p>
+
+                    <div class="card-buttons"> <!-- Buttons container -->
+            <form action="" method="post">
+                <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>" class="btn btn-success">  
+                    <i class="fas fa-edit"></i>
+                </a>
+                <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
+                <button class="btn btn-danger" type="submit" name="delete_staff">  
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+
 				</div>
 			</div>
 		</div>
 	<?php } ?>
-<?php } ?>
+<?php } else { ?>
+    </div>
+    <div style="text-align: center; padding: 20px !important; background-color: transparent !important; margin-bottom: 20px;">
+                    <img src="assets/notfound.png" alt="No Data Available" style="max-width: 500px; display: block;  padding: 0 !important; margin: 0 auto;">
+                        
+                    <p class="norec">No staff found matching your search criteria.<p>
+                        <p class="norec2">It seems no staff match your search. Try adjusting your search criteria or check back later.</p>
+                        <button class="btnqr"  onclick="window.location.href = window.location.href;">
+            <i class="fas fa-sync" style="margin-right: 8px;"></i> Reload
+        </button>
+                </div>
 
-</div>
 <?php		
-	}else{
+	}}else{
 ?>
 
 
@@ -465,7 +636,7 @@ $results = $stmt->fetchAll();
                 </a>
                 <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
                 <button class="btn btn-danger" type="submit" name="delete_staff">  
-                    <i class="fas fa-archive"></i>
+                    <i class="fas fa-trash"></i>
                 </button>
             </form>
         </div>
@@ -486,160 +657,14 @@ $conn = null;
 ?>
 
 
-<?php include('table_script.php'); ?>
-
-
-
-<button class="btn-open-popup" onclick="togglePopup()">
-      Add Staff
-      </button>
-
-      <div id="popupOverlay" 
-         class="overlay-container">
-         
-        <div class="popup-box">
-        <div class = "popup-hd">
-            <h2>Add Staff Form</h2>
-       
-            
-            <h3>Please fill in all the required fields with accurate information for the new staff member and review the details before submitting.</h3>
-            
-            
-            <button class="btn-close-header" onclick="togglePopup()">
-            <i class="fas fa-times"></i> <!-- Font Awesome "X" icon -->
-           
-        </button>
-     
-        </div>
-        <hr style = "margin: 25px;">
-        <div class="form-body"> 
-                    <form method="post" class="form-container"> 
-                       
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label"> Last Name: </label>
-                                    <input type="text" class="form-input" name="lname"  placeholder="Enter Last Name" required>
-                            
-                                </div>
-                            </div>
-                            
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label" >First Name: </label>
-                                    <input type="text" class="form-input" name="fname"  placeholder="Enter First Name" required>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col"> 
-                                <div class="form-group">
-                                    <label class = "form-label"> Middle Initial: </label>
-                                    <input type="text" class="form-input" name="mi" placeholder="Enter Middle Initial" required>
-                                    
-                                </div>
-                            </div>
-                        
-
-                      
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label">Contact Number:</label>
-                                    <input type="tel" class="form-input" name="contact" maxlength="11" pattern="[0-9]{11}" placeholder="Enter Contact Number" required>
-
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label">Username: </label>
-                                    <input type="username" class="form-input" name="username"  placeholder="Enter username" required>
-                         
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label">Email: </label>
-                                    <input type="email" class="form-input" name="email"  placeholder="Enter Email" required>
-                             
-                                </div>
-                            </div>
-                            
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label">Password:</label>
-                                    <input class="form-input"  id="password-field" name="password" value="staff123" placeholder="Enter Password" readonly>
-                         
-                                </div>
-                            </div>
-                      
-
-                     
-                            <div class="col"> 
-                                <div class="form-group">
-                                    <label class = "form-label">Position: </label>
-                                    <select class="form-control" name="position" id="position" required>
-                                        <option value="">Choose Staff Position</option>
-                                        <option value="Kagawad">Kagawad</option>
-                                        <option value="Chairman">Chairman</option>
-                                    </select>
-                       
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class = "form-label">Age</label>
-                                    <input type="number" class = "form-input" name="age" placeholder="Enter Age" required>
-                                 
-                                </div>
-                            </div>
-
-                            <div class="col rb">
-                                <div class="form-group" >
-                                    <label class = "form-label">Sex</label>
-                                    <select class="form-control" name="sex" id="sex" required>
-                                        <option value="">Choose Staff Sex</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-               
-                                </div>
-                            </div>         
-                        
-
-                        <br>
-                        <hr>
-                        <button class="btn-submit" 
-                        type="submit" name="add_staff">
-                  SUBMIT
-                  </button>
-
-             
-</div>
-</div>
-        </div>
-
-
-</form>
-
-</div>
-
-        </div>
-
-
-
-   
-
-
-<!-- End of Main Content -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+
+<?php include('table_script.php'); ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       // After the page content is fully loaded, make the body visible
@@ -656,13 +681,9 @@ $conn = null;
     }
 </script>
 <script>
-    // Prevent page reload when the page is loaded or refreshed
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-
-    // Get the close button for privacy policy modal
-
 </script>
 
     <script>

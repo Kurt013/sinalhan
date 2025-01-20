@@ -687,14 +687,25 @@ outline:0;
     background-color: #1e79ac !important;
 }
 
-#selectAllBtn {
+#selectAllBtn, .add-staff-btn {
     font-size: 1.1rem !important;
     padding: 10px 25px;
     border-radius: 10px; /* Top-left, Top-right, Bottom-right, Bottom-left */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Horizontal, Vertical, Blur, Spread */
     font-family: "PSemiBold";
     color: white;
+    border: none !important;
     background-color: #014bae;
+}
+
+.add-staff-btn {
+    background-color: #2c91c9 !important;
+    margin-bottom: 20px;
+}
+
+.add-staff-cnt {
+    display: flex;
+    justify-content: flex-end;
 }
 
 #selectAllBtn:hover {
@@ -708,8 +719,10 @@ outline:0;
 
 .norec {
     font-family: "PBold";
-    font-size: 2rem;
+    font-size: 1.7rem;
     color: #014bae;
+    width: 900px;
+margin: 10px auto; /* Center horizontally with some spacing */
 }
 
 .notfound {

@@ -235,16 +235,7 @@ if (isset($_GET['id_brgyid'])) {
         </div>
     </div>
 
-<div class="row mb-3">
-<div class="col-md-6">
-</div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Payment</label>
-            <input class="form-control payment-style" type="text" value="Php <?php echo number_format($row['price'], 2, '.', ','); ?>" readonly>
-            </div>
-    </div>
-</div>
+<!-- delete payment -->
 
             
         <?php

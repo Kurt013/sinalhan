@@ -179,7 +179,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p style="display: none;"><p>
                     <p class="norec">No matching requests found.<p>
                         <p class="norec2">It looks like your search didn’t match any existing requests. Try adjusting your search criteria or check back later.</p>
+                        <button class="btnqr" onclick="window.location.href = window.location.href;">
+        <i class="fas fa-sync" style="margin-right: 8px;"></i> Reload
+      </button>
                 </div>
             `);
     });
+</script>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 </script>

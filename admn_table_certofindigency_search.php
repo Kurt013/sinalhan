@@ -1,7 +1,5 @@
 
 <style>
-th:nth-child(14),  /* Issuance No. */
-td:nth-child(14),  /* Issuance No. */
 th:nth-child(12),  /* Business Name */
 td:nth-child(12),            
 th:nth-child(8),  /* Issuance No. */
@@ -28,6 +26,131 @@ td:nth-child(11) { /* Business Name */
                 <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
                 <div class="progresserr progresserr-error"></div>
             </div>
+
+            <?php if ($list === 'active') { ?>
+    <?php
+
+$sql = "SELECT * FROM tbl_indigency WHERE doc_status = :doc_status";
+$stmt = $conn->prepare($sql);
+
+// Bind the parameter
+$doc_status = 'accepted';
+$stmt->bindParam(':doc_status', $doc_status, PDO::PARAM_STR);
+
+// Execute the statement
+$stmt->execute();
+
+// Fetch all rows
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+ 
+
+if (count($result) == 0) {
+    echo '
+    <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
+        <label class="selectlabel" for="list">Select List: </label>
+        <select name="list" id="list" class="selectlist" onchange="this.form.submit()">
+            <option value="active" ' . (isset($_GET['list']) && $_GET['list'] == 'active' ? 'selected' : '') . '>Active</option>
+            <option value="archived" ' . (isset($_GET['list']) && $_GET['list'] == 'archived' ? 'selected' : '') . '>Archived</option>
+        </select>
+    </form>
+</div>
+    <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
+        <img src="assets/emptyst8.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">Oops! There are no active requests for this document at the moment.</p>
+        <p class="norec2">This list is currently empty for this document. Click the button below to scan a QR code and add a new request instantly.</p>
+        <!-- Button added below the text -->
+<button class="btnqr" onclick="window.location.href=\'admn_scanqrcode.php\';">
+    <i class="fas fa-qrcode" style="margin-right: 8px;"></i> Scan QR Code
+</button>
+    </div>';
+
+    return;
+} else {
+    
+        echo '
+        <div class="cols">
+            <button type="button" id="selectAllBtn" title="Select All">
+                <i class="fas fa-check-square"></i> Select All
+            </button>
+            <button type="button" class="btn btn-danger" id="archiveSelected" title="Archive Selected">
+                <i class="fas fa-archive"></i>
+            </button>
+        </div>
+        <br>';
+    } 
+} 
+?>
+
+
+<?php if ($list === 'archived') { ?>
+    <?php
+
+$sql = "SELECT * FROM tbl_indigency WHERE doc_status = :doc_status";
+$stmt = $conn->prepare($sql);
+
+// Bind the parameter
+$doc_status = 'archived';
+$stmt->bindParam(':doc_status', $doc_status, PDO::PARAM_STR);
+
+// Execute the statement
+$stmt->execute();
+
+// Fetch all rows
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if (count($result) == 0) {
+    echo '
+<div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
+        <label class="selectlabel" for="list">Select List: </label>
+        <select name="list" id="list" class="selectlist" onchange="this.form.submit()">
+            <option value="active" ' . (isset($_GET['list']) && $_GET['list'] == 'active' ? 'selected' : '') . '>Active</option>
+            <option value="archived" ' . (isset($_GET['list']) && $_GET['list'] == 'archived' ? 'selected' : '') . '>Archived</option>
+        </select>
+    </form>
+</div>
+    <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
+        <img src="assets/emptyst8.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">There are currently no archived requests for this document.</p>
+        <p class="norec2">It looks like there are no archived requests in the list for this document. You can add new requests or check back later.</p>
+
+        <!-- Button added below the text -->
+<button class="btnqr" onclick="window.location.href=\'admn_scanqrcode.php\';">
+    <i class="fas fa-qrcode" style="margin-right: 8px;"></i> Scan QR Code
+</button>
+    </div>';
+
+    return;
+} else {
+    
+    echo '
+    <div class="cols">
+        <button type="button" id="selectAllBtn" title="Select All">
+            <i class="fas fa-check-square"></i> Select All
+        </button>
+        <button type="button" class="btn btn-danger" id="retrieveSelected" title="Retrieve Selected">
+            <i class="fas fa-undo"></i>
+        </button>
+    </div>
+    <br>';
+} 
+} 
+?>
+
+<div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+        <form class="form-select" method="GET" action="">
+            <label class = "selectlabel" for="list">Select List: </label>
+            <select name="list" id="list" class = "selectlist" onchange="this.form.submit()">
+                <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
+                <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
+            </select>
+        </form>
+    </div>
+
+
 <?php
     $from = isset($_POST['from']) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
     $to = isset($_POST['to']) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d');
@@ -39,16 +162,6 @@ td:nth-child(11) { /* Business Name */
         <?php if (!empty($toast)): ?>
         <?= $toast; ?>
     <?php endif; ?>
-    <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
-        <form class="form-select" method="GET" action="">
-            <label class = "selectlabel" for="list">Select List: </label>
-            <select name="list" id="list" class = "selectlist" onchange="this.form.submit()">
-                <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
-                <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
-            </select>
-        </form>
-    </div>
-
  
 <table class="table table-border table-striped custom-table datatable mb-0" id="myTable">
 <thead class="alert-info">
@@ -66,7 +179,7 @@ td:nth-child(11) { /* Business Name */
         <th> City </th> <!--hide -->
         <th> Municipality </th> <!--hide -->
         <th> Purpose </th>
-        <th> Payment </th> <!--hide -->
+        <!-- delete payment --> <!--hide -->
         <th> </th>
     </tr>
 </thead>
@@ -157,7 +270,7 @@ td:nth-child(11) { /* Business Name */
             <td> <?= $view['city'];?> </td>
             <td> <?= $view['municipality'];?> </td>
             <td> <?= $view['purpose'];?> </td>
-            <td> <?= $view['price'];?> </td>
+            <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
                 <a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="indigency_form.php?id_indigency=<?= $view['id_indigency'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
@@ -218,7 +331,7 @@ echo $list === 'active' ?
         <th> City </th> <!-- hide -->
         <th> Municipality </th> <!-- hide -->
         <th> Purpose </th>
-        <th> Payment</th>
+        <!-- delete payment -->
         <th> </th>
     </tr>
 </thead>
@@ -254,7 +367,7 @@ echo $list === 'active' ?
             <td> <?= $view['city'];?> </td>
             <td> <?= $view['municipality'];?> </td>
             <td> <?= $view['purpose'];?> </td>
-            <td> <?= $view['price'];?> </td>
+            <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
                 <a class="btn btn-success" title="Generate" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="indigency_form.php?id_indigency=<?= $view['id_indigency'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 

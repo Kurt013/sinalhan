@@ -17,7 +17,7 @@
 
     <div class="row"> 
         <div class="col text-center"> 
-            <h1> Barangay Female Staff Directory</h1>
+            <h1> Barangay Female Staff Records</h1>
         </div>
     </div>
 

@@ -68,29 +68,7 @@ if (isset($_SESSION['toast'])) {
         </div>
     </div>
 
-    <?php if ($_GET['list'] == 'active') {?>
-        <div class = "cols">
-        <button type="button" id="selectAllBtn" title = "Select All">
-    <i class="fas fa-check-square"></i> Select All
-</button>
-        <button type="button" class="btn btn-danger" id="archiveSelected" title="Archive Selected">
-        <i class="fas fa-archive"></i>
-        </button>
 
-
-
-</div>
-<?php } ?>
-<?php if ($_GET['list'] == 'archived') {?>
-        <div class = "cols">
-        <button type="button" id="selectAllBtn" title = "Select All">
-    <i class="fas fa-check-square"></i> Select All
-</button>
-        <button type="button" class="btn btn-danger" id="retrieveSelected" title="Retrieve Selected">
-    <i class="fas fa-undo"></i>
-</button>
-</div>
-<?php } ?>
 
     <br>
 

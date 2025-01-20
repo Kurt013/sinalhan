@@ -29,18 +29,8 @@
                 <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
                 <div class="progresserr progresserr-error"></div>
             </div>
-            <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
-        <form class="form-select" method="GET" action="">
-            <label class = "selectlabel" for="list">Select List: </label>
-            <select name="list" id="list" class = "selectlist" onchange="this.form.submit()">
-                <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
-                <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
-            </select>
-        </form>
-    </div>
-
-   
-<?php if ($list === 'active') { ?>
+           
+            <?php if ($list === 'active') { ?>
     <?php
 
 $sql = "SELECT * FROM tbl_bspermit WHERE doc_status = :doc_status";
@@ -60,10 +50,19 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (count($result) == 0) {
     echo '
+    <div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
+        <label class="selectlabel" for="list">Select List: </label>
+        <select name="list" id="list" class="selectlist" onchange="this.form.submit()">
+            <option value="active" ' . (isset($_GET['list']) && $_GET['list'] == 'active' ? 'selected' : '') . '>Active</option>
+            <option value="archived" ' . (isset($_GET['list']) && $_GET['list'] == 'archived' ? 'selected' : '') . '>Archived</option>
+        </select>
+    </form>
+</div>
     <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
-        <img src="assets/emptystate.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
-        <p class="norec">Oops! No active requests right now.</p>
-        <p class="norec2">Currently, there are no active requests in your list. Click the button below to scan a QR code and quickly add a new request.</p>
+        <img src="assets/emptyst8.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">Oops! There are no active requests for this document at the moment.</p>
+        <p class="norec2">This list is currently empty for this document. Click the button below to scan a QR code and add a new request instantly.</p>
         <!-- Button added below the text -->
 <button class="btnqr" onclick="window.location.href=\'admn_scanqrcode.php\';">
     <i class="fas fa-qrcode" style="margin-right: 8px;"></i> Scan QR Code
@@ -71,9 +70,22 @@ if (count($result) == 0) {
     </div>';
 
     return;
+} else {
+    
+        echo '
+        <div class="cols">
+            <button type="button" id="selectAllBtn" title="Select All">
+                <i class="fas fa-check-square"></i> Select All
+            </button>
+            <button type="button" class="btn btn-danger" id="archiveSelected" title="Archive Selected">
+                <i class="fas fa-archive"></i>
+            </button>
+        </div>
+        <br>';
+    } 
 } 
 ?>
-<?php } ?>
+
 
 <?php if ($list === 'archived') { ?>
     <?php
@@ -94,10 +106,20 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (count($result) == 0) {
     echo '
+<div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+    <form class="form-select" method="GET" action="">
+        <label class="selectlabel" for="list">Select List: </label>
+        <select name="list" id="list" class="selectlist" onchange="this.form.submit()">
+            <option value="active" ' . (isset($_GET['list']) && $_GET['list'] == 'active' ? 'selected' : '') . '>Active</option>
+            <option value="archived" ' . (isset($_GET['list']) && $_GET['list'] == 'archived' ? 'selected' : '') . '>Archived</option>
+        </select>
+    </form>
+</div>
     <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
-        <img src="assets/emptystate.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
-        <p class="norec">There are currently no archived requests.</p>
-        <p class="norec2">It looks like there are no archived requests in your list. You can add new requests or check back later.</p>
+        <img src="assets/emptyst8.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">There are currently no archived requests for this document.</p>
+        <p class="norec2">It looks like there are no archived requests in the list for this document. You can add new requests or check back later.</p>
+
         <!-- Button added below the text -->
 <button class="btnqr" onclick="window.location.href=\'admn_scanqrcode.php\';">
     <i class="fas fa-qrcode" style="margin-right: 8px;"></i> Scan QR Code
@@ -105,9 +127,32 @@ if (count($result) == 0) {
     </div>';
 
     return;
+} else {
+    
+    echo '
+    <div class="cols">
+        <button type="button" id="selectAllBtn" title="Select All">
+            <i class="fas fa-check-square"></i> Select All
+        </button>
+        <button type="button" class="btn btn-danger" id="retrieveSelected" title="Retrieve Selected">
+            <i class="fas fa-undo"></i>
+        </button>
+    </div>
+    <br>';
+} 
 } 
 ?>
-<?php } ?>
+
+<div style="float: right; align-items:right; margin-bottom: -40px; position: relative; z-index: 10;">
+        <form class="form-select" method="GET" action="">
+            <label class = "selectlabel" for="list">Select List: </label>
+            <select name="list" id="list" class = "selectlist" onchange="this.form.submit()">
+                <option value="active" <?= (isset($_GET['list']) && $_GET['list'] == 'active') ? 'selected' : ''; ?>>Active</option>
+                <option value="archived" <?= (isset($_GET['list']) && $_GET['list'] == 'archived') ? 'selected' : ''; ?>>Archived</option>
+            </select>
+        </form>
+    </div>
+
 
 <?php
     $from = isset($_POST['from']) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
