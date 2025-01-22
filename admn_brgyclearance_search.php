@@ -267,12 +267,12 @@ if (count($result) == 0) {
             <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
-                <a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                 <?php
 echo $list === 'active' ? 
 // Display both buttons if the status is active
+'<a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance='.$view['id_clearance'].'"> <i class="fas fa-cogs"></i></a>'. 
 
 '<a href="javascript:void(0);" class="btn btn-primary" title="View Details" onclick="openPopup(\'view_clearance.php?id_clearance=' . urlencode($view['id_clearance']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
 <i class="fa fa-eye"></i>
@@ -362,12 +362,12 @@ echo $list === 'active' ?
             <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
-                <a class="btn btn-success" title="Generate" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance=<?= $view['id_clearance'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_clearance" value="<?= $view['id_clearance'];?>">
                 <?php
 echo $list === 'active' ? 
     // Display both buttons if the status is active
+'<a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="clearance_form.php?id_clearance='.$view['id_clearance'].'"> <i class="fas fa-cogs"></i></a>'. 
     
 '<a href="javascript:void(0);" class="btn btn-primary" title="View Details" onclick="openPopup(\'view_clearance.php?id_clearance=' . urlencode($view['id_clearance']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
     <i class="fa fa-eye"></i>
