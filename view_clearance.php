@@ -50,6 +50,12 @@ $role = $user['role'];
     $staffbmis->view_archive_brgyclearance();
 
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Barangay Clearance || <?= $_GET['id_clearance']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 
 <body>
                 <div class="row">

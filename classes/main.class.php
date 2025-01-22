@@ -112,15 +112,16 @@ class BMISClass {
         
                 // Check if user exists and verify the password
                 if ($user && password_verify($password, $user['password'])) {
-                    if ($user['role'] === 'administrator' || $user['role'] === 'staff') {
+                    if ($user['role'] === 'administrator') {
                         $this->set_userdata($user);
                         header('Location: admn_dashboard.php');
                         exit;
                     }
-                    // else if ($user['role'] === 'staff') {
-                    //     $this->set_userdata($user);
-                    //     header('Location: admn_scanqrcode.php');
-                    //     exit;
+                    else if ($user['role'] === 'staff') {
+                        $this->set_userdata($user);
+                        header('Location: staff_dashboard.php');
+                        exit;
+                    }
                      else {
                         $message = "You are not authorized personnel!";
                         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -2951,6 +2952,9 @@ public function priceUpdate_clearance() {
         // Check if user data is available and if the role is 'administrator'
         if ($userdetails && $userdetails['role'] === "administrator") {
             return $userdetails;
+        } else if ($userdetails && $userdetails['role'] === "staff") { 
+            header("Location: staff_dashboard.php");
+            exit();
         } else {
             // Redirect to login page if user is not logged in or not an administrator
             header("Location: index.php");

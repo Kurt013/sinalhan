@@ -278,13 +278,12 @@ if (count($result) == 0) {
             <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
-                <a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                 <?php
 echo $list === 'active' ? 
 // Display both buttons if the status is active
-
+                '<a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view["id_rescert"];?>"> <i class="fas fa-cogs"></i></a>' .
 '<a href="javascript:void(0);" class="btn btn-primary" title="View Details" onclick="openPopup(\'view_rescert.php?id_rescert=' . urlencode($view['id_rescert']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
 <i class="fa fa-eye"></i>
 </a>' :
@@ -376,13 +375,13 @@ echo $list === 'active' ?
             <!-- delete payment -->
             <td>    
             <form id="archiveForm" action="" method="post">
-                <a class="btn btn-success" title="Generate" target="_blank" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view['id_rescert'];?><?php if ($list === 'archived') echo '&status=archived';?>"> <i class="fas fa-cogs"></i></a> 
                 <input type="hidden" name="id" value="<?= $userdetails['id'];?>">
                 <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                 <?php
 echo $list === 'active' ? 
     // Display both buttons if the status is active
-    
+    '<a class="btn btn-success" target="_blank" title="Generate" style="width: 70px; font-size: 17px; border-radius:30px; margin-bottom: 2px;" href="rescert_form.php?id_rescert=<?= $view["id_rescert"];?>"> <i class="fas fa-cogs"></i></a>' .
+
 '<a href="javascript:void(0);" class="btn btn-primary" title="View Details" onclick="openPopup(\'view_rescert.php?id_rescert=' . urlencode($view['id_rescert']) . '\')" style="width: 70px; font-size: 17px; border-radius:30px;">
     <i class="fa fa-eye"></i>
 </a>' :

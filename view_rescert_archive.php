@@ -49,7 +49,12 @@ $role = $user['role'];
     // $staffbmis->view_archive_certofres();
 
 ?>
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Certificate of Residency || <?= $_GET['id_rescert']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 
 <body>
                 <div class="row">

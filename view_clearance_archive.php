@@ -51,6 +51,13 @@ $role = $user['role'];
 
 ?>
 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Barangay Clearance || <?= $_GET['id_clearance']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
+
 <body>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">

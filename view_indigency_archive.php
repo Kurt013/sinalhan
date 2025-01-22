@@ -50,7 +50,12 @@ $role = $user['role'];
     $staffbmis->view_unarchive_certofindigency();
 
 ?>
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Certificate of Indigency || <?= $_GET['id_indigency']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 <body>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">

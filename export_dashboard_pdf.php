@@ -24,10 +24,6 @@ $totalBusinessPermit = $bmis->count_bspermit();
 
 $totalDailyRequest = $totalRescert + $totalBrgyID + $totalCertofindigency + $totalBusinessPermit;
 
-$totalEarnings = $bmis->getDailyEarnings();
-
-$totalEarningsFormatted = 'P' . number_format($totalEarnings, 2, '.', ',');
-
 $rescertList = $bmis->daily_rescert_list();
 $brgyidList = $bmis->daily_brgyid_list();
 $bspermitList = $bmis->daily_bspermit_list();
@@ -61,12 +57,6 @@ $pdf->Ln(5);
 $pdf->SetFont('helvetica', 'B', 12);
 $pdf->Cell(100, 10, 'Total Daily Requests:', 0, 0);
 $pdf->Cell(0, 10, $totalDailyRequest, 0, 1, 'R');
-
-// Add Daily Earnings
-$pdf->Ln(5);
-$pdf->SetFont('helvetica', 'B', 12);
-$pdf->Cell(100, 10, 'Daily Earnings:', 0, 0);
-$pdf->Cell(0, 10, $totalEarningsFormatted, 0, 1, 'R');
 
 // Section header for rescert list
 

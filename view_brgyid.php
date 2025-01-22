@@ -51,7 +51,12 @@ $role = $user['role'];
 
 ?>
 
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Barangay ID || <?= $_GET['id_brgyid']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 
 <body>
                 <div class="row">

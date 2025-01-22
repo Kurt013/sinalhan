@@ -358,7 +358,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             
             <div class="sidebar-brand-icon">
     <div class="profile-card">
-        <a href="./account_crud.php?id=<?php echo $userdetails['id']; ?>"><img src="assets/profile-admin.png" alt="Profile Image" class="profile-img"></a>
+        <a href="./account_crud.php?id=<?php echo $userdetails['id']; ?>"><img src="assets/<?= $role === 'administrator' ? "profile-admin.png": "profile-staff.png"; ?>" alt="Profile Image" class="profile-img"></a>
         <div class="profile-info">
         <h3><?php echo htmlspecialchars(ucwords(strtolower($firstName . ' ' . $lastName))); ?></h3>
         <p><?php echo htmlspecialchars(ucfirst($role)); ?></p>
@@ -380,7 +380,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="admn_dashboard.php">
+                <a class="nav-link" href="<?= $role === 'administrator' ? 'admn_dashboard.php' : 'staff_dashboard.php'?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>

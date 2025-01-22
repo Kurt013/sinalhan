@@ -49,9 +49,13 @@ $role = $user['role'];
     // $staffbmis->archive_brgyid();
 
 ?>
-
-
-<body>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Barangay ID || <?= $_GET['id_brgyid']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
+    <body>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                     <?php

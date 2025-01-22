@@ -17,10 +17,6 @@ $totalBusinessPermit = $bmis->count_bspermit();
 
 $totalDailyRequest = $totalRescert + $totalBrgyID + $totalCertofindigency + $totalBusinessPermit;
 
-$totalEarnings = $bmis->getDailyEarnings();
-
-$totalEarningsFormatted = '₱' . number_format($totalEarnings, 2, '.', ',');
-
 $rescertList = $bmis->daily_rescert_list();
 $brgyidList = $bmis->daily_brgyid_list();
 $bspermitList = $bmis->daily_bspermit_list();
@@ -58,11 +54,6 @@ $sheet->setCellValue('B8', $totalCertofindigency);
 // Add Total Daily Requests
 $sheet->setCellValue('A10', 'Total Daily Requests');
 $sheet->setCellValue('B10', '=SUM(B4:B8)'); // Automatically calculates the sum
-
-// Add Daily Earnings
-$sheet->setCellValue('A12', 'Daily Earnings');
-$sheet->setCellValue('B12', $totalEarningsFormatted);
-
 
 
 $rowStart = 14; // Starting row for the lists

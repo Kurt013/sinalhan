@@ -17,7 +17,10 @@ if ($userdetails && $userdetails['role'] == 'administrator') {
     echo '<script>window.location.href="./admn_dashboard.php"</script>';
     exit;
 }
-
+else if ($userdetails && $userdetails['role'] == 'staff') {
+    echo '<script>window.location.href="./staff_dashboard.php"</script>';
+    exit;
+}
 ?>
 
 

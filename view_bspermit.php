@@ -50,6 +50,12 @@ $role = $user['role'];
 
 ?>
 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Business Permit || <?= $_GET['id_bspermit']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 
 
 <body>

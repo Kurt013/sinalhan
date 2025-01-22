@@ -31,7 +31,6 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   padding: 30px 0 !important;
   line-height: 25px !important;
   text-align: center;
-  margin-top: 50px; /* Ensures the footer is pushed to the bottom */
   box-sizing: border-box; /* Prevents overflow by including padding and borders in width */
   font-family: "PMedium";
  

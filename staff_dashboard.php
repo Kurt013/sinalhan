@@ -2,7 +2,8 @@
     include('dashboard_sidebar_start.php');
     include('popup-confirm.php');
 
-    $staffbmis->validate_admin();
+    $staffbmis->validate_staff();
+
 
     $current_month = isset($_POST['month']) ? $_POST['month'] : date('n');
     $total_pending = 0;
@@ -361,15 +362,13 @@ body{
 
 
 
-<div class="container-fluid">
-
 
 <!-- Page Heading -->
+    
+<div class="container-fluid" style="display: flex;">
 
-<div class="container-graph" style="display: flex;">
-    
-    
-    <div class="select-wrapper">
+    <div class="container-graph">
+        <div class="select-wrapper">
             <form class="select-month" method="POST" action="">
                 <label for="month" class = "form-label">Select Month:</label>
                 <select class = "form-controldoc" id="month" name="month" onchange="this.form.submit()">
@@ -381,65 +380,26 @@ body{
                     ?>
                 </select>
             </form>
-        <canvas id="documentIssuanceTrendChart" style="width: 500px; height: 280px; display: inline-block;"></canvas>
+            <canvas id="documentIssuanceTrendChart" style="width: 500px; height: 280px; display: inline-block;"></canvas>
         </div>
-
-        <canvas id="documentTypesDistributionChart" style="margin-left: 20px; width: 500px; height: 300px; display: inline-block;"></canvas>
-    </div>
-
-
-
-
-<div class="row w-100" style="flex-grow: 1;"> 
-<div class="col-md-3">
+        <div>
             <div class="card bg-c-blue4 order-card" style = "border-radius: 20px 20px 20px 0;">
-            <div class="card-block">
+                <div class="card-block">
                     <h6 class="m-b-20 text-left">Total Completed Requests</h6>
                     <h2 style="display: flex; justify-content: space-between; align-items: center;"><i class="fa fa-file-alt f-left"></i></i><span><?= $total_pending ?></span></h2>                
                 </div>
             </div>
         </div>
+    </div>
 
 
-<div class="col-md-3">
-            <div class="card bg-c-blue1 order-card">
-            <div class="card-block">
-                    <h6 class="m-b-20">Total Staff</h6>
-                    <h2 class="text-right"><i class="fas fa-user-friends f-left"></i></i><span><?= $staffcount ?></span></h2>
-                    <button class="btn btn1" onclick="window.location.href='admn_table_totalstaff.php'">View Records</button>
-                
-                </div>
-            </div>
-        </div>
-               
-   
-    <div class="col-md-3">
-            <div class="card bg-c-blue2 order-card">
-            <div class="card-block">
-                    <h6 class="m-b-20">Total Male Staff</h6>
-                    <h2 class="text-right"><i class="fas fa-male f-left"></i></i><span><?= $staffcountm ?></span></h2>
-                    <button class="btn btn2" onclick="window.location.href='admn_table_malestaff.php'">View Records</button>
-                
-                </div>
-            </div>
-        </div>
-           
-    <div class="col-md-3">
-            <div class="card bg-c-blue3 order-card">
-            <div class="card-block">
-                    <h6 class="m-b-20">Total Female Staff</h6>
-                    <h2 class="text-right"><i class="fas fa-female f-left"></i></i><span><?= $staffcountf ?></span></h2>
-                    <button class="btn btn3" onclick="window.location.href='admn_table_femalestaff.php'">View Records</button>
-                
-                </div>
-            </div>
-                </div>
+    <canvas id="documentTypesDistributionChart" style="margin-left: 20px; width: 500px; height: 440px; display: inline-block;"></canvas>
 
 
-</div>
+  
 
 
-<div class="d-flex justify-content-end w-100">
+    <div class="d-flex justify-content-end w-100">
         <div class="pdf-button" style="padding-right: 16px;">
             <form method="POST" action="./export_dashboard_pdf.php" class="form-buttons" target="_blank">
             <button class="btnexpdf" name="exportToPDF">
@@ -455,9 +415,6 @@ body{
             </form>
         </div>
     </div>
-
-        
-
 </div>
               
 <!-- End of Main Content -->
@@ -599,13 +556,13 @@ const documentTypesDistributionChart = new Chart(ctx2, {
             legend: {
                 onClick: (e) => e.stopPropagation(),
                 display: true,
-                position: 'right', 
-            
+                position: 'bottom', 
+                
                 labels: {
                     color: '#012049', // Text color for legend items
                     font: {
                         family: 'PMedium', // Custom font
-                        size: 14, // Font size for legend
+                        size: 15, // Font size for legend
             
                     }
                 }

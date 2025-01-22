@@ -49,6 +49,12 @@ $role = $user['role'];
     // $staffbmis->archive_bspermit();
 
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Business Permit || <?= $_GET['id_bspermit']; ?></title>
+        <link rel="shortcut icon" href="./assets/sinlogo.png" type="image/x-icon">
+    </head>
 
 <body>
                 <div class="row">

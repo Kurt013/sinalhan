@@ -6,7 +6,7 @@
     if ($userdetails['role'] === 'administrator') {
         $view = $staffbmis->get_single_admin($id_user);
     } 
-    else if ($userdetails['role' === 'staff']) {
+    else if ($userdetails['role'] === 'staff') {
         $view = $staffbmis->get_single_staff($id_user);
     }
 

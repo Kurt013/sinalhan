@@ -245,13 +245,10 @@
 
     //--------------------------------------------- EXTRA FUNCTIONS FOR STAFF -------------------------------------------------
 
-            public function get_single_staff($id_user){
-
-                $id_user = $_GET['id_user'];
-                
+            public function get_single_staff($id_staff){    
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("SELECT * FROM tbl_user where id_user = ?");
-                $stmt->execute([$id_user]);
+                $stmt->execute([$id_staff]);
                 $user = $stmt->fetch();
                 $total = $stmt->rowCount();
 
