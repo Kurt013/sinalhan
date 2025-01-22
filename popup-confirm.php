@@ -88,7 +88,97 @@
     </div>
 </div>
 
+<div id="popup-remove-staff" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/removestf.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+        <h2 style = "color: #d32f2f;">Are you sure you want to remove this staff member?</h2>
+        <p>This action cannot be undone. Please confirm to proceed.</p>
 
+        <div class="popup-buttons">
+            <button id="confirm-btn-rms" class="confirm-arc">Confirm</button>
+            <button id="cancel-btn-rms" class="cancel-btn-arc">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-add-staff" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/addstf.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+        <h2 style = "color: #1e79ac;">Are you sure you want to add this staff member? </h2>
+        <p> Once confirmed, the staff member will be added to the system and will have access to navigate it.</p>
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-ads" class="confirm-ret">Confirm</button>
+            <button id="cancel-btn-ads" class="cancel-btn-ret">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-update-staff" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/updatestaff.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+<h2 style="color: #1e79ac;">Are you sure you want to update this staff member's information?</h2>
+<p>Once confirmed, the staff member's information will be updated in the system.</p>
+
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-upd" class="confirm-ret">Confirm</button>
+            <button id="cancel-btn-upd" class="cancel-btn-ret">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-post-ann" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/postann.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+<h2 style="color: #1e79ac;">Are you sure you want to update this staff member's information?</h2>
+<p>Once confirmed, the staff member's information will be updated in the system.</p>
+
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-ann" class="confirm-ret">Confirm</button>
+            <button id="cancel-btn-ann" class="cancel-btn-ret">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-remove-announcement" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/removestf.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+        <h2 style = "color: #d32f2f;">Are you sure you want to remove this staff member?</h2>
+        <p>This action cannot be undone. Please confirm to proceed.</p>
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-remann" class="confirm-arc">Confirm</button>
+            <button id="cancel-btn-remann" class="cancel-btn-arc">Cancel</button>
+        </div>
+    </div>
+</div>
 
 <style> 
 

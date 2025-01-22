@@ -1,6 +1,16 @@
+<?php 
+session_start();
+$toast = '';
+if (isset($_SESSION['toast'])) {
+    $toast = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
 <?php
     include('dashboard_sidebar_start.php');
     include('table_design.php');
+    include('popup-confirm.php');
+    include('popup.php');
 
     $conn = $staffbmis->openConn();
     $staffbmis->validate_admin();
@@ -9,10 +19,12 @@
     $upstaff = $staffbmis->update_staff();
     $staffbmis->delete_staff();
     $staffcount = $staffbmis->count_staff();
-
-    
 ?>
 
+
+<?php if (!empty($toast)): ?>
+        <?= $toast; ?>
+    <?php endif; ?>
 <div id="popupOverlay" class="overlay-container">
     <div class="popup-box">
         <div class="popup-hd">
@@ -28,42 +40,49 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Last Name:</label>
-                        <input type="text" class="form-input" name="lname" placeholder="Enter Last Name" required>
+                        <input type="text" class="form-input" name="lname" id ="lname" placeholder="Enter Last Name" data-tr-rules="required|between:2,80|only:string" required>
+                        <div class= "feedback-error" data-tr-feedback="lname"></div>
+
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">First Name:</label>
-                        <input type="text" class="form-input" name="fname" placeholder="Enter First Name" required>
+                        <input type="text" class="form-input" name="fname" id = "fname" placeholder="Enter First Name" data-tr-rules="required|between:2,80|only:string" required>
+                        <div class= "feedback-error" data-tr-feedback="fname"></div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Middle Initial:</label>
-                        <input type="text" class="form-input" name="mi" placeholder="Enter Middle Initial" required>
+                        <input type="text" class="form-input mid-ini" name="mi" id = "mi" placeholder="Enter Middle Initial" data-tr-rules="required|length:1|only:string" required>
+                        <div class= "feedback-error" data-tr-feedback="mi"></div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Contact Number:</label>
-                        <input type="tel" class="form-input" name="contact" maxlength="11" pattern="[0-9]{11}" placeholder="Enter Contact Number" required>
+                        <input type="text" class="form-input" name="contact" id="contact" placeholder="Enter Contact Number" value="09" oninput="this.value = this.value.startsWith('09') ? this.value : '09';" required data-tr-rules="required|length:11|numeric">
+                        <div class= "feedback-error" data-tr-feedback="contact"></div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Username:</label>
-                        <input type="text" class="form-input" name="username" placeholder="Enter Username" required>
+                        <input type="text" class="form-input" name="username" id="username" placeholder="Enter Username"  required data-tr-rules="required|between:3,20|string"/>
+                        <div class= "feedback-error" data-tr-feedback="username"></div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Email:</label>
-                        <input type="email" class="form-input" name="email" placeholder="Enter Email" required>
+                        <input type="email" class="form-input" name="email" placeholder="Enter Email" data-tr-rules="required|email|maxlength:32" required>
+                        <div class= "feedback-error" data-tr-feedback="email"></div>
                     </div>
                 </div>
 
@@ -77,47 +96,75 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Position:</label>
-                        <select class="form-control" name="position" id="position" required>
-                            <option value="">Choose Staff Position</option>
+                        <select class="form-control" name="position" id="position" required data-tr-rules="required|string">
+                            <option value="">Select Staff Position</option>
                             <option value="Kagawad">Kagawad</option>
                             <option value="Chairman">Chairman</option>
                         </select>
+                        <div class= "feedback-error" data-tr-feedback="position" style = "margin-top: 2px"></div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="form-group">
                         <label class="form-label">Age:</label>
-                        <input type="number" class="form-input" name="age" placeholder="Enter Age" required>
+                        <input type="number" class="form-input" name="age" placeholder="Enter Age" required data-tr-rules="required|numeric|min:18|max:125">
+                        <div class= "feedback-error" data-tr-feedback="age"></div>
                     </div>
                 </div>
 
                 <div class="col rb">
                     <div class="form-group">
                         <label class="form-label">Sex:</label>
-                        <select class="form-control" name="sex" id="sex" required>
-                            <option value="">Choose Staff Sex</option>
+                        <select class="form-control" name="sex" id="sex" required data-tr-rules="required|string">
+                            <option value="">Select Staff Sex</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
+                        <div class= "feedback-error" data-tr-feedback="sex" style = "margin-top: 2px"></div>
                     </div>
                 </div>
-
                 <br>
                 <hr>
-                <button class="btn-submit" type="submit" name="add_staff">SUBMIT</button>
+                <button class="btn-submit" type="submit" style = "display: none;" id = "hiddenAddStaff" name="add_staff">SUBMIT</button>
+                <button class="btn-submit add-staff-btn" type="button" >SUBMIT</button>
             </form>
         </div>
     </div>
 </div>
 
-    <script>
-        function togglePopup() {
-            const overlay = document.getElementById('popupOverlay');
-            overlay.classList.toggle('show');
-        }
-    </script>
+
 <style>
+
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid,
+input[type="file"].is-invalid {
+  border-left: 4px solid #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+
+input.success,
+textarea.success,
+select.success,
+input[type="file"].success {
+  border-left: 4px solid #28a745;
+  border-color: #28a745;
+}
+::placeholder {
+            text-transform: none; /* Placeholder remains as is */
+        }
+.mid-ini {
+    text-transform: uppercase;
+}
+
+.feedback-error {
+    font-family: "PMedium";
+    color: red;
+    font-size: 0.8rem;
+    width: 80%;
+    margin-top: -8px;
+}
 
     .btn-open-popup {
     padding: 12px 24px;
@@ -448,8 +495,11 @@
     }
 }
 
-</style>
+.form-control.is-invalid {
+    background-position: right calc(0.9rem + .10000rem) center !important;
+}
 
+</style>
 
 
 
@@ -465,7 +515,7 @@
 
     <hr>
     <br><br>
-
+    <?php include ('validation_script.php'); ?>
     <div class="search-row"> 
     <div class="cols">
 <form class="searchbox" method="POST">
@@ -485,6 +535,8 @@
 </div>
 
     <br>
+
+
 
     <?php
 
@@ -510,7 +562,7 @@ if (count($result) == 0) {
         <p class="norec">Oops! There are no staff members available at the moment.</p>
         <p class="norec2">This list is currently empty. You can add new staff members or check back later.</p>
         <!-- Button added below the text -->
-<button class="btnqr" onclick="togglePopup()">
+<button class="btnqr" onclick="togglePopup()" id="addstaff">
     <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Add Staff
 </button>
     </div>';
@@ -523,11 +575,10 @@ if (count($result) == 0) {
 ?>
 
 <div class = "add-staff-cnt">
-<button class="add-staff-btn" onclick="togglePopup()">
+<button class="add-staff-btn" id="addstaff" onclick="togglePopup()">
     <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Add Staff
 </button>
 </div>
-
 
 <?php
 	// require the database connection
@@ -546,6 +597,7 @@ SELECT *
 FROM `tbl_user` 
 WHERE (`lname` LIKE ? OR  
 	   `mi` LIKE ? OR  
+	   `username` LIKE ? OR 
 	   `fname` LIKE ? OR 
 	   `sex` LIKE ? OR 
 	   `contact` LIKE ? OR 
@@ -559,7 +611,7 @@ ORDER BY lname ASC
 $stmt->execute([
 $keywordLike, $keywordLike, $keywordLike, 
 $keywordLike, $keywordLike, $keywordLike, 
-$keywordLike
+$keywordLike, $keywordLike
 ]);
 
 // Fetch the results
@@ -574,6 +626,7 @@ $results = $stmt->fetchAll();
 				<div class="card-body">
 					<h5 class="card-title"><?= htmlspecialchars($view['fname']) . ' ' . htmlspecialchars($view['lname']); ?></h5>
 					<p class="card-text">
+                        <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
 						<strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
 						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
@@ -582,12 +635,15 @@ $results = $stmt->fetchAll();
 					</p>
 
                     <div class="card-buttons"> <!-- Buttons container -->
-            <form action="" method="post">
+                    <form action="" method="post" id="removeform">
                 <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>" class="btn btn-success">  
                     <i class="fas fa-edit"></i>
                 </a>
                 <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
-                <button class="btn btn-danger" type="submit" name="delete_staff">  
+                <button class="btn btn-danger remove-staff-btn" type="button"  name="delete_staff">  
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="btn btn-danger" type="submit" id = "hiddenSubmitBtn" style = "display: none"  name="delete_staff">  
                     <i class="fas fa-trash"></i>
                 </button>
             </form>
@@ -622,6 +678,7 @@ $results = $stmt->fetchAll();
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($view['fname']) . ' ' . htmlspecialchars($view['lname']); ?></h5>
                         <p class="card-text">
+                            <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
                             <strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
                             <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
@@ -630,12 +687,15 @@ $results = $stmt->fetchAll();
 
                         </p>
                         <div class="card-buttons"> <!-- Buttons container -->
-            <form action="" method="post">
-                <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>" class="btn btn-success">  
+                        <form action="" method="post" id="removeform">
+                <a  onclick="openPopup('update_staff_form.php?id_user=<?= urlencode($view['id_user']) ?>')" class="btn btn-success">  
                     <i class="fas fa-edit"></i>
                 </a>
                 <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
-                <button class="btn btn-danger" type="submit" name="delete_staff">  
+                <button class="btn btn-danger remove-staff-btn" type="button"  name="delete_staff">  
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="btn btn-danger" type="submit" id = "hiddenSubmitBtn" style = "display: none"  name="delete_staff">  
                     <i class="fas fa-trash"></i>
                 </button>
             </form>
@@ -655,6 +715,44 @@ $conn = null;
 
 
 ?>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Get all archive buttons (assuming they have the same class 'remove-staff-btn')
+    const archiveBtns = document.querySelectorAll('.remove-staff-btn');
+    
+    // Get popup and other necessary elements
+    const popup = document.getElementById('popup-remove-staff');
+    const confirmBtn = document.getElementById('confirm-btn-rms');
+    const cancelBtn = document.getElementById('cancel-btn-rms');
+    const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn'); // Hidden submit button
+    const removestaff = document.getElementById('removeform'); // Hidden submit button
+
+    // Add event listeners to each archive button
+    archiveBtns.forEach(archiveBtn => {
+        archiveBtn.addEventListener('click', function () {
+            const dataId = this.closest('form').querySelector('input[name="id_user"]').value;
+
+           removestaff.querySelector('input[name="id_user"]').value = dataId;
+            // Open the popup when a button is clicked
+            popup.classList.remove('hidden');
+        });
+    });
+
+    // Close popup when Cancel is clicked
+    cancelBtn.addEventListener('click', () => {
+        popup.classList.add('hidden'); // Hide the popup when cancel is clicked
+    });
+
+    // Confirm action and submit form when Confirm is clicked
+    confirmBtn.addEventListener('click', () => {
+        // Trigger the hidden submit button
+        hiddenSubmitBtn.click(); // Programmatically click the hidden submit button
+        
+        // Hide the popup after submission
+        popup.classList.add('hidden');
+    });
+});
+</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -664,7 +762,6 @@ $conn = null;
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
-<?php include('table_script.php'); ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       // After the page content is fully loaded, make the body visible
@@ -686,13 +783,8 @@ $conn = null;
     }
 </script>
 
-    <script>
-        function togglePopup() {
-            const overlay = document.getElementById('popupOverlay');
-            overlay.classList.toggle('show');
-        }
-    </script>
 <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <?php include('table_script.php'); ?>
 
 <?php 
     include('dashboard_sidebar_end.php');

@@ -192,3 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
         window.history.replaceState(null, null, window.location.href);
     }
 </script>
+
+<script>
+    function toggleSubList() {
+    // Get the sublist element
+    const sublist = document.getElementById("profile-sublist");
+
+    // Toggle visibility
+    sublist.classList.toggle("hidden");
+}
+</script>

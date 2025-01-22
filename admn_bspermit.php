@@ -6,6 +6,7 @@ if (isset($_SESSION['toast'])) {
     unset($_SESSION['toast']); // Clear the session after displaying
 }
 ?>
+
 <?php
     include('dashboard_sidebar_start.php');
     include('table_design.php');

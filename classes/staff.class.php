@@ -34,41 +34,61 @@
     
     //------------------------------------- CRUD FUNCTIONS FOR STAFF -----------------------------------------------
 
-        public function create_staff() {
+    public function create_staff() {
 
-            if(isset($_POST['add_staff'])) {
-                $username = $_POST['username'];
-                $email = $_POST['email'];
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $lname = $_POST['lname'];
-                $fname = $_POST['fname'];
-                $mi = $_POST['mi'];
-                $sex = $_POST['sex'];
-                $contact = $_POST['contact'];
-                $position = $_POST['position'];
-
-
-                if (!$this->check_staff($fname, $mi, $lname)) {
-
-                    $connection = $this->openConn();
-                    $stmt = $connection->prepare("INSERT INTO tbl_user (`username`, `email`,`password`,`lname`,`fname`,
-                        `mi`, `sex`, `contact`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        if (isset($_POST['add_staff'])) {
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $lname = $_POST['lname'];
+            $fname = $_POST['fname'];
+            $mi = $_POST['mi'];
+            $sex = $_POST['sex'];
+            $contact = $_POST['contact'];
+            $position = $_POST['position'];
     
-                    $stmt->Execute([$username, $email, $password, $lname, $fname, $mi, $sex, $contact, $position]);
-                    $message2 = "New Staff Added";
+            $connection = $this->openConn();
     
-                    echo "<script type='text/javascript'>
-                        alert('$message2');
-                        window.location.href = location.href;
-                    </script>";
-                
-                }
-
-                else {
-                    echo "<script type='text/javascript'>alert('Name already exists');</script>";
-                }
+            // Check if username or email already exists
+            $stmt = $connection->prepare("SELECT COUNT(*) FROM tbl_user WHERE username = ? OR email = ?");
+            $stmt->execute([$username, $email]);
+            $exists = $stmt->fetchColumn();
+    
+            if ($exists > 0) {
+                echo "<script type='text/javascript'>alert('Username or email already exists');</script>";
+                return;
             }
+    
+            // Insert new staff member
+            $stmt = $connection->prepare(
+                "INSERT INTO tbl_user (`username`, `email`, `password`, `lname`, `fname`, `mi`, `sex`, `contact`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+    
+            $stmt->execute([$username, $email, $password, $lname, $fname, $mi, $sex, $contact, $position]);
+    
+            $toast = '
+            <body>
+                <div class="toast">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+                        <div class="message">
+                            <span class="text text-1">Staff Added</span>
+                            <span class="text text-2">The staff member has been added to the system.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                    <div class="progress"></div>
+                </div>
+            </body>';
+    
+            $_SESSION['toast'] = $toast;
+    
+            // Refresh the page to clear form resubmission
+            header("Location: admn_staff_crud.php");
+            exit();
         }
+    }
+    
 
 
         public function view_staff(){
@@ -128,11 +148,30 @@
                         $contact, $position, $id_user]);
                     }
                    
-                    $message2 = "Staff Account Updated";
-    
-                    echo "<script type='text/javascript'>
-                        alert('$message2');
-                    </script>";
+                    $toast = '
+                    <body>
+                        <div class="toast">
+                            <div class="toast-content">
+                                <i class="fas fa-solid fa-check check"></i>
+                                <div class="message">
+                                    <span class="text text-1">Staff Updated</span>
+                                    <span class="text text-2">The staff information has been successfully updated.</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                            <div class="progress"></div>
+                        </div>
+                    </body>';
+                
+                    $_SESSION['toast'] = $toast;
+        
+                    // Refresh the page to clear form resubmission
+                    echo '
+                    <script>
+                        window.opener.location.href = window.opener.location.href;                
+                        window.close();
+                    </script>
+                ';
 
             }
         }
@@ -145,12 +184,62 @@
                 $stmt = $connection->prepare("DELETE FROM tbl_user where id_user = ?");
                 $stmt->execute([$id_user]);
                 
-                $message2 = "Staff Account Deleted";
+                $toast = '
+                <body>
+                    <div class="toast">
+                        <div class="toast-content">
+                            <i class="fas fa-solid fa-check check"></i>
+                            <div class="message">
+                                <span class="text text-1">Staff Removed</span>
+                                <span class="text text-2">The selected staff member has been removed from the system.</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                        <div class="progress"></div>
+                    </div>
+                </body>';
+            
+                $_SESSION['toast'] = $toast;
+    
+                // Refresh the page to clear form resubmission
+                header("Location: admn_staff_crud.php");
+                exit();
+            }
+        }
+
+        public function delete_view_staff(){
+            if(isset($_POST['delete_staff'])) {
+                $id_user = $_POST['id_user'];
+
+                $connection = $this->openConn();
+                $stmt = $connection->prepare("DELETE FROM tbl_user where id_user = ?");
+                $stmt->execute([$id_user]);
                 
-                echo "<script type='text/javascript'>
-                    alert('$message2');
-                    window.location.href = location.href;
-                </script>";
+                $toast = '
+                <body>
+                    <div class="toast">
+                        <div class="toast-content">
+                            <i class="fas fa-solid fa-check check"></i>
+                            <div class="message">
+                                <span class="text text-1">Staff Removed</span>
+                                <span class="text text-2">The selected staff member has been removed from the system.</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                        <div class="progress"></div>
+                    </div>
+                </body>';
+            
+                $_SESSION['toast'] = $toast;
+    
+                // Refresh the page to clear form resubmission
+                echo '
+                <script>
+                    window.opener.location.href = window.opener.location.href;                
+                    window.close();
+                </script>
+            ';
+
             }
         }
 

@@ -124,6 +124,7 @@ $stmt = $conn->prepare("
     FROM `tbl_user` 
     WHERE (`lname` LIKE ? OR  
            `mi` LIKE ? OR  
+           `username` LIKE ? OR  
            `fname` LIKE ? OR 
            `sex` LIKE ? OR 
            `contact` LIKE ? OR 
@@ -138,7 +139,7 @@ $stmt = $conn->prepare("
 $stmt->execute([
 $keywordLike, $keywordLike, $keywordLike, 
 $keywordLike, $keywordLike, $keywordLike, 
-$keywordLike
+$keywordLike, $keywordLike
 ]);
 
 // Fetch the results
@@ -153,6 +154,7 @@ $results = $stmt->fetchAll();
 				<div class="card-body">
 					<h5 class="card-title"><?= htmlspecialchars($view['fname']) . ' ' . htmlspecialchars($view['lname']); ?></h5>
 					<p class="card-text">
+						<strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
 						<strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
 						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
@@ -188,6 +190,7 @@ $results = $stmt->fetchAll();
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($view['fname']) . ' ' . htmlspecialchars($view['lname']); ?></h5>
                         <p class="card-text">
+				     		<strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
                             <strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
                             <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>

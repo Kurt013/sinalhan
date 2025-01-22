@@ -29,8 +29,8 @@
 
     
   color: #fff;
-  padding: 20px;
-  line-height: 25px;
+  padding: 20px !important;
+  line-height: 25px !important;
   text-align: center;
   margin-left: 250px;
   margin-top: 50px; /* Ensures the footer is pushed to the bottom */
@@ -62,12 +62,13 @@
 
 #footer-left i {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 #footer-left a {
   color: #fff;
   text-decoration: none;
+
 }
 
 /* Right Section: Social Icons and Copyright */
@@ -92,8 +93,8 @@
 
 /* Copyright */
 #footerend p {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 10px !important;
+  font-size: 14px !important;
 }
 
 

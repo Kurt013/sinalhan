@@ -300,7 +300,7 @@ transition: background-color 0.3s ease !important;
 
 .sidebar {
     color: #012049 !important;
-    padding: 5px !important
+    padding: 5px !important;
 }
 
 .navbar { 
@@ -500,7 +500,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
             <li class="nav-item">
                 <div class="wrapperbtn">
                     <button class="btn-logout logout-btn" >
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw "></i>
+                        <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </button>
                 </div>
