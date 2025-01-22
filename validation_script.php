@@ -348,5 +348,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+<script>
+function goback() {
+    const announcement = document.getElementById('announcement');
 
+    announcement.focus();
+    
+}
+</script>
 

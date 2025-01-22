@@ -568,7 +568,7 @@ if (count($result) == 0) {
     </div>';
 
 
-      
+    include('dashboard_sidebar_end.php');
 
     return;
 } 
@@ -785,7 +785,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
     <?php include('table_script.php'); ?>
-
+</div>
 <?php 
     include('dashboard_sidebar_end.php');
 ?>

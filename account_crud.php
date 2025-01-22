@@ -29,7 +29,7 @@
   }
 
   .card {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     border-top-left-radius: 10px !important; /* Adjust the radius as needed */
     border-top-right-radius: 10px !important; /* Adjust the radius as needed */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */   
@@ -39,6 +39,11 @@
     border-bottom-right-radius: 10px !important; /* Adjust the radius as needed */
  
    
+}
+
+.btn-primary {
+    background-color: #2c91c9 !important;
+    font-family: "PSemiBold";
 }
 
 .card-body {
@@ -82,7 +87,16 @@ form label {
 form input {
     font-family: "PMedium" !important;
     margin-bottom: 20px;
+    padding: 22px !important;
    
+}
+
+.form-control:focus {
+    border-color: #012049; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); /* Subtle shadow on focus */
+    color: #012049 !important;
+  
+    
 }
   </style>
 
@@ -98,6 +112,21 @@ form input {
     </div>
     <hr>
     <br>
+    <div style="display: flex; justify-content: flex-end;">
+    <button class = "btn btn-primary" onclick="window.location.href='./change_password.php?id=<?php echo $userdetails['id']; ?>'"
+        style="
+            width: 200px;
+            display: flex;
+            padding: 10px;
+            justify-content: center; /* Center the text/icon inside the button */
+            align-items: center; /* Align vertically */
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        "> <i class="fas fa-key" style="margin-right: 8px;"></i>
+        Change Password
+    </button>
+</div>
     <div class="card" >
     <div class="card-header bg-primary text-white d-flex align-items-center">
     <h5 class="d-flex align-items-center mb-0">
@@ -149,52 +178,21 @@ form input {
                 <br>
                 <hr>
                 <button class="btn btn-primary" type="submit" name="update_account_profile" 
-                        style="margin-left: 42%;
+                        style="
                                width: 150px;
+                               margin: 0 auto;
+                               display: flex;
+                               padding: 10px;
+                               justify-content: center;
                                border-radius: 30px;
-                               font-size: 18px;"> 
-                    Update 
+                               font-size: 1rem;"> 
+                    Update  
                 </button>
             </form>
         </div>
     </div>
 
-    <div class="card" >
-        <div class="card-header bg-primary text-white"> 
-            <h5>
-                Change Password
-            </h5>
-        </div>                 
-        <div class="card-body"> 
-            <form method="post">
-                <div class="row" style="margin-top: 1.1em;">
-                    <div class="col">
-                        <label class="form-group"> Old Password </label>
-                        <input type="text" name="oldpassword">
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <label class="form-group"> New Password </label>
-                        <input type="text" name="newpassword">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <label class="form-group"> Confirm Password </label>
-                        <input type="text" name="checkpassword">
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" type="submit" name="update_account_password"
-                style="margin-left: 42%;
-                        border-radius: 30px;
-                        font-size: 18px;"> Change Password </button>
-            </form>
-        </div>
-    </div>
 
 <!-- /.container-fluid -->
 

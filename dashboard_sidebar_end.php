@@ -4,9 +4,10 @@
 <style>
     #footerend {
         margin-left: 0px !important;
+    }
+</style>
             <!-- End of Footer -->
 
-        </div>
      
 </div>
 <?php include('user-footer-admin.php'); ?>

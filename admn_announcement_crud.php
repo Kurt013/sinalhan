@@ -8,6 +8,7 @@
    $staffbmis->delete_announcement();
    $view = $staffbmis->view_announcement();
    $announcementcount = $staffbmis->count_announcement();
+   $conn = $staffbmis->openConn();
 
    $dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
    $tm = new DateTime("now", new DateTimeZone('Asia/Manila'));
@@ -152,6 +153,8 @@ td {
 
 .post-ann {
     padding: 10px !important;
+    font-size: 1rem !important;
+    border-radius: 100px !important;
 }
 
 .anninfo{
@@ -290,6 +293,35 @@ td {
     <hr>
 
     <br>
+    <?php
+// SQL query to check for rows in tbl_announcement
+$sql = "SELECT * FROM tbl_announcement";
+$stmt = $conn->prepare($sql);
+
+// Execute the statement
+$stmt->execute();
+
+// Fetch all rows
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Check if there are no announcements
+if (count($result) == 0) {
+    echo '
+    <div style="text-align: center; padding: 20px !important; margin-top: 20px; margin-bottom: 50px">
+        <img src="assets/noann2.png" alt="No Data Available" style="max-width: 600px; display: block; padding: 0 !important; margin: 0 auto;">
+        <p class="norec">Oops! No announcements available at the moment.</p>
+        <p class="norec2">This list is currently empty. You can add new announcements or check back later.</p>
+        <!-- Button added below the text -->
+        <button class="btnqr" onclick="goback()" >
+            <i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Add Announcement
+        </button>
+    </div> </div> </div>';
+
+
+    include('dashboard_sidebar_end.php');     // Exit early to prevent further processing
+    return;
+}
+?>
         <div class="container">
     <form action="" method="post" id = "removeannform">
         <div class="row">
