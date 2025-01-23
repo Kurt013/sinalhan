@@ -474,7 +474,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center">
-                <button class="rounded-circle border-0" id="sidebarToggle" style="height: 3rem !important; width: auto !important;"></button>
+                <button class="rounded-circle border-0" id="sidebarToggle" style="height: 46px; width: 50px !important;"></button>
             </div>
 
         </ul>
