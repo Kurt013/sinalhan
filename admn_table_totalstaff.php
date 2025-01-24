@@ -14,7 +14,7 @@
 
 <!-- Begin Page Content -->
 
-<div class="container-fluid">
+<div class="container-fluid" style = "margin-bottom: 100px !important">
 
     <!-- Page Heading -->
 

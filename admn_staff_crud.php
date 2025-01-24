@@ -28,7 +28,8 @@ if (isset($_SESSION['toast'])) {
 <div id="popupOverlay" class="overlay-container">
     <div class="popup-box">
         <div class="popup-hd">
-            <h2>Add Staff Form</h2>
+        <h2>Add Staff Form</h2>
+
             <h3>Please fill in all the required fields with accurate information for the new staff member and review the details before submitting.</h3>
             <button class="btn-close-header" onclick="togglePopup()">
                 <i class="fas fa-times"></i> <!-- Font Awesome "X" icon -->
@@ -56,8 +57,8 @@ if (isset($_SESSION['toast'])) {
 
                 <div class="col">
                     <div class="form-group">
-                        <label class="form-label">Middle Initial:</label>
-                        <input type="text" class="form-input mid-ini" name="mi" id = "mi" placeholder="Enter Middle Initial" data-tr-rules="required|length:1|only:string" required>
+                        <label class="form-label">Middle Name:</label>
+                        <input type="text" class="form-input" name="mi" id = "mi" placeholder="Enter Middle Name" data-tr-rules="required|between:2,80|only:string" required>
                         <div class= "feedback-error" data-tr-feedback="mi"></div>
                     </div>
                 </div>
@@ -469,6 +470,10 @@ input[type="file"].success {
     right: 10px; /* Position at the left */
 }
 
+.container-fluid {
+    margin-bottom: 100px !important;
+}
+
 .card-buttons .btn {
     width: 70px;
     font-size: 17px;
@@ -584,21 +589,21 @@ $stmt = $conn->prepare("
 SELECT * 
 FROM `tbl_user` 
 WHERE (`lname` LIKE ? OR  
-	   `mi` LIKE ? OR  
-	   `username` LIKE ? OR 
-	   `fname` LIKE ? OR 
-	   `sex` LIKE ? OR 
-	   `contact` LIKE ? OR 
-	   `email` LIKE ? OR 
+       `mi` LIKE ? OR  
+       `username` LIKE ? OR 
+       `fname` LIKE ? OR 
+       `sex` LIKE ? OR 
+       `contact` LIKE ? OR 
+       `email` LIKE ?)
   AND `role` = 'staff'
-ORDER BY lname ASC
+ORDER BY `lname` ASC
 ");
 
 // Bind the parameters
 $stmt->execute([
 $keywordLike, $keywordLike, $keywordLike, 
 $keywordLike, $keywordLike, $keywordLike, 
-$keywordLike, $keywordLike
+$keywordLike
 ]);
 
 // Fetch the results
@@ -615,7 +620,7 @@ $results = $stmt->fetchAll();
 					<p class="card-text">
                         <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
 						<strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
-						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
+						<strong>Middle Initial:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
 						<strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
 					</p>
@@ -638,9 +643,11 @@ $results = $stmt->fetchAll();
 				</div>
 			</div>
 		</div>
+
 	<?php } ?>
 <?php } else { ?>
     </div>
+    
     <div style="text-align: center; padding: 20px !important; background-color: transparent !important; margin-bottom: 20px;">
                     <img src="assets/notfound.png" alt="No Data Available" style="max-width: 700px; display: block;  padding: 0 !important; margin: 0 auto;">
                         
@@ -650,6 +657,8 @@ $results = $stmt->fetchAll();
             <i class="fas fa-sync" style="margin-right: 8px;"></i> Reload
         </button>
                 </div>
+
+        
 
 <?php		
 	}}else{
@@ -666,7 +675,7 @@ $results = $stmt->fetchAll();
                         <p class="card-text">
                             <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
                             <strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
-                            <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
+                            <strong>Middle Initial:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
                             <strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
 
@@ -692,6 +701,7 @@ $results = $stmt->fetchAll();
         <?php } ?>
     <?php } ?>
 </div> <!-- End row -->
+
 
 
 <?php

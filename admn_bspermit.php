@@ -7,6 +7,8 @@ if (isset($_SESSION['toast'])) {
 }
 ?>
 
+
+
 <?php
     include('dashboard_sidebar_start.php');
     include('table_design.php');

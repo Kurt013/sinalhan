@@ -1,6 +1,6 @@
 <?php
     include('dashboard_sidebar_start.php');
-
+ 
     $id_user = $userdetails['id'];
 
     if ($userdetails['role'] === 'administrator') {
@@ -13,7 +13,31 @@
     $staffbmis->update_account_profile();
     $staffbmis->update_account_password();
 ?>
+
+
+<?php
+    include('popup-confirm.php');
+    include('popup.php');
+
+?>
+
+<?php 
+$toast = '';
+if (isset($_SESSION['toast'])) {
+    $toast = $_SESSION['toast'];
+    unset($_SESSION['toast']); // Clear the session after displaying
+}
+?>
 <style>
+
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid,
+input[type="file"].is-invalid {
+  border-left: 4px solid #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+
 .col-md-12 h1 {
     color: white;
             font-family: 'PExBold' !important;
@@ -63,6 +87,14 @@
 
 }
 
+.feedback-error {
+    font-family: "PMedium";
+    color: red;
+    font-size: 0.8rem;
+    width: 80%;
+    margin-top: -15px;
+}
+
 .h5 {
     font-size: 1.7rem;
     display: flex;
@@ -100,7 +132,9 @@ form input {
 }
   </style>
 
-    <!-- Begin Page Content -->
+<?php if (!empty($toast)): ?>
+        <?= $toast; ?>
+    <?php endif; ?>
 <div class="container">
 
     <!-- Page Heading -->
@@ -157,7 +191,8 @@ form input {
             
                     <div class="col">
                         <label class="form-group">Email </label>
-                        <input type="email" class="form-control" name="email"  value="<?= $view['email'];?>">
+                        <input type="email" class="form-control" value="<?= $view['email'];?>" name="email" placeholder="Enter Email" data-tr-rules="required|email|maxlength:32" required>
+                        <div class= "feedback-error" data-tr-feedback="email"></div>
                     </div>
 </div>
 
@@ -165,7 +200,8 @@ form input {
 <div class="row" >
                     <div class="col">
                         <label class="form-group">Contact Number</label>
-                        <input type="tel" class="form-control" name="contact" value="<?= $view['contact'];?>">
+                        <input type="text" class="form-control" name="contact" value="<?= $view['contact'];?>" id="contact" placeholder="Enter Contact Number" value="09" oninput="this.value = this.value.startsWith('09') ? this.value : '09';" required data-tr-rules="required|length:11|numeric">
+                        <div class= "feedback-error" data-tr-feedback="contact"></div>
                     </div>
                 </div>
                 
@@ -173,7 +209,8 @@ form input {
                 <input type="hidden" class="form-control" name="addedby" value="<?= $userdetails['surname']?>, <?= $userdetails['firstname']?>">
                 <br>
                 <hr>
-                <button class="btn btn-primary" type="submit" name="update_account_profile" 
+                <input type="hidden" name="id" value="<?= htmlspecialchars($userdetails['id'], ENT_QUOTES); ?>">
+                <button class="btn btn-primary update-profile-btn"  type="button" name="update_account_profile" 
                         style="
                                width: 150px;
                                margin: 0 auto;
@@ -182,6 +219,9 @@ form input {
                                justify-content: center;
                                border-radius: 30px;
                                font-size: 1rem;"> 
+                    Update  
+                </button>
+                <button class="btn btn-primary" type="submit" style = "display:none;" id = "hiddenUpdProf" name="update_account_profile"> 
                     Update  
                 </button>
             </form>
@@ -200,7 +240,41 @@ form input {
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the single archive button
+    const logoutBtn = document.querySelector('.logout-btn');
+    
+    // Get popup and other necessary elements
+    const popup = document.getElementById('popup-logout');
+    const confirmBtn = document.getElementById('confirm-btn-logout');
+    const cancelBtn = document.getElementById('cancel-btn-logout');
+
+    // Add event listener to the archive button
+    logoutBtn.addEventListener('click', function () {
+
+
+        // Show the popup
+        popup.classList.remove('hidden');
+    });
+
+    // Close popup when Cancel is clicked
+    cancelBtn.addEventListener('click', () => {
+        popup.classList.add('hidden'); // Hide the popup when cancel is clicked
+    });
+
+    // Confirm action and submit form when Confirm is clicked
+    confirmBtn.addEventListener('click', () => {
+        // Redirect directly to logout.php
+        window.location.href = 'logout.php';
+
+        // Hide the popup after redirection
+        popup.classList.add('hidden');
+    });
+});
+</script>
 
 <?php 
+    include('validation_script.php');
     include('dashboard_sidebar_end.php');
 ?>

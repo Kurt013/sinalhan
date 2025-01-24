@@ -45,7 +45,7 @@
             $mi = $_POST['mi'];
             $sex = $_POST['sex'];
             $contact = $_POST['contact'];
-            $position = $_POST['position'];
+           
     
             $connection = $this->openConn();
     
@@ -61,10 +61,10 @@
     
             // Insert new staff member
             $stmt = $connection->prepare(
-                "INSERT INTO tbl_user (`username`, `email`, `password`, `lname`, `fname`, `mi`, `sex`, `contact`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO tbl_user (`username`, `email`, `password`, `lname`, `fname`, `mi`, `sex`, `contact`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
             );
     
-            $stmt->execute([$username, $email, $password, $lname, $fname, $mi, $sex, $contact, $position]);
+            $stmt->execute([$username, $email, $password, $lname, $fname, $mi, $sex, $contact]);
     
             $toast = '
             <body>

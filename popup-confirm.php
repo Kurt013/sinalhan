@@ -151,9 +151,8 @@
             
         </div>
 </div>
-<h2 style="color: #1e79ac;">Are you sure you want to update this staff member's information?</h2>
-<p>Once confirmed, the staff member's information will be updated in the system.</p>
-
+<h2 style="color: #1e79ac;">Are you sure you want to post this announcement?</h2>
+<p>Once confirmed, the announcement will be posted and shared with the residents.</p>
 
         <div class="popup-buttons">
             <button id="confirm-btn-ann" class="confirm-ret">Confirm</button>
@@ -170,8 +169,8 @@
             
         </div>
 </div>
-        <h2 style = "color: #d32f2f;">Are you sure you want to remove this staff member?</h2>
-        <p>This action cannot be undone. Please confirm to proceed.</p>
+<h2 style="color: #d32f2f;">Are you sure you want to delete this announcement?</h2>
+<p>This action cannot be undone. Please confirm to proceed.</p>
 
         <div class="popup-buttons">
             <button id="confirm-btn-remann" class="confirm-arc">Confirm</button>
@@ -179,6 +178,27 @@
         </div>
     </div>
 </div>
+
+<div id="popup-update-profile" class="popup hidden">
+    <div class="popup-content">
+    <div class="popup-header" style="background-image: url('assets/updatestaff.png');">
+       
+    <div class="popup-icon">
+            
+        </div>
+</div>
+<h2 style="color: #1e79ac;">Are you sure you want to save your changes?</h2>
+<p>Once confirmed, your profile information will be updated in the system.</p>
+
+
+        <div class="popup-buttons">
+            <button id="confirm-btn-updprof" class="confirm-ret">Confirm</button>
+            <button id="cancel-btn-updprof" class="cancel-btn-ret">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
 
 <style> 
 
