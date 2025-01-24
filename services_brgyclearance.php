@@ -873,9 +873,9 @@ h2 {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class = "form-label"> Municipality: </label>
+                                            <label class = "form-label"> Province: </label>
                                             <input type="text" class = "form-input" name="municipality" 
-                                            placeholder="Enter Municipality" value="Laguna" readonly>
+                                            placeholder="Enter province" value="Laguna" readonly>
                                         </div>
                                     </div>
                                 </div>

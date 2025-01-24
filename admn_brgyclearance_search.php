@@ -176,7 +176,7 @@ if (count($result) == 0) {
         <th> Street </th> <!-- hidden -->
         <th> Barangay </th> <!-- hidden -->
         <th> City </th> <!-- hidden -->
-        <th> Municipality </th> <!-- hidden -->
+        <th> Province </th> <!-- hidden -->
         <th> Purpose </th>
         <!-- delete payment --> <!-- hidden -->
         <th> </th>
@@ -322,7 +322,7 @@ echo $list === 'active' ?
         <th> Street </th>
         <th> Barangay </th>
         <th> City </th>
-        <th> Municipality </th>
+        <th> Province </th>
         <th> Purpose </th>
         <!-- delete payment -->
         <th> </th>

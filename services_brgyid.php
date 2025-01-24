@@ -921,9 +921,9 @@ h2 {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class ="form-label"> Municipality: </label>
+                                            <label class ="form-label"> Province: </label>
                                             <input type="text" class="form-input" name="municipality" 
-                                            placeholder="Enter Municipality" value="Laguna" required>
+                                            placeholder="Enter province" value="Laguna" required>
                                        
                                         </div>
                                     </div>
@@ -1118,8 +1118,8 @@ h2 {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class ="form-label"> Municipality: </label>
-                                            <input type="text" class="form-input" name="inc_municipality" id="inc_municipality" placeholder="Enter municipality" 
+                                            <label class ="form-label"> Province: </label>
+                                            <input type="text" class="form-input" name="inc_municipality" id="inc_municipality" placeholder="Enter province" 
                                             data-tr-rules="required|excludes:-,@,!,#,$,%,^,&,*,(,)|maxlength:40"
                                             required>
                                             <div class="invalid-feedback" data-tr-feedback="inc_municipality"></div>                                   
