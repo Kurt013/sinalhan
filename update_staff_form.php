@@ -169,18 +169,6 @@ form input {
                       <div class="row mb-3">
                           <div class="col-md-11">
                               <div class="form-group">
-                                  <label>Position: </label>
-                                     <select class="form-dtls" name="position" id="position" required>
-                                      <option value="">Select Staff Position</option>
-                                      <option value="Chairman" <?= $staff['position'] === 'Chairman' ? 'selected' : '' ?>>Chairman</option>
-                                      <option value="Kagawad" <?= $staff['position'] === 'Kagawad' ? 'selected' : '' ?>>Kagawad</option>
-                                  </select>  
-                                </div>
-                          </div>
-                      </div>
-                      <div class="row mb-3">
-                          <div class="col-md-11">
-                              <div class="form-group">
                                   <label>Sex</label>
                                   <select class="form-dtls" name="sex" id="sex" required>
                                       <option value="">Select Staff Sex</option>

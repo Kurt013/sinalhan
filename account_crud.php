@@ -167,10 +167,6 @@ form input {
                         <label class="form-group">Contact Number</label>
                         <input type="tel" class="form-control" name="contact" value="<?= $view['contact'];?>">
                     </div>
-                    <div class="col">
-                        <label class="form-group">Position </label>
-                        <input style="text-transform: capitalize;" type="text" class="form-control" name="position"  Value="<?= $view['position'];?>">
-                    </div>
                 </div>
                 
                 <input type="hidden" class="form-control" name="role" value="user">

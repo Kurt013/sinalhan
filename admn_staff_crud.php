@@ -95,18 +95,6 @@ if (isset($_SESSION['toast'])) {
 
                 <div class="col">
                     <div class="form-group">
-                        <label class="form-label">Position:</label>
-                        <select class="form-control" name="position" id="position" required data-tr-rules="required|string">
-                            <option value="">Select Staff Position</option>
-                            <option value="Kagawad">Kagawad</option>
-                            <option value="Chairman">Chairman</option>
-                        </select>
-                        <div class= "feedback-error" data-tr-feedback="position" style = "margin-top: 2px"></div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
                         <label class="form-label">Age:</label>
                         <input type="number" class="form-input" name="age" placeholder="Enter Age" required data-tr-rules="required|numeric|min:18|max:125">
                         <div class= "feedback-error" data-tr-feedback="age"></div>
@@ -602,7 +590,6 @@ WHERE (`lname` LIKE ? OR
 	   `sex` LIKE ? OR 
 	   `contact` LIKE ? OR 
 	   `email` LIKE ? OR 
-	   `position` LIKE ?)
   AND `role` = 'staff'
 ORDER BY lname ASC
 ");
@@ -631,7 +618,6 @@ $results = $stmt->fetchAll();
 						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
 						<strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
-						<strong>Position:</strong> <?= htmlspecialchars($view['position']); ?><br>
 					</p>
 
                     <div class="card-buttons"> <!-- Buttons container -->
@@ -683,7 +669,6 @@ $results = $stmt->fetchAll();
                             <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
                             <strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
-                            <strong>Position:</strong> <?= htmlspecialchars($view['position']); ?><br>
 
                         </p>
                         <div class="card-buttons"> <!-- Buttons container -->

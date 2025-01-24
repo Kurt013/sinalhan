@@ -2727,7 +2727,6 @@ class BMISClass {
             $brgy = $_POST['brgy'];
             $city = $_POST['city'];
             $municipality = $_POST['municipality'];
-            $bdate = $_POST['bdate'];
             $status = $_POST['status'];
             $precint_no = $_POST['precint_no'];
             $inc_lname = $_POST['inc_lname']; 
@@ -2758,7 +2757,6 @@ class BMISClass {
                     brgy = ?,
                     city = ?,
                     municipality = ?,
-                    bdate =  ?,
                     `status` = ?,
                     precint_no = ?,
                     inc_lname = ?, 
@@ -2785,7 +2783,6 @@ class BMISClass {
                     $brgy,
                     $city,
                     $municipality,
-                    $bdate,
                     $status,
                     $precint_no,
                     $inc_lname, 
@@ -2801,44 +2798,18 @@ class BMISClass {
                     $id_brgyid
                 ]);
 
-                echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>Updated Successfully!</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                ';
+                echo json_encode([
+                    'message' => 'Updated Successfully!'
+                ]);
+                exit();
 
             }
             catch (PDOException $e) {
-                echo '
-                    <dialog class="message-popup success" >
-                        <div class="pop-up">
-                            <div class="left-side">
-                                <div class="left-side-wrapper"><i class="bx bxs-x-circle error-circle"></i></div>
-                            </div>
-                            <div class="right-side">
-                                <div class="right-group">
-                                <div class="content">
-                                    <h1>'.$e->getMessage().'</h1>
-                                </div>
-                                <button onclick="closeDialog()" onclick="closeDialog()" class="exit-btn">X</button>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                ';
-                
+
+                echo json_encode([
+                    'message' => $e->getMessage()
+                ]);
+                exit();
             }
         }
     }

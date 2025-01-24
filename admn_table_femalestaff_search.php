@@ -128,8 +128,7 @@ $stmt = $conn->prepare("
            `fname` LIKE ? OR 
            `sex` LIKE ? OR 
            `contact` LIKE ? OR 
-           `email` LIKE ? OR 
-           `position` LIKE ?)
+           `email` LIKE ?)
     AND `role` = 'staff'
     AND `sex` = 'Female' 
     ORDER BY lname ASC
@@ -159,7 +158,6 @@ $results = $stmt->fetchAll();
 						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
 						<strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
-						<strong>Position:</strong> <?= htmlspecialchars($view['position']); ?><br>
 					</p>
 				</div>
 			</div>
@@ -195,7 +193,6 @@ $results = $stmt->fetchAll();
                             <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
                             <strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
-                            <strong>Position:</strong> <?= htmlspecialchars($view['position']); ?><br>
                         </p>
                     </div>
                 </div>
