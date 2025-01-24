@@ -43,6 +43,7 @@ class BMISClass {
             $id_user = $_GET['id'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $email = $_POST['email'];
             $contact = $_POST['contact'];
@@ -51,7 +52,7 @@ class BMISClass {
             $connection = $this->openConn();
 
             $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, fname = ?, mi = ?, email = ?, contact = ?, position = ? WHERE id_user = ?");
-            $stmt->execute([$lname, $fname, $mi, $email, $contact, $position, $id_user]);
+            $stmt->execute([$lname, $suffix, $fname, $mi, $email, $contact, $position, $id_user]);
 
             $message2 = "Profile Updated";
             echo "<script type='text/javascript'>alert('$message2');</script>";
@@ -199,6 +200,7 @@ class BMISClass {
             $password = md5($_POST['password']);
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $role = $_POST['role'];
     
@@ -208,7 +210,7 @@ class BMISClass {
                     $stmt = $connection->prepare("INSERT INTO tbl_admin (`email`,`password`,`lname`,`fname`,
                     `mi`, `role` ) VALUES (?, ?, ?, ?, ?, ?)");
                     
-                    $stmt->Execute([$email, $password, $lname, $fname, $mi, $role]);
+                    $stmt->Execute([$email, $password, $lname, $suffix, $fname, $mi, $role]);
                     
                     $message2 = "Administrator account added, you can now continue logging in";
                     echo "<script type='text/javascript'>alert('$message2');</script>";
@@ -400,7 +402,7 @@ class BMISClass {
             id_rescert,
             fname,
             mi,
-            lname,
+            lname, suffix,
             age,
             houseno,
             street,
@@ -418,7 +420,7 @@ class BMISClass {
                 id_rescert,
                 fname,
                 mi,
-                lname,
+                lname, suffix,
                 age,
                 houseno,
                 street,
@@ -461,6 +463,7 @@ class BMISClass {
             // Gather the form data
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $houseno = $_POST['houseno'];
@@ -480,14 +483,14 @@ class BMISClass {
 
             // Insert new data
             $stmt = $connection->prepare('
-                INSERT INTO tbl_rescert(fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by)
-                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO tbl_rescert(fname, mi, lname, suffix, age, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             
             $stmt->execute([
                 $fname, 
                 $mi,
-                $lname,
+                $lname, $suffix,
                 $age,
                 $houseno,
                 $street,
@@ -547,6 +550,7 @@ class BMISClass {
             $id_rescert = $_GET['id_rescert'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $houseno = $_POST['houseno'];
@@ -576,7 +580,7 @@ class BMISClass {
                 ");
 
                 $stmt->execute([
-                    $lname,
+                    $lname, $suffix,
                     $fname,
                     $mi,
                     $age,
@@ -872,6 +876,7 @@ class BMISClass {
                 // Gather the form data
                 $lname = $_POST['lname'];
                 $fname = $_POST['fname'];
+                $suffix = $_POST['suffix'];
                 $mi = $_POST['mi'];
                 $age = $_POST['age'];
                 $nationality = $_POST['nationality'];
@@ -892,14 +897,14 @@ class BMISClass {
 
             // Insert new data
             $stmt = $connection->prepare('
-                INSERT INTO tbl_indigency(fname, mi, lname, age, nationality, houseno, street, brgy, city, municipality, purpose, created_by)
-                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO tbl_indigency(fname, mi, lname, suffix, age, nationality, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             
             $stmt->execute([
                 $fname, 
                 $mi,
-                $lname,
+                $lname, $suffix,
                 $age,
                 $nationality,
                 $houseno,
@@ -962,6 +967,7 @@ class BMISClass {
             $id_indigency = $_GET['id_indigency'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $nationality = $_POST['nationality'];
@@ -993,7 +999,7 @@ class BMISClass {
                 ");
 
                 $stmt->execute([
-                    $lname,
+                    $lname, $suffix,
                     $fname,
                     $mi,
                     $age,
@@ -1258,7 +1264,7 @@ class BMISClass {
             id_indigency,
             fname,
             mi,
-            lname,
+            lname, suffix,
             age,
             nationality,
             houseno,
@@ -1277,7 +1283,7 @@ class BMISClass {
                 id_indigency,
                 fname,
                 mi,
-                lname,
+                lname, suffix,
                 age,
                 nationality,
                 houseno,
@@ -1317,7 +1323,7 @@ class BMISClass {
             id_clearance,
             fname,
             mi,
-            lname,
+            lname, suffix,
             age,
             houseno,
             street,
@@ -1335,7 +1341,7 @@ class BMISClass {
                 id_clearance,
                 fname,
                 mi,
-                lname,
+                lname, suffix,
                 age,
                 houseno,
                 street,
@@ -1377,6 +1383,7 @@ class BMISClass {
             // Gather the form data
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $houseno = $_POST['houseno'];
@@ -1396,14 +1403,14 @@ class BMISClass {
 
             // Insert new data
             $stmt = $connection->prepare('
-                INSERT INTO tbl_clearance(fname, mi, lname, age, houseno, street, brgy, city, municipality, purpose, created_by)
-                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO tbl_clearance(fname, mi, lname, suffix, age, houseno, street, brgy, city, municipality, purpose, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             
             $stmt->execute([
                 $fname, 
                 $mi,
-                $lname,
+                $lname, $suffix,
                 $age,
                 $houseno,
                 $street,
@@ -1549,6 +1556,7 @@ class BMISClass {
             $id_clearance = $_GET['id_clearance'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $houseno = $_POST['houseno'];
@@ -1578,7 +1586,7 @@ class BMISClass {
                 ");
 
                 $stmt->execute([
-                    $lname,
+                    $lname, $suffix,
                     $fname,
                     $mi,
                     $age,
@@ -1865,6 +1873,7 @@ class BMISClass {
         if(isset($_POST['create_bspermit'])) {
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $bshouseno = $_POST['bshouseno'];
             $bsstreet = $_POST['bsstreet'];
@@ -1885,14 +1894,14 @@ class BMISClass {
 
             // Insert new data
             $stmt = $connection->prepare('
-                INSERT INTO tbl_bspermit(fname, mi, lname, bshouseno, bsstreet, bsbrgy, bscity, bsmunicipality, bsname, bsindustry, aoe, created_by)
-                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO tbl_bspermit(fname, mi, lname, suffix, bshouseno, bsstreet, bsbrgy, bscity, bsmunicipality, bsname, bsindustry, aoe, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             
             $stmt->execute([
                 $fname, 
                 $mi,
-                $lname,
+                $lname, $suffix,
                 $bshouseno,
                 $bsstreet,
                 $bsbrgy,
@@ -1936,7 +1945,7 @@ class BMISClass {
             id_bspermit,
             fname,
             mi,
-            lname,
+            lname, suffix,
             bshouseno,
             bsstreet,
             bsbrgy,
@@ -1955,7 +1964,7 @@ class BMISClass {
                 id_bspermit,
                 fname,
                 mi,
-                lname,
+                lname, suffix,
                 bshouseno,
                 bsstreet,
                 bsbrgy,
@@ -2009,6 +2018,7 @@ class BMISClass {
             $id_bspermit = $_GET['id_bspermit'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $bsname = $_POST['bsname']; 
             $bshouseno = $_POST['bshouseno'];
@@ -2040,7 +2050,7 @@ class BMISClass {
                 ");
 
                 $stmt->execute([
-                    $lname,
+                    $lname, $suffix,
                     $fname,
                     $mi,
                     $bshouseno,
@@ -2333,6 +2343,7 @@ class BMISClass {
         if(isset($_POST['create_brgyid'])) {
             $res_photo = file_get_contents($_FILES['res_photo']['tmp_name']);
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi']; 
             $lname = $_POST['lname'];
             $houseno = $_POST['houseno'];
@@ -2357,15 +2368,15 @@ class BMISClass {
             $connection = $this->openConn();
 
             $stmt = $connection->prepare('
-                INSERT INTO tbl_brgyid(res_photo, fname, mi, lname, houseno, street, brgy, city, municipality, bdate, status, precint_no, inc_lname, inc_fname, inc_mi, inc_contact, inc_houseno, inc_street, inc_brgy, inc_city, inc_municipality, created_by)
-                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO tbl_brgyid(res_photo, fname, mi, lname, suffix, houseno, street, brgy, city, municipality, bdate, status, precint_no, inc_lname, inc_fname, inc_mi, inc_contact, inc_houseno, inc_street, inc_brgy, inc_city, inc_municipality, created_by)
+                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             
             $stmt->execute([
                 $res_photo,
                 $fname, 
                 $mi,
-                $lname,
+                $lname, $suffix,
                 $houseno,
                 $street,
                 $brgy,
@@ -2720,6 +2731,7 @@ class BMISClass {
             $res_photo = $_POST['res_photo'];
             $id_brgyid = $_GET['id_brgyid'];
             $fname = $_POST['fname'];
+            $suffix = $_POST['suffix'];
             $mi = $_POST['mi']; 
             $lname = $_POST['lname'];
             $houseno = $_POST['houseno'];
@@ -2777,7 +2789,7 @@ class BMISClass {
                     $imageData,
                     $fname,
                     $mi, 
-                    $lname,
+                    $lname, $suffix,
                     $houseno,
                     $street,
                     $brgy,

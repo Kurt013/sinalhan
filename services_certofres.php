@@ -796,12 +796,6 @@ h2 {
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="form-group">
                                             <label class= "form-label" for="lname">Last Name:</label>
                                             <input 
                                             id="lname"
