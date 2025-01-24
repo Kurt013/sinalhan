@@ -9,7 +9,6 @@
     $staffbmis->update_brgyid();
     $staffbmis->accept_brgyid();
 
-
     $resident = $staffbmis->get_single_brgyid();
 
 
@@ -22,10 +21,7 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     
     <link rel="icon" href="./assets/sinlogo.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="./css/toast-popup.css" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <style>
@@ -54,7 +50,6 @@
       print-color-adjust:exact !important;
       margin: 0;
       padding: 0;
-      min-height: 100vh;
       box-sizing: border-box;
       display: flex;
       min-height: 100vh;
@@ -136,19 +131,6 @@
     </style>
 </head>
  <body>
-  <div id="message-popup" style="display: none;">    
-    <div class="toast" >
-        <div class="toast-content">
-            <i class="fas fa-solid fa-check check"></i>
-            <div class="message">
-                <p id="sub-message" class="text"></p>
-            </div>
-        </div>
-        <i class="fa-solid fa-xmark close" onclick="$('#message-popup').fadeOut();"></i>
-        <div class="progress"></div>
-    </div>
-  </div>
-
     <div class="brgyid">
       <div class="front card">
         <div class="header">
@@ -259,6 +241,7 @@
                 brgy: $('#brgy').text(),
                 city: $('#city').text(),
                 municipality: $('#municipality').text(),
+                bdate: $('#bdate').text(),
                 status: $('#status').text(),
                 precint_no: $('#precint_no').text(),
                 inc_fname: $('#inc_fname').text(),
@@ -277,16 +260,9 @@
                 url: window.location.href,
                 data: data,
                 success: function (response) {
-                    const responses = JSON.parse(response);
-
-                    $('#sub-message').html(responses.message);
-                    
-                    $('#message-popup').fadeIn();
-                    setTimeout(() => {
-                      $('#message-popup').fadeOut();
-                    }, 3000);
-                    
-                },
+                    alert("updated succesfully!");
+                    location.reload();
+             },
                 error: function () {
                     alert("An error occurred while updating.");
                 }

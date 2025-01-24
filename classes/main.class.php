@@ -40,26 +40,68 @@ class BMISClass {
 
     public function update_account_profile() {
         if (isset($_POST['update_account_profile'])) {
-            $id_user = $_GET['id'];
+            $id_user = $_POST['id'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $email = $_POST['email'];
             $contact = $_POST['contact'];
-            $position = $_POST['position'];
-
+    
             $connection = $this->openConn();
+    
+            // Check if the email already exists in tbl_user but not for the current user
+            $checkStmt = $connection->prepare("SELECT COUNT(*) FROM tbl_user WHERE email = ? AND id_user != ?");
+            $checkStmt->execute([$email, $id_user]);
+            $emailExists = $checkStmt->fetchColumn();
+    
+            if ($emailExists > 0) {
+                $toast = '
+                
+                <div class="toast" style = "border-left: 6px solid #D32F2F;">
+                    <div class="toast-content">
+                        <i class="fas fa-exclamation-triangle check" style = "background-color: #D32F2F;"></i>
+                        <div class="message">
+                            <span class="text text-1">Wrong Credentials</span>
+                            <span class="text text-2">Invalid username or password </span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close close-error"  onclick="closeToast()"></i>
+                    <div class="progress progress-error"></div>
+                </div>
+           ';
 
-            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, fname = ?, mi = ?, email = ?, contact = ?, position = ? WHERE id_user = ?");
-            $stmt->execute([$lname, $suffix, $fname, $mi, $email, $contact, $position, $id_user]);
+            // Redirect to prevent form re-submission
+            header("Location: account_crud.php");
+            exit();
+            }
+    
+            // Proceed with the update if email is unique
+            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, fname = ?, mi = ?, email = ?, contact = ? WHERE id_user = ?");
+            $stmt->execute([$lname, $suffix, $fname, $mi, $email, $contact, $id_user]);
+    
+            $toast = '
+            <div class="toast">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Profile Updated</span>
+                        <span class="text text-2">Your changes on your profile has been saved </span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
+                <div class="progress"></div>
+            </div>';
+        
+        // Pass the toast message to the session for rendering in the UI
+        $_SESSION['toast'] = $toast;
 
-            $message2 = "Profile Updated";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-
-            header("refresh: 0");
+        // Redirect to prevent form re-submission
+        header("Location: account_crud.php");
+        exit();
         }
     }
+    
 
 
     public function update_account_password() {

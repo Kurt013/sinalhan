@@ -137,7 +137,7 @@ ORDER BY lname ASC
 $stmt->execute([
 $keywordLike, $keywordLike, $keywordLike, 
 $keywordLike, $keywordLike, $keywordLike, 
-$keywordLike, $keywordLike
+$keywordLike
 ]);
 
 // Fetch the results
@@ -154,7 +154,7 @@ $results = $stmt->fetchAll();
 					<p class="card-text">
                         <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
 						<strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
-						<strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
+						<strong>Middle Initial:</strong> <?= htmlspecialchars($view['mi']); ?><br>
 						<strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
 						<strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
 					</p>
@@ -189,7 +189,7 @@ $results = $stmt->fetchAll();
                         <p class="card-text">
                             <strong>Username:</strong> <?= htmlspecialchars($view['username']); ?><br>
                             <strong>Email:</strong> <?= htmlspecialchars($view['email']); ?><br>
-                            <strong>Middle Name:</strong> <?= htmlspecialchars($view['mi']); ?><br>
+                            <strong>Middle Initial:</strong> <?= htmlspecialchars($view['mi']); ?><br>
                             <strong>Sex:</strong> <?= htmlspecialchars($view['sex']); ?><br>
                             <strong>Contact #:</strong> <?= htmlspecialchars($view['contact']); ?><br>
                         </p>

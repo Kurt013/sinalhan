@@ -385,9 +385,111 @@ function goback() {
 }
 </script>
 <script>
+    
     // Show feedback only when input is focused
 document.querySelectorAll("input, textarea").forEach((field) => {
   const feedbackElement = field.closest(".form-group")?.querySelector(".invalid-feedback");
+
+</script>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const archiveBtn = document.querySelector('.update-profile-btn');
+    const popup = document.getElementById('popup-update-profile');
+    const confirmBtn = document.getElementById('confirm-btn-updprof');
+    const cancelBtn = document.getElementById('cancel-btn-updprof');
+    const hiddenSubmitBtn = document.getElementById('hiddenUpdProf');
+    const requiredFields = document.querySelectorAll('.form-input[required], .form-control[required]');
+    const errorMessage = document.getElementById("error-message");
+    
+
+    // Function to validate the form and focus on the first field with feedback-error
+    function validateForm() {
+        let isValid = true;
+        let firstInvalidField = null;
+
+        const feedbackErrors = document.querySelectorAll(".feedback-error");
+        for (const error of feedbackErrors) {
+            if (error.textContent.trim() !== "") {
+                isValid = false;
+                const relatedField = error.previousElementSibling; // Assuming the input is right before the feedback-error
+                if (relatedField && !firstInvalidField) {
+                    firstInvalidField = relatedField;
+                }
+            }
+        }
+
+        for (const field of requiredFields) {
+            if (!field.value.trim()) {
+                isValid = false;
+                if (!firstInvalidField) {
+                    firstInvalidField = field;
+                }
+                field.style.borderColor = ""; // Optional: Highlight the field with a red border
+            } else {
+                field.style.borderColor = ""; // Reset border color if not empty
+            }
+        }
+
+        // Focus on the first invalid or empty field
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+            
+            
+        }
+        return isValid;
+    }
+
+
+
+
+    // Event listener for the archive button to validate form and trigger focus
+    archiveBtn.addEventListener('click', function () {
+        if (validateForm()) {
+            popup.classList.remove('hidden');
+            if (errorMessage) {
+                errorMessage.style.display = 'block';
+            }
+        } else {
+            if (errorMessage) {
+                errorMessage.innerText = "Please resolve all errors before proceeding.";
+                errorMessage.style.display = 'block';
+            }
+        }
+    });
+
+    // Real-time validation while the user is typing
+    requiredFields.forEach(field => {
+        field.addEventListener('input', () => {
+            const feedbackError = field.nextElementSibling; // Assuming .feedback-error is right after the input
+            if (feedbackError) {
+                if (field.value.trim()) {
+                    field.style.borderColor = ''; // Reset border color
+                } else {
+                    feedbackError.textContent = "This field is required.";
+                    field.style.borderColor = 'red'; // Highlight border
+                }
+            }
+
+            if (errorMessage) {
+                errorMessage.style.display = 'block';
+            }
+        });
+    });
+
+    // Close popup when Cancel is clicked
+    cancelBtn.addEventListener('click', () => {
+        popup.classList.add('hidden');
+    });
+
+    // Confirm action and submit form when Confirm is clicked
+    confirmBtn.addEventListener('click', () => {
+        hiddenSubmitBtn.click();
+        popup.classList.add('hidden');
+    });
+});
+</script>
 
   if (feedbackElement) {
     // Add event listener for focus
