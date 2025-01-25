@@ -12,7 +12,8 @@ input[type="file"].is-invalid {
     color: red;
     font-size: 0.8rem;
     width: 80%;
-    margin-top: 1px;
+    margin-top: -15px;
+    margin-bottom: 10px;
 }
 
 
