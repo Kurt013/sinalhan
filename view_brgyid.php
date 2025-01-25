@@ -95,37 +95,43 @@ if (isset($_GET['id_brgyid'])) {
 
     <div class="row mb-3">
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>First Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Last Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['lname']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Middle Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['mi']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Suffix</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['suffix']); ?>" readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Birthdate</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['bdate']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Civil Status</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['status']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Precint No.</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['precint_no']); ?>" readonly>
@@ -168,7 +174,7 @@ if (isset($_GET['id_brgyid'])) {
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Municipality</label>
+                <label>Province</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['municipality']); ?>" readonly>
             </div>
         </div>
@@ -176,25 +182,25 @@ if (isset($_GET['id_brgyid'])) {
 
     <h5>In case of emergency</h5>
 <div class="row mb-3">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <label>First Name</label>
             <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['inc_fname']); ?>" readonly>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <label>Last Name</label>
             <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['inc_lname']); ?>" readonly>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <label>Middle Name</label>
             <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['inc_mi']); ?>" readonly>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <label>Contact #</label>
             <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['inc_contact']); ?>" readonly>
@@ -236,7 +242,7 @@ if (isset($_GET['id_brgyid'])) {
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Municipality</label>
+                <label>Province</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['inc_municipality']); ?>" readonly>
             </div>
         </div>

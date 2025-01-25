@@ -93,25 +93,31 @@ if (isset($_GET['id_rescert'])) {
 
     <div class="row mb-3">
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>First Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Last Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['lname']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Middle Name</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['mi']); ?>" readonly>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Suffix</label>
+                <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['suffix']); ?>" readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Age</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['age']); ?>" readonly>
@@ -154,7 +160,7 @@ if (isset($_GET['id_rescert'])) {
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Municipality</label>
+                <label>Province</label>
                 <input class="form-control" type="text" value="<?php echo htmlspecialchars($row['municipality']); ?>" readonly>
             </div>
         </div>

@@ -212,6 +212,7 @@ if (count($result) == 0) {
                         `lname` LIKE ? OR  
                         `mi` LIKE ? OR  
                         `fname` LIKE ? OR 
+                        `suffix` LIKE ? OR 
                         `houseno` LIKE ? OR
                         `street` LIKE ? OR 
                         `brgy` LIKE ? OR 
@@ -243,6 +244,7 @@ if (count($result) == 0) {
                         `lname` LIKE ? OR  
                         `mi` LIKE ? OR  
                         `fname` LIKE ? OR 
+                        `suffix` LIKE ? OR 
                         `houseno` LIKE ? OR
                         `street` LIKE ? OR 
                         `brgy` LIKE ? OR 
@@ -277,8 +279,8 @@ if (count($result) == 0) {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $pendingStatus,
+                $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
+                $keywordLike, $pendingStatus,
             ]):
             $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
@@ -286,7 +288,7 @@ if (count($result) == 0) {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
-                $keywordLike, $keywordLike, $keywordLike, $keywordLike,
+                $keywordLike, $keywordLike, $keywordLike, $keywordLike, $keywordLike,
                 $list, $from, $to
             ]);
         
