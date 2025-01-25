@@ -29,6 +29,9 @@
                 <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
                 <div class="progresserr progresserr-error"></div>
             </div>
+
+
+<?php include ('logout_script.php'); ?>
            
             <?php if ($list === 'active') { ?>
     <?php
@@ -125,7 +128,7 @@ if (count($result) == 0) {
     <i class="fas fa-qrcode" style="margin-right: 8px;"></i> Scan QR Code
 </button>
     </div>';
-
+    
     return;
 } else {
     

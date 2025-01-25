@@ -30,8 +30,8 @@ td:nth-child(11) { /* Business Name */
                 <i class="fa-solid fa-xmark close close-error"  onclick="closeToasterr()"></i>
                 <div class="progresserr progresserr-error"></div>
             </div>
-
-
+            
+<?php include ('logout_script.php'); ?>
    
 <?php if ($list === 'active') { ?>
     <?php

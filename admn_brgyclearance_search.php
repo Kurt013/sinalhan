@@ -27,6 +27,9 @@ td:nth-child(11) { /* Business Name */
                 <div class="progresserr progresserr-error"></div>
             </div>
 
+<?php include ('logout_script.php'); ?>
+
+
             <?php if ($list === 'active') { ?>
     <?php
 
