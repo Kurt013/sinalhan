@@ -960,7 +960,7 @@ h2 {
                                     <div class="col">
                                      
                                         <br>
-                                        <img id="photoDisplay" src="assets/default.png" alt="your image" style="width: 200px; height: 200px; object-fit:cover;"  />
+                                        <img id="photoDisplay" src="assets/default.jpg" alt="your image" style="width: 200px; height: 200px; object-fit:cover;"  />
                                         <h6 class = "anq">Guidelines for ID Picture:</h6>
                                     <p>
                                         <ul style="font-size: 13.5px;">
