@@ -189,6 +189,7 @@ form input {
                         <input style="text-transform: capitalize;" type="text" class="form-control" name="mi" Value="<?= $view['mi'];?>" readonly>
                     </div>
             
+
                     <div class="col">
                         <label class="form-group">Email </label>
                         <input type="email" class="form-control" value="<?= $view['email'];?>" name="email" placeholder="Enter Email" data-tr-rules="required|email|maxlength:32" required>

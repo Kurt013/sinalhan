@@ -7,7 +7,9 @@ $conn = $staffbmis->openConn();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Adjust the path as needed if you're not using Composer
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
 
 $mail = new PHPMailer(true);
 
@@ -43,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
           try {
                 //Server settings
                 $mail->isSMTP();
-                $mail->Host = 'smtp.mailersend.net';  // Set your SMTP server
-                $mail->SMTPAuth = true;
-                $mail->Username = 'MS_7mbW1m@trial-7dnvo4djj3x45r86.mlsender.net'; // Your SMTP username
-                $mail->Password = '8XhCkcoNPuzNMq0i'; // Your SMTP password or app password
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'jeruhasis@gmail.com'; // Replace with your email
+                $mail->Password   = 'usyiklekcdhkhrtv';   // Replace with your app password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port       = 465;
 
                 // Sender and recipient settings
                 $mail->setFrom('MS_7mbW1m@trial-7dnvo4djj3x45r86.mlsender.net', 'Brgy. Sinalhan');
@@ -58,108 +60,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $mail->Subject = 'Verification Code -- DO NOT SHARE';
                 
                 $mail->Body = '<html>
-            
-              
+                <head>
                   <style>
-                      * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                        font: 14px / 1.2 "Montserrat", "Helvetica", sans-serif;
-                      }
-
-                      a {
-                        color: #4EB1CB;
-                        word-break: break-all;
-                      }
-
-                      .card-container  {
-                        width: 100%;
-                        max-width: 700px;
-                        margin: auto;
-                        background-color: #ffffff;
-                      }
-
-                      .header-card {
-                        text-align: center;
-                        height: 90px;
-                        background-image: url("https://scontent.fmnl33-6.fna.fbcdn.net/v/t1.15752-9/449048471_452239437525588_272269953370891782_n.png?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHTy-oQj3Uj41iB2J4xK9LgOvJNqU_Wwy068k2pT9bDLXXgweOat34wwr2glrhynQZyblrvet-tbppoUf5Yy2Jm&_nc_ohc=gtjpG9gbncsQ7kNvgGUC6IX&_nc_ht=scontent.fmnl33-6.fna&oh=03_Q7cD1QF7hSpPEgBw3S-qbjlXY6Sk4qwW0X60UhFM6b327mzD8g&oe=66A6D4CE");
-                      }
-
-
-
-                      .body-card {
-                        padding: 30px 0 15px;
-                        margin: auto;
-                        width: 90%;
-                      }
-
-                      .body-card h1 {
-                        font-size: 18px;
-                        font-weight: bold;
-                        color: #226060;
-                      }
-
-                      .body-card p{
-                        font-weight: 600;
-                        margin-top: 20px;
-                      }
-
-                      .verification__code {
-                        letter-spacing: 5px;
-                        font-size: 30px;
-                        font-weight: bold;
-                        margin: 40px auto;
-                        width: 100%;
-                        text-align: center;
-                        max-width: 300px;
-                        padding: 20px;
-                        border-radius: 20px;
-                        background-color: #DBDEDA;  
-                        color: #226060;
-                        }
-
-                      .body-card .last-p {
-                        color: #AFADAD;
-                        font-style: italic;
-                      }
-
-                      .footer-card {
-                        padding: 15px;
-                        margin: auto;
-                        width: 90%;
-                        color: #A6A6A6;
-                        text-align: center;
-                      }
-
-                      .footer-card .first-p {
-                        font-weight: 600;
-                      }
-
-                      .footer-card .second-p {
-                        max-width: 300px;
-                        margin: 15px auto;
-                      }
-
-                      .icon {
-                        width: 50px;
-                        padding: 5px;
-                        margin-top: 20px;
-                        border-radius: 50%;
-                      }
-
-                      .icon-redirect {
-                        text-align: center;
-                      }
-
-                      hr {
-                        margin: 0 auto;
-                        width: 90%;
-                      }
-
-                    </style>
-            \
-                  <body>
+                    * {
+                      margin: 0;
+                      padding: 0;
+                      box-sizing: border-box;
+                      font: 14px / 1.2 "Montserrat", "Helvetica", sans-serif;
+                    }
+                    a {
+                      color: #4EB1CB !important;
+                      word-break: break-all;
+                    }
+                    .card-container {
+                      width: 100%;
+                      max-width: 700px;
+                      margin: auto;
+                      background-color: #ffffff;
+                    }
+                    .header-card {
+                      text-align: center;
+                      height: 90px;
+                   
+                    }
+                    .body-card {
+                      padding: 30px 0 15px;
+                      margin: auto;
+                      width: 90%;
+                    }
+                    .body-card h1 {
+                      font-size: 18px;
+                      font-weight: bold;
+                      color: #226060;
+                    }
+                    .body-card p {
+                      font-weight: 600;
+                      margin-top: 20px;
+                    }
+                    .verification__code {
+                      letter-spacing: 5px;
+                      font-size: 30px;
+                      font-weight: bold;
+                      margin: 40px auto;
+                      width: 100%;
+                      text-align: center;
+                      max-width: 300px;
+                      padding: 20px;
+                      border-radius: 20px;
+                      background-color: #DBDEDA;
+                      color: #226060;
+                    }
+                    .footer-card {
+                      padding: 15px;
+                      margin: auto;
+                      width: 90%;
+                      color: #A6A6A6;
+                      text-align: center;
+                    }
+                    hr {
+                      margin: 0 auto;
+                      width: 90%;
+                    }
+                  </style>
+                              <body>
                     <div class="card-container">
                       <div class="header-card">
                         <img class="logo" src="https://i.ibb.co/vP2N8bQ/sinlogo.png" alt="sinlogo" border="0">
