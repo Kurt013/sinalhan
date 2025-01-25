@@ -77,7 +77,7 @@ class BMISClass {
             }
     
             // Proceed with the update if email is unique
-            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, fname = ?, mi = ?, email = ?, contact = ? WHERE id_user = ?");
+            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, suffix = ?, fname = ?, mi = ?, email = ?, contact = ? WHERE id_user = ?");
             $stmt->execute([$lname, $suffix, $fname, $mi, $email, $contact, $id_user]);
     
             $toast = '

@@ -384,9 +384,9 @@ function goback() {
     
 }
 </script>
+
 <script>
-    
-    // Show feedback only when input is focused
+
 document.querySelectorAll("input, textarea").forEach((field) => {
   const feedbackElement = field.closest(".form-group")?.querySelector(".invalid-feedback");
 
@@ -490,7 +490,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
+<script>
   if (feedbackElement) {
     // Add event listener for focus
     field.addEventListener("focus", () => {
