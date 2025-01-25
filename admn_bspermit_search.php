@@ -199,6 +199,7 @@ if (count($result) == 0) {
                         `lname` LIKE ? OR  
                         `mi` LIKE ? OR  
                         `fname` LIKE ? OR 
+                        `suffix` LIKE ? OR
                         `bshouseno` LIKE ? OR
                         `bsstreet` LIKE ? OR 
                         `bsbrgy` LIKE ? OR 
@@ -220,6 +221,7 @@ if (count($result) == 0) {
                     `lname` LIKE ? OR  
                     `mi` LIKE ? OR  
                     `fname` LIKE ? OR 
+                    `suffix` LIKE ? OR
                     `bshouseno` LIKE ? OR
                     `bsstreet` LIKE ? OR 
                     `bsbrgy` LIKE ? OR 
@@ -242,13 +244,13 @@ if (count($result) == 0) {
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $pendingStatus,
+                $keywordLike, $keywordLike, $keywordLike, $pendingStatus,
             ]):
             $stmt->execute([
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike, 
                 $keywordLike, $keywordLike, $keywordLike, $keywordLike,
-                $keywordLike, $keywordLike, $list, $from, $to
+                $keywordLike, $keywordLike, $keywordLike, $list, $from, $to
             ]);
         
         $views = $stmt->fetchAll();

@@ -43,7 +43,6 @@ class BMISClass {
             $id_user = $_POST['id'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
-            $suffix = $_POST['suffix'];
             $mi = $_POST['mi'];
             $email = $_POST['email'];
             $contact = $_POST['contact'];
@@ -77,8 +76,8 @@ class BMISClass {
             }
     
             // Proceed with the update if email is unique
-            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, suffix = ?, fname = ?, mi = ?, email = ?, contact = ? WHERE id_user = ?");
-            $stmt->execute([$lname, $suffix, $fname, $mi, $email, $contact, $id_user]);
+            $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?,  fname = ?, mi = ?, email = ?, contact = ? WHERE id_user = ?");
+            $stmt->execute([$lname, $fname, $mi, $email, $contact, $id_user]);
     
             $toast = '
             <div class="toast">
