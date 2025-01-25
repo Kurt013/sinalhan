@@ -30,7 +30,7 @@ if (isset($_POST['views_data'])) {
         $pdf->Cell(20, 10, 'Age', 1, 0, 'C');
         $pdf->Cell(30, 10, 'House No', 1, 0, 'C');
         $pdf->Cell(40, 10, 'Street', 1, 0, 'C');
-        $pdf->Cell(40, 10, 'Purpose', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Purpose', 1, 1, 'C');
 
         // Add the rescert list
         $pdf->SetFont('helvetica', '', 12);

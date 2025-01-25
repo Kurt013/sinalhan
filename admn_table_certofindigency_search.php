@@ -437,11 +437,11 @@ echo $list === 'active' ?
 
 <?php if ($list === 'archived') { ?>
     <div class="form-buttons">
-        <form action="./export_to_pdf.php" method="POST" target="_blank">
+        <form action="./pdf_indigency.php" method="POST" target="_blank">
             <button name="pdf_indigency" class="btnexpdf" ><i class="fas fa-file-pdf"></i>Export to PDF</button>
             <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
         </form>
-        <form action="./export_to_excel.php" method="POST" target="_blank">
+        <form action="./excel_indigency.php" method="POST" target="_blank">
             <button name="excel_indigency" class="btnexpex"><i class="fas fa-file-excel"></i>Export to Excel</button>
             <input type="hidden" name="views_data" value="<?php echo htmlspecialchars($viewsJson, ENT_QUOTES, 'UTF-8'); ?>">
         </form>

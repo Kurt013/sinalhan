@@ -72,7 +72,6 @@
     } 
 
     .header {
-      padding: 10px;
       background-color: #012049;
       font-family: Impact, sans-serif;
       color: white;
