@@ -60,7 +60,7 @@
 
     .card {
       position: relative;
-      background-color: #89cff0;
+      background-color:rgb(179, 227, 255);
       overflow: hidden;
       height: 240px;
       width: 460px;
@@ -69,22 +69,49 @@
     .front {
       position: relative;
       margin-bottom: 10px;
+
     } 
 
     .header {
-      background-color: #012049;
-      font-family: Impact, sans-serif;
+      font-family: "Impact";
       color: white;
       position: relative;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       font-size: 20px;
+      z-index: 1000;
+    }
+
+    span {
+      text-transform: uppercase !important;
+
+    }
+
+    #fname, #lname {
+      font-size: 16px;
+      font-family: "Arial";
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 60%;
+      background-color: #0A3981;
+      z-index: -1;
+    }
+
+    #res_photo {
+      border: #0A3981 2px solid;
     }
 
     .header img {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
 
     .header p {
@@ -93,13 +120,12 @@
     }
     
     .sub-header {
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .content {
       display: flex;
-      padding: 10px;
-      column-gap: 10px;
+      padding-left: 10px;
       align-items: center;
     }
 
@@ -107,7 +133,6 @@
       text-transform: capitalize;
       font-size: 12px;
       margin: 0;
-      margin-bottom: 2px;
     }
 
     .retakeBtn {
@@ -127,6 +152,11 @@
     }
 
 
+    .address-container > * {
+      font-size: 10px;
+    
+    }
+
     </style>
 </head>
  <body>
@@ -144,40 +174,41 @@
         <div class="content">
           <div class="left-side">
             <?php $staffbmis->convertToImg($resident['res_photo']) ?>
-            <button class="noprint retakeBtn" onclick="changePic('camera.php?id_brgyid=<?= $resident['id_brgyid'] ?>');" > Retake Photo </button>
+            <button class="noprint retakeBtn" onclick="changePic('camera.php?id_brgyid=<?= $resident['id_brgyid'] ?>');" > Update Photo </button>
           </div>
-          <div class="right-side">
-            <p>
+          <div class="right-side" style="width: 100%">
+            <p class="name-container" style="margin-bottom: 10px; display: flex; justify-content: center; letter-spacing: 1.5px; column-gap: 10px; height: 30px; background-color: #0A3981; color: white; align-items: center; width: 100%">
               <span contenteditable="true" id="fname"><?= $resident['fname'] ?></span>
-              <span contenteditable="true" id="mi"><?= $resident['mi'] ?></span>
               <span contenteditable="true" id="lname"><?= $resident['lname'] ?></span>
             </p>
-            <p>
+            <p class="address-container" style="display: flex; column-gap: 2px; justify-content: center; align-items: center; padding-bottom: 10px; ">
               <span contenteditable="true" id="houseno"><?= $resident['houseno'] ?></span>
               <span contenteditable="true" id="street"><?= $resident['street'] ?></span>,
-              <span id="brgy"><?= $resident['brgy'] ?></span>,
-              <span id="city"><?= $resident['city'] ?></span>,
-              <span id="municipality"><?= $resident['municipality'] ?></span>
-            </p>
-            <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p>
-            <p contenteditable="true" id="valid_date"><?= $resident['valid_date']?><p>
-            <p contenteditable="true" id="status"><?= $resident['status']?><p>
-            <p contenteditable="true" id="precint_no"><?= $resident['precint_no'] ?></p>
+              <span>BRGY SINALHAN, CSRL</span>
+            </p >
+            <div class="info-1" style="display: flex; column-gap: 20px; justify-content: center; align-items: center;">
+              <div style="display: flex; align-items: center">ID NO: <p id="id_brgyid"><?= $resident['id_brgyid'] ?></p></div>
+              <div style="display: flex; align-items: center">VALID UNTIL: <p contenteditable="true" id="valid_date"><?= $resident['valid_date']?><p></div>
+            </div>
+            <div class="info-2" style="padding-left: 10px; display: flex; justify-content: space-between; align-items: center; padding-right: 10px;">
+              <div style="padding-top: 20px;">CIVIL STATUS:<p contenteditable="true" id="status"> <?= $resident['status']?><p></div>
+              <div style="padding-top: 20px;">PRECINCT NO: <p contenteditable="true" id="precint_no"><?= $resident['precint_no'] ?></p></div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="back card">
-        <h1>In case of emergency please notify</h1>
+        <h1 style="display:flex; align-items: center; justify-content:center; font-family: 'Arial'; font-weight: bold; height: 40px; background-color:#0A3981; letter-spacing: 1px; color:white; font-size: 18px;">IN CASE OF EMERGENCY PLEASE NOTIFY</h1>
       
-        <p>
-          <span contenteditable="true" id="inc_fname"><?= $resident['inc_fname'] ?></span>
-          <span contenteditable="true" id="inc_mi"><?= $resident['inc_mi'] ?>.</span>
+        <p style="background-color: rgb(255, 0, 0); color: white; height: 45px; display:flex; justify-content: center; align-items: center; font-size: 14px; font-family: 'Arial';column-gap: 10px;">
+          <span contenteditable="true" id="inc_fname"><?= $resident['inc_fname'] ?></span> 
+            <span contenteditable="true" id="inc_mi"><?= substr($resident['inc_mi'], 0, 1) ?></span>
           <span contenteditable="true" id="inc_lname"><?= $resident['inc_lname'] ?></span> /
           <span contenteditable="true" id="inc_contact"><?= $resident['inc_contact'] ?></span>
         </p>
-        <h2>Address</h2>
-        <p>
+        <h2>ADDRESS</h2>
+        <p style="font-size: 11px !important;">
           <span contenteditable="true" id="inc_houseno"><?= $resident['inc_houseno'] ?></span>
           <span contenteditable="true" id="inc_street"><?= $resident['inc_street'] ?></span>,
           <span contenteditable="true" id="inc_brgy"><?= $resident['inc_brgy'] ?></span>,
@@ -233,6 +264,7 @@
                 res_photo: $('#res_photo').attr('src'),
                 id_brgyid: $('#id_brgyid').text(),
                 fname: $('#fname').text(),
+                suffix: $('#suffix').text(),
                 mi: $('#mi').text(),
                 lname: $('#lname').text(),
                 houseno: $('#houseno').text(),

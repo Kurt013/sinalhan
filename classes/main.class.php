@@ -606,7 +606,7 @@ class BMISClass {
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_rescert SET 
-                    lname = ?,
+                    lname = ?, suffix = ?,
                     fname = ?,
                     mi = ?,
                     age = ?,
@@ -1024,7 +1024,7 @@ class BMISClass {
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_indigency SET 
-                    lname = ?,
+                    lname = ?,  suffix = ?,
                     fname = ?,
                     mi = ?,
                     age = ?,
@@ -1612,7 +1612,7 @@ class BMISClass {
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_clearance SET 
-                    lname = ?,
+                    lname = ?, suffix = ?
                     fname = ?,
                     mi = ?,
                     age = ?,
@@ -2075,7 +2075,7 @@ class BMISClass {
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_bspermit SET 
-                    lname = ?,
+                    lname = ?, suffix = ?
                     fname = ?,
                     mi = ?,
                     bshouseno = ?,
@@ -2805,7 +2805,7 @@ class BMISClass {
                     res_photo = ?,
                     fname = ?,
                     mi = ?, 
-                    lname = ?,
+                    lname = ?,  suffix = ?,
                     houseno = ?,
                     street = ?,
                     brgy = ?,
