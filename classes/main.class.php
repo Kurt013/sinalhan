@@ -1439,7 +1439,8 @@ echo '                      <div class="toast" style = "border-left: 6px solid #
             id_clearance,
             fname,
             mi,
-            lname, suffix,
+            lname, 
+            suffix,
             age,
             houseno,
             street,
@@ -1686,7 +1687,7 @@ echo '                      <div class="toast" style = "border-left: 6px solid #
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_clearance SET 
-                    lname = ?, suffix = ?
+                    lname = ?, suffix = ?,
                     fname = ?,
                     mi = ?,
                     age = ?,
@@ -2149,7 +2150,7 @@ echo '                      <div class="toast" style = "border-left: 6px solid #
             try {                
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("UPDATE tbl_bspermit SET 
-                    lname = ?, suffix = ?
+                    lname = ?, suffix = ?,
                     fname = ?,
                     mi = ?,
                     bshouseno = ?,
