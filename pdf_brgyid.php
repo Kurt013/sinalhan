@@ -1,0 +1,65 @@
+<?php
+// Include the main TCPDF library (search for installation path).
+require './vendor/autoload.php';
+require './classes/main.class.php';
+
+if (isset($_POST['views_data'])) {
+    $columns = json_decode($_POST['views_data'], true); 
+
+        // Initialize TCPDF object
+        $pdf = new TCPDF();
+        $pdf->SetCreator('TCPDF');
+        $pdf->SetTitle('Daily Report');
+        $pdf->SetSubject('Daily Report for ' . date('F j, Y'));
+        // Set page orientation to landscape
+        $pdf->AddPage('L');
+        // Set document information
+        $pdf->SetMargins(15, 15, 15); // Set margins
+        // Add a header
+        
+        $pdf->SetFont('helvetica', 'B', 16);
+        $pdf->Cell(0, 15, 'Generated List', 0, 1, 'C');
+        
+
+        $pdf->Ln(5);
+        $pdf->SetFont('helvetica', 'B', 12);
+        $pdf->Cell(25, 10, 'ID BrgyID', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'First Name', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Last Name', 1, 0, 'C');
+        $pdf->Cell(20, 10, 'Suffix', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'House No', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Street', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Birthdate', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Status', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Precinct No', 1, 1, 'C');
+
+        // Add the rescert list
+        $pdf->SetFont('helvetica', '', 12);
+        foreach ($columns as $column) {
+            $maxHeight = max(
+                $pdf->getStringHeight(25, $column['id_brgyid']),
+                $pdf->getStringHeight(30, $column['fname']),
+                $pdf->getStringHeight(30, $column['lname']),
+                $pdf->getStringHeight(20, $column['suffix']),
+                $pdf->getStringHeight(30, $column['houseno']),
+                $pdf->getStringHeight(40, $column['street']),
+                $pdf->getStringHeight(30, $column['bdate']),
+                $pdf->getStringHeight(30, $column['status']),
+                $pdf->getStringHeight(30, $column['precint_no']),
+            );
+
+            $pdf->MultiCell(25, $maxHeight, $column['id_brgyid'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['fname'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['lname'], 1, 'L', 0, 0);
+            $pdf->MultiCell(20, $maxHeight, $column['suffix'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['houseno'], 1, 'L', 0, 0);
+            $pdf->MultiCell(40, $maxHeight, $column['street'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['bdate'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['status'], 1, 'L', 0, 0);
+            $pdf->MultiCell(30, $maxHeight, $column['precint_no'], 1, 'L', 0, 1);
+        }
+
+        // Correct Output method to ensure proper file download
+        $pdf->Output('daily_report.pdf', 'I');
+        exit;
+}
