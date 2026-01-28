@@ -9,6 +9,10 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php'; // Adjust the path as needed if you're not using Composer
 
+// Load environment variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $mail = new PHPMailer(true);
 
 $message = "";
@@ -41,18 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       $stmt->execute([$recipient_email, $verification_code]);
 
           try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host = 'smtp.mailersend.net';  // Set your SMTP server
-                $mail->SMTPAuth = true;
-                $mail->Username = 'MS_aEACuu@trial-0p7kx4xjwevl9yjr.mlsender.net'; // Your SMTP username
-                $mail->Password = 'ZsOeSK3qqlPGnXj7'; // Your SMTP password or app password
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
+              //Server settings
+              $mail->isSMTP();
+              $mail->Host = $_ENV['SMTP_HOST'];
+              $mail->SMTPAuth = true;
+              $mail->Username = $_ENV['SMTP_USER'];
+              $mail->Password = $_ENV['SMTP_PASS'];
+              $mail->SMTPSecure = 'tls';
+              $mail->Port = $_ENV['SMTP_PORT'];
 
-                // Sender and recipient settings
-                $mail->setFrom('MS_aEACuu@trial-0p7kx4xjwevl9yjr.mlsender.net', 'Brgy. Sinalhan');
-                $mail->addAddress($detailFetch['email'], $detailFetch['fname']);
+              // Sender and recipient settings
+              $mail->setFrom($_ENV['SMTP_FROM'], $_ENV['SMTP_FROM_NAME']);
+              $mail->addAddress($detailFetch['email'], $detailFetch['fname']);
 
                 $mail->isHTML(true);
                 $mail->Subject = 'Verification Code -- DO NOT SHARE';
