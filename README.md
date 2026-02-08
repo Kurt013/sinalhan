@@ -1,12 +1,68 @@
-# BarangaySystem
+# 🏛️ Web Based Document Issuance System
 
-Built using HTML, CSS, Bootstrap, Javascript, MySQL, PHP. 
-Fully functional version is available in my social media
-Features:
+A web-based document issuance system developed to streamline barangay transactions using PHP & MySQL.
+Digitizes document requests, reduces manual data entry, and improves processing efficiency through a secure and user-friendly workflow.
 
-CRUD functions, Barangay Data Queries and Searches.
-Authentication for Admin, Staff, End-user.
-Admin and Staff dashboard overview with automated weekly and monthly reports and automated chair table and tent stocks overview.
-Document requests such as "Barangay ID" "Barangay Clearance" "Certificate of Indigency" "Business Permit
+## 📸 Demo
 
+![Demo GIF](https://your-demo-link.com/demo.gif)
 
+## 📦 Installation
+
+1. **Clone the repository**:
+
+```bash
+git clone https://github.com/yourusername/web-based-document-issuance-system.git
+cd web-based-document-issuance-system
+```
+
+2. **Set up XAMPP (Apache + PHP + MySQL)**:
+
+- Start Apache and MySQL from the XAMPP control panel.
+
+- Place the project folder inside the htdocs directory of XAMPP.
+
+3. **Database setup**:
+
+- Open phpMyAdmin at `http://localhost/phpmyadmin` and create a database (e.g., `bmis`).
+
+- Import the provided SQL schema if available (.sql file in the repo - current_bmis.sql).
+
+---
+
+## 🛠 Usage
+
+1. **Start XAMPP** (or any preferred Apache & MySQL setup):
+   - Open the XAMPP control panel and start **Apache** and **MySQL**.
+
+2. **Access the app**:
+   - Open your browser and navigate to:
+     ```
+     http://localhost/villa-gilda-resort/
+     ```
+
+---
+
+## ✨ Features
+
+- Digital barangay document request and issuance process
+- QR code generation to pre-fill resident information
+- Reduced data-entry errors and faster transactions
+- Centralized resident and document records
+- Admin dashboard for document approval and tracking
+- Replaces manual, paper-based document processing
+
+## 🧰 Tech Stack
+
+<p> 
+    <img src="https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white" /> 
+    <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white" /> 
+    <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" /> 
+    <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" /> 
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black" /> 
+</p>
+
+## 📄 License
+
+MIT License
+See [LICENSE](LICENSE) for full details.  
