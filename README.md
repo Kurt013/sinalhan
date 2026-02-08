@@ -5,15 +5,19 @@ Digitizes document requests, reduces manual data entry, and improves processing 
 
 ## 📸 Demo
 
-![Demo GIF](https://your-demo-link.com/demo.gif)
+![Homepage UI](https://raw.githubusercontent.com/Kurt013/sinalhan/refs/heads/main/assets/screenshots/Homepage-UI.png)
+![Request Form UI](https://raw.githubusercontent.com/Kurt013/sinalhan/refs/heads/main/assets/screenshots/Request-Form-UI.png)
+![QR Code UI](https://raw.githubusercontent.com/Kurt013/sinalhan/refs/heads/main/assets/screenshots/QR-Code-UI.png)
+![QR Code Scanner UI](https://raw.githubusercontent.com/Kurt013/sinalhan/refs/heads/main/assets/screenshots/QR-Code-Scanner-UI.png)
+![Document List UI](https://raw.githubusercontent.com/Kurt013/sinalhan/refs/heads/main/assets/screenshots/Document-List-UI.png)
 
 ## 📦 Installation
 
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/yourusername/web-based-document-issuance-system.git
-cd web-based-document-issuance-system
+git clone https://github.com/Kurt013/sinalhan.git
+cd sinalhan
 ```
 
 2. **Set up XAMPP (Apache + PHP + MySQL)**:
@@ -38,7 +42,7 @@ cd web-based-document-issuance-system
 2. **Access the app**:
    - Open your browser and navigate to:
      ```
-     http://localhost/villa-gilda-resort/
+     http://localhost/sinalhan/
      ```
 
 ---
@@ -54,13 +58,11 @@ cd web-based-document-issuance-system
 
 ## 🧰 Tech Stack
 
-<p> 
-    <img src="https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white" /> 
-    <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white" /> 
-    <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" /> 
-    <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" /> 
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black" /> 
-</p>
+![PHP](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white&style=for-the-badge)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white&style=for-the-badge)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=for-the-badge)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)
 
 ## 📄 License
 
